@@ -1,34 +1,32 @@
-namespace ft
-{
 #ifndef VECTOR_H
 #define VECTOR_H
 #include <cstddef>
 #include <memory>
-
-template<
-    class T
->
-class iterator{
-    T *ptr;
-    public:
-    iterator();
-    iterator(const iterator& i);
-    iterator& operator =(const iterator& i);
-    ~iterator();
-    void setValue(T& val);
-    iterator& operator++();
-    iterator operator-- ();
-    bool operator==(iterator other) const;
-    bool operator!=(iterator other) const;
-    T operator*() const ;
-};
+namespace ft
+{
 
 
 
 template <class T, class Allocator = std::allocator<T> >
 class vector {
     public:
-// types:
+    //---------------------------------------------------iterator:
+    class iterator {
+            private:
+            T* ptr;
+            public:
+            typedef T value_type;
+            typedef ptrdiff_t difference_type;
+            typedef T* pointer;
+            typedef T& reference;
+            typedef std::random_access_iterator_tag iterator_category;
+            iterator(T* p) :ptr(p){}
+            iterator& operator ++(){ptr++;return *this;}
+            T& operator *(){return *ptr;}
+            bool operator !=(const iterator& x){return ptr!=x.ptr;}
+    };
+
+    //--------------------------------------------------types:
     typedef typename Allocator::reference           reference;
     typedef typename Allocator::const_reference     const_reference;
     typedef iterator                                iterator; 
@@ -42,6 +40,7 @@ class vector {
     typedef std::reverse_iterator<iterator>         reverse_iterator;
     typedef std::reverse_iterator<const_iterator>   const_reverse_iterator;
 
+    //--------------------------------------------------construct/copy/destroy:
     explicit vector(const Allocator& = Allocator());
     explicit vector(size_type n, const T& value = T(),
     const Allocator& = Allocator());
@@ -49,13 +48,16 @@ class vector {
     vector(InputIterator first, InputIterator last,
     const Allocator& = Allocator());
     vector(const vector<T,Allocator>& x);
-    ~vector();
+    ~vector(){
+        clear();
+    }
     vector<T,Allocator>& operator=(const vector<T,Allocator>& x);
     template <class InputIterator>
     void assign(InputIterator first, InputIterator last);
     void assign(size_type n, const T& u);
     allocator_type get_allocator() const;
 
+    //---------------------------------------------------iterators:
     iterator                begin();
     const_iterator          begin() const;
     iterator                end();
@@ -65,13 +67,27 @@ class vector {
     reverse_iterator        rend();
     const_reverse_iterator  rend() const;
 
+    //---------------------------------------------------capacity:
     size_type   size() const;
     size_type   max_size() const;
     void        resize(size_type sz, T c = T());
     size_type   capacity() const;
     bool        empty() const;
-    void        reserve(size_type n);
+    void        reserve(size_type n){
+        if (n > capacity)
+        {
+            value_type* new_data = Allocator.allocate(n);
+            for (int i=0; i<n ; i++){
+                construct(new_data + i, data[i]);
+                destroy(data + i);
+            }
+            Allocator.deallocate(data,capacity);
+            data = new_data;
+            capacity = n;
+        }
+    }
 
+    //----------------------------------------------------element access:
     reference       operator[](size_type n);
     const_reference operator[](size_type n) const;
     const_reference at(size_type n) const;
@@ -81,7 +97,13 @@ class vector {
     reference       back();
     const_reference back() const;
 
-    void     push_back(const T& x);
+    //----------------------------------------------------modifiers:
+    void     push_back(const T& x){
+        if (size ==capacity)
+            reserve(capacity + capacity/2);
+        construct(data + size, x);
+        size++;
+    }
     void     pop_back();
     iterator insert(iterator position, const T& x);
     void     insert(iterator position, size_type n, const T& x);
@@ -90,9 +112,19 @@ class vector {
     iterator erase(iterator position);
     iterator erase(iterator first, iterator last);
     void     swap(vector<T,Allocator>&);
-    void     clear();
+    void     clear(){
+        for (int i = 0; i<size ;i++){
+            destroy(data + i);
+        }
+        Allocator.deallocate(data, capacity);
+    }
+    //-----------------------------------------------------private members:
+    private:
+    value_type* data;
+    size_type capacity;
+    size_type size;
 };
-
+//----------------------------------------------------------non-member operators:
 template <class T, class Allocator>
 bool operator == (const vector<T,Allocator>& x,const vector<T,Allocator>& y);
 template <class T, class Allocator>
@@ -106,9 +138,9 @@ bool operator >= (const vector<T,Allocator>& x,const vector<T,Allocator>& y);
 template <class T, class Allocator>
 bool operator <= (const vector<T,Allocator>& x,const vector<T,Allocator>& y);
 
-
+//-----------------------------------------------------------swap algorithm:
 template <class T, class Allocator>
 void swap(vector<T,Allocator>& x, vector<T,Allocator>& y);
 
-#endif
 }
+#endif
