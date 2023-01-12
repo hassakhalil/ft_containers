@@ -4,4 +4,5 @@
 int main()
 {
     std::vector<int> vect;
+    int *ptr=vect->begin();
 }

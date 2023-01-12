@@ -30,7 +30,7 @@ class vector {
     typedef typename Allocator::reference           reference;
     typedef typename Allocator::const_reference     const_reference;
     typedef iterator                                iterator; 
-    typedef const iterator                          const_iterator; 
+    typedef iterator                                const_iterator; 
     typedef size_t                                  size_type; 
     typedef ptrdiff_t                               difference_type;
     typedef T                                       value_type;
@@ -42,11 +42,9 @@ class vector {
 
     //--------------------------------------------------construct/copy/destroy:
     explicit vector(const Allocator& = Allocator());
-    explicit vector(size_type n, const T& value = T(),
-    const Allocator& = Allocator());
+    explicit vector(size_type n, const T& value = T(),const Allocator& = Allocator());
     template <class InputIterator>
-    vector(InputIterator first, InputIterator last,
-    const Allocator& = Allocator());
+    vector(InputIterator first, InputIterator last,const Allocator& = Allocator());
     vector(const vector<T,Allocator>& x);
     ~vector(){
         clear();
@@ -58,10 +56,10 @@ class vector {
     allocator_type get_allocator() const;
 
     //---------------------------------------------------iterators:
-    iterator                begin();
-    const_iterator          begin() const;
-    iterator                end();
-    const_iterator          end() const;
+    iterator                begin(){return iterator(data);}
+    const_iterator          begin() const {return const_iterator(data);}
+    iterator                end(){return iterator(data + size);}
+    const_iterator          end() const {return const_iterator(data + size);}
     reverse_iterator        rbegin();
     const_reverse_iterator  rbegin() const;
     reverse_iterator        rend();
