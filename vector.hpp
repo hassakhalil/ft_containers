@@ -5,8 +5,6 @@
 namespace ft
 {
 
-
-
 template <class T, class Allocator = std::allocator<T> >
 class vector {
     public:
@@ -20,10 +18,75 @@ class vector {
             typedef T* pointer;
             typedef T& reference;
             typedef std::random_access_iterator_tag iterator_category;
+
+            iterator():ptr(0){}
             iterator(T* p) :ptr(p){}
-            iterator& operator ++(){ptr++;return *this;}
-            T& operator *(){return *ptr;}
-            bool operator !=(const iterator& x){return ptr!=x.ptr;}
+            iterator(const iterator& other):ptr(other.ptr){}
+            iterator& operator=(const iterator& other){
+                this->ptr=other.ptr;
+                return this;
+            }
+            ~iterator(){}
+            Iterator& operator++() {
+                ++ptr;
+                return *this;
+            }
+            Iterator operator++(int) {
+                Iterator temp(*this);
+                operator++();
+                return temp;
+            }
+            Iterator& operator--() {
+                --ptr;
+                return *this;
+            }
+            Iterator operator--(int) {
+                Iterator temp(*this);
+                operator--();
+                return temp;
+            }
+            Iterator operator+(difference_type n) const {
+                return Iterator(ptr + n);
+            }
+            Iterator operator-(difference_type n) const {
+                return Iterator(ptr - n);
+            }
+            difference_type operator-(const Iterator& other) const {
+                return ptr - other.ptr;
+            }
+            reference operator*() const {
+                return *ptr;
+            }
+            pointer operator->() const {
+                return ptr;
+            }
+            bool operator==(const Iterator& other) const {
+                return ptr == other.ptr;
+            }
+            bool operator!=(const Iterator& other) const {
+                return !operator==(other);
+            }
+            bool operator<(const Iterator& other) const {
+                return ptr < other.ptr;
+            }
+            bool operator>(const Iterator& other) const {
+                return other < *this;
+            }
+            bool operator<=(const Iterator& other) const {
+                return !(other < *this);
+            }
+            bool operator>=(const Iterator& other) const {
+                return !(*this < other);
+            }
+            reference operator[](difference_type n) const {
+                return ptr[n];
+            }
+            void operator+=(difference_type n) const {
+                 this->ptr = &this->ptr[n];
+            }
+            void operator-=(difference_type n) const {
+                this->ptr =  &this->ptr[-n];
+            }
     };
 
     //--------------------------------------------------types:
