@@ -1,8 +1,7 @@
-// #include "vector.hpp"
+#include "vector.hpp"
 
-#include <vector>
+// #include <vector>
 int main()
 {
-    std::vector<int> vect;
-    int *ptr=vect->begin();
+    ft::vector<int> vect;
 }
