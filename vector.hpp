@@ -148,12 +148,12 @@ class vector {
     void        reserve(size_type n){
         if (n > this->capacity_)
         {
-            value_type* new_data = alloc_.allocate(n);
+            value_type* new_data = get_allocator.allocate(n);
             for (int i=0; i<(int)n ; i++){
                 construct(new_data + i, this->data[i]);
                 destroy(this->data + i);
             }
-            alloc_.deallocate(this->data,this->capacity_);
+            get_allocator.deallocate(this->data,this->capacity_);
             this->data = new_data;
             this->capacity_ = n;
         }
@@ -167,12 +167,12 @@ class vector {
         return this->data[n];
     }
     const_reference at(size_type n) const{
-        if (n < 0 || n>=size)
+        if (n>=this->size())
             throw std::out_of_range("Error: index is out of range");
         return this->data[n];
     }
     reference       at(size_type n){
-        if (n < 0 || n>=size)
+        if (n>=this->size())
             throw std::out_of_range("Error: index is out of range");
         return this->data[n];
     }
@@ -208,7 +208,7 @@ class vector {
         for (int i = 0; i<(int)this->size_ ;i++){
             alloc_.destroy(this->data + i);
         }
-        alloc_.deallocate(this->data, this->capacity_);
+        get_allocator.deallocate(this->data, this->capacity_);
     }
     //-----------------------------------------------------private members:
     private:
