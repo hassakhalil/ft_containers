@@ -141,7 +141,24 @@ class vector {
     //---------------------------------------------------capacity:
     size_type   size() const{ return this->size_; }
     size_type   max_size() const{ return this->alloc_.max_size(); }
-    // void        resize(size_type sz, T c = T());
+    void        resize(size_type n, value_type val = value_type()){
+        if (n < this->size_)
+        {
+            while (this->size_ > n)
+            {
+                alloc_.destroy(this->data + this->size_);
+                this->size_--;
+            }
+        }
+        else if (n > this->size_)
+        {
+            while (this->size_ < n)
+            {
+                this->push_back(val);
+                this->size_++;
+            }
+        }
+    }
     size_type   capacity() const{ return this->capacity_; }
     bool        empty() const{ return !this->size_; }
     void        reserve(size_type n){
@@ -189,7 +206,7 @@ class vector {
     }
 
     //----------------------------------------------------modifiers:
-    void     push_back(const T& x){
+    void     push_back(const value_type& x){
         if (this->size_ ==this->capacity_)
         {
             reserve(this->capacity_ + this->capacity_/2);

@@ -28,6 +28,7 @@ int main()
     vect.push_back(1234);
     std::cout<<"is_empty == "<<vect.empty()<<std::endl;
 
+    vect.resize(1,9);
     std::cout<<"size == "<<vect.size()<<std::endl;
     std::cout<<"capacity == "<<vect.capacity()<<std::endl;
     for(int i =0;i<(int)vect.size();i++)
@@ -41,4 +42,5 @@ int main()
     {
         std::cerr<<"Exception =="<<e.what()<<std::endl;
     }
+    while(1);
 }
