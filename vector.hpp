@@ -105,22 +105,57 @@ class vector {
     //--------------------------------------------------construct/copy/destroy:
     explicit vector(const allocator_type& = allocator_type()){
         //debug
-        std::cerr<<"hello from { default constructor }"<<std::endl;
+        std::cerr<<"{ default constructor }"<<std::endl;
         // end debug
-        data = alloc_.allocate(1);
-        capacity_= 2;
-        size_ = 0;
+        this->data = this->get_allocator().allocate(2);
+        this->capacity_= 2;
+        this->size_ = 0;
     }
-    // explicit vector(size_type n, const T& value = T(),const allocator_type& = allocator_type());
-    // template <class InputIterator>
-    // vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type());
-    // vector(const vector<T,allocator_type >& x);
+    explicit vector(size_type n, const T& value = T(),const allocator_type& = allocator_type()){
+        //debug
+        std::cerr<<"hello  from { constructor }"<<std::endl;
+        //end debug
+        this->data = this->get_allocator().allocate(n);
+        this->capacity_ = n;
+        this->size_ = 0;
+        for (int i = 0;i<(int)n;i++){
+            this->push_back(value);
+        }
+    }
+    // xtemplate <class InputIterator>
+    // vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type()){
+
+    // }
+    vector(const vector<T,allocator_type >& x){
+        //debug
+        std::cerr<<"hello  form { copy constructor }"<<std::endl;
+        //end debug
+        this->data = this->get_allocator().allocate(x.capacity_);
+        this->capacity_ = x.capacity_;
+        this->size_ = 0;
+        for (int i = 0;i<(int)x.size_;i++){
+                this->push_back(x.data[i]);
+        }
+    }
     ~vector(){
         clear();
     }
-    // vector<T,allocator_type>& operator=(const vector<T,allocator_type>& x){
-
-    // }
+    vector<T,allocator_type>& operator=(const vector<T,allocator_type>& x){
+        //debug
+        std::cerr<<"hello from { copy assignment operator }"<<std::endl;
+        //end debug
+            for(int i=0;i<(int)this->size_;i++){
+                this->get_allocator().destroy(this->data +i);
+            }
+            this->size_ = 0;
+            this->get_allocator().deallocate(this->data,this->capacity_);
+            this->data = this->get_allocator().allocate(x.capacity_);
+            this->capacity_=x.capacity_;
+            for(int i=0;i<(int)x.size_;i++){
+                this->push_back(x.data[i]);
+            }
+            return *this;
+    }
     // template <class InputIterator>
     // void assign(InputIterator first, InputIterator last);
     // void assign(size_type n, const T& u);
@@ -140,25 +175,20 @@ class vector {
 
     //---------------------------------------------------capacity:
     size_type   size() const{ return this->size_; }
-    size_type   max_size() const{ return this->alloc_.max_size(); }
+    size_type   max_size() const{ return this->get_allocator().max_size(); }
     void        resize(size_type n, value_type val = value_type()){
         if (n < this->size_)
         {
             while (this->size_ > n)
             {
-                alloc_.destroy(this->data + this->size_);
+                this->get_allocator().destroy(this->data + this->size_);
                 this->size_--;
             }
         }
         else if (n > this->size_)
         {
             while (this->size_ < n)
-            {
-                //debug
-                std::cerr<<"{ debug:resize } val == "<<val<<std::endl;
-                //end debug
                 this->push_back(val);
-            }
         }
     }
     size_type   capacity() const{ return this->capacity_; }
@@ -166,12 +196,12 @@ class vector {
     void        reserve(size_type n){
         if (n > this->capacity_)
         {
-            value_type* new_data = get_allocator().allocate(n);
+            value_type* new_data = this->get_allocator().allocate(n);
             for (int i=0; i<(int)n ; i++){
-               alloc_.construct(new_data + i, this->data[i]);
-                alloc_.destroy(this->data + i);
+               this->get_allocator().construct(new_data + i, this->data[i]);
+                this->get_allocator().destroy(this->data + i);
             }
-            get_allocator().deallocate(this->data,this->capacity_);
+            this->get_allocator().deallocate(this->data,this->capacity_);
             this->data = new_data;
             this->capacity_ = n;
         }
@@ -214,24 +244,44 @@ class vector {
             reserve(this->capacity_ + this->capacity_/2);
             this->capacity_ += this->capacity_/2;
         }
-        alloc_.construct(this->data + this->size_, x);
+        this->get_allocator().construct(this->data + this->size_, x);
         this->size_++;
     }
-    // void     pop_back();
+    void     pop_back(){
+        if (this->size_)
+        {
+            this->get_allocator().destroy(this->data+this->size_);
+            this->size_--;
+        }
+    }
     // iterator insert(iterator position, const T& x);
     // void     insert(iterator position, size_type n, const T& x);
     // template <class InputIterator>
     // void     insert(iterator position,InputIterator first, InputIterator last);
     // iterator erase(iterator position);
     // iterator erase(iterator first, iterator last);
-    // template <typename T, allocator_type>
-    // void     swap(vector<T,allocator_type >&);
+    // template <typename T, typename Allocator>
+    void     swap(ft::vector<T,Allocator >& x){
+            T*     tmp1;
+            size_t tmp2;
+            size_t tmp3;
+            tmp1 = x.data;
+            tmp2 = x.size_;
+            tmp3 = x.capacity_;
+            x.data = this->data;
+            x.size_ = this->size_;
+            x.capacity_= this->capacity_;
+            this->data = tmp1;
+            this->size_ = tmp2;
+            this->capacity_ = tmp3;
+    }
     void     clear(){
         for (int i = 0; i<(int)this->size_ ;i++){
-            alloc_.destroy(this->data + i);
+            this->get_allocator().destroy(this->data + i);
         }
-        get_allocator().deallocate(this->data, this->capacity_);
+       this-> get_allocator().deallocate(this->data, this->capacity_);
     }
+    
     //-----------------------------------------------------private members:
     private:
     value_type*                 data;
@@ -250,6 +300,7 @@ class vector {
 // //-----------------------------------------------------------swap algorithm:
 // template <class T, class Allocator>
 // void swap(vector<T,Allocator>& x, vector<T,Allocator>& y);
+
 
 }
 #endif

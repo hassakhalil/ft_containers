@@ -5,8 +5,27 @@
 // #include <vector>
 int main()
 {
+    ft::vector<int> foo (3,100);   // three ints with a value of 100
+  ft::vector<int> bar (5,200);   // five ints with a value of 200
+
+  foo.swap(bar);
+
+  std::cout << "foo contains:";
+  for (unsigned i=0; i<foo.size(); i++)
+    std::cout << ' ' << foo[i];
+  std::cout << '\n';
+
+  std::cout << "bar contains:";
+  for (unsigned i=0; i<bar.size(); i++)
+    std::cout << ' ' << bar[i];
+  std::cout << '\n';
+    while(1);
     ft::vector<int> vect;
     std::vector<int> v;
+    ft::vector<int> a(10,55);
+    ft::vector<int> b(vect);
+    ft::vector<int> c;
+    c = b;
 
     v.reserve(1000);
     vect.reserve(1000);
@@ -48,8 +67,8 @@ int main()
     {
         std::cout<<"vect["<<i<<"] == "<<vect[i]<< "  |  "<<"v["<<i<<"] == "<<v[i]<<std::endl;
     }
-    ft::vector<int>::iterator it = vect.begin();
-    std::vector<int>::iterator it2= v.begin();
+    ft::vector<int>::const_iterator it = vect.begin();
+    std::vector<int>::const_iterator it2= v.cbegin();
     for (int i =0;it<vect.end();it++)
     {
         std::cout<<"{using iterator} "<<"vect["<<i<<"] == "<<*it<< "  |  "<<"v["<<i<<"] == "<<*it2<<std::endl;
