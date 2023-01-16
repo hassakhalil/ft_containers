@@ -3,6 +3,7 @@
 #include <cstddef>
 #include <memory>
 #include <exception>
+#include <iostream>
 #include "iterator.hpp"
 
 namespace ft
@@ -38,19 +39,19 @@ namespace ft
                 operator--();
                 return temp;
             }
-            random_it operator+(difference_type n) const {
+            random_it operator+(ptrdiff_t n) const {
                 return random_it(ptr + n);
             }
-            random_it operator-(difference_type n) const {
+            random_it operator-(ptrdiff_t n) const {
                 return random_it(ptr - n);
             }
-            difference_type operator-(const random_it& other) const {
+            ptrdiff_t operator-(const random_it& other) const {
                 return ptr - other.ptr;
             }
-            reference operator*() const {
+            T& operator*() const {
                 return *ptr;
             }
-            pointer operator->() const {
+            T* operator->() const {
                 return ptr;
             }
             bool operator==(const random_it& other) const {
@@ -71,13 +72,13 @@ namespace ft
             bool operator>=(const random_it& other) const {
                 return !(*this < other);
             }
-            reference operator[](difference_type n) const {
+            T& operator[](ptrdiff_t n) const {
                 return ptr[n];
             }
-            void operator+=(difference_type n) const {
+            void operator+=(ptrdiff_t n) const {
                  this->ptr = &this->ptr[n];
             }
-            void operator-=(difference_type n) const {
+            void operator-=(ptrdiff_t n) const {
                 this->ptr =  &this->ptr[-n];
             }
     };
@@ -102,11 +103,18 @@ class vector {
     typedef std::reverse_iterator<const_iterator>            const_reverse_iterator;
 
     //--------------------------------------------------construct/copy/destroy:
-    explicit vector(const allocator_type& = allocator_type()){}
-    explicit vector(size_type n, const T& value = T(),const allocator_type& = allocator_type());
-    template <class InputIterator>
-    vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type());
-    vector(const vector<T,allocator_type >& x);
+    explicit vector(const allocator_type& = allocator_type()){
+        //debug
+        std::cerr<<"hello from { default constructor }"<<std::endl;
+        // end debug
+        data = alloc_.allocate(1);
+        capacity_= 2;
+        size_ = 0;
+    }
+    // explicit vector(size_type n, const T& value = T(),const allocator_type& = allocator_type());
+    // template <class InputIterator>
+    // vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type());
+    // vector(const vector<T,allocator_type >& x);
     ~vector(){
         clear();
     }
@@ -140,15 +148,15 @@ class vector {
         return this->capacity_;
     }
     bool        empty() const{
-        return this->size_;
+        return !this->size_;
     }
     void        reserve(size_type n){
         if (n > this->capacity_)
         {
             value_type* new_data = get_allocator().allocate(n);
             for (int i=0; i<(int)n ; i++){
-                construct(new_data + i, this->data[i]);
-                destroy(this->data + i);
+               alloc_.construct(new_data + i, this->data[i]);
+                alloc_.destroy(this->data + i);
             }
             get_allocator().deallocate(this->data,this->capacity_);
             this->data = new_data;
@@ -189,8 +197,14 @@ class vector {
     //----------------------------------------------------modifiers:
     void     push_back(const T& x){
         if (this->size_ ==this->capacity_)
+        {
             reserve(this->capacity_ + this->capacity_/2);
-        construct(this->data + this->size_, x);
+            this->capacity_ += this->capacity_/2;
+            //debug
+            std::cerr<<"hello from inside { push_back }"<<std::endl;
+            //end debug
+        }
+        alloc_.construct(this->data + this->size_, x);
         this->size_++;
     }
     // void     pop_back();
