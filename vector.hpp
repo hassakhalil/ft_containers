@@ -142,7 +142,7 @@ class vector {
     size_type   size() const{
         return this->size_;
     }
-    size_type   max_size() const;
+    size_type   max_size() const{return this->alloc_.max_size();}
     // void        resize(size_type sz, T c = T());
     size_type   capacity() const{
         return this->capacity_;

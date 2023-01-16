@@ -1,10 +1,17 @@
 #include "./vector.hpp"
 #include <iostream>
+#include <vector>
 // #include <vector>
 int main()
 {
     ft::vector<int> vect;
-    vect.reserve(10);
+    std::vector<int> v;
+
+    v.reserve(1000);
+    std::cerr<< "max_size 1== "<<v.max_size()<<std::endl;
+    vect.reserve(1000);
+    std::cerr<< "max_size 2== "<<vect.max_size()<<std::endl;
+
     std::cout<<"capacity == "<<vect.capacity()<<std::endl;
     std::cout<<"is_empty == "<<vect.empty()<<std::endl;
     vect.push_back(1);
