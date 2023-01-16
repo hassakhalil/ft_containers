@@ -139,17 +139,11 @@ class vector {
     // const_reverse_iterator  rend() const;
 
     //---------------------------------------------------capacity:
-    size_type   size() const{
-        return this->size_;
-    }
-    size_type   max_size() const{return this->alloc_.max_size();}
+    size_type   size() const{ return this->size_; }
+    size_type   max_size() const{ return this->alloc_.max_size(); }
     // void        resize(size_type sz, T c = T());
-    size_type   capacity() const{
-        return this->capacity_;
-    }
-    bool        empty() const{
-        return !this->size_;
-    }
+    size_type   capacity() const{ return this->capacity_; }
+    bool        empty() const{ return !this->size_; }
     void        reserve(size_type n){
         if (n > this->capacity_)
         {
