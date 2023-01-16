@@ -27,5 +27,11 @@ int main()
     {
         std::cout<<"vect["<<i<<"] == "<<vect[i]<<std::endl;
     }
-
+    try{
+        vect.at(100);
+    }
+    catch(std::exception& e)
+    {
+        std::cerr<<"Exception =="<<e.what()<<std::endl;
+    }
 }

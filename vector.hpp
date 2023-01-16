@@ -200,9 +200,6 @@ class vector {
         {
             reserve(this->capacity_ + this->capacity_/2);
             this->capacity_ += this->capacity_/2;
-            //debug
-            std::cerr<<"hello from inside { push_back }"<<std::endl;
-            //end debug
         }
         alloc_.construct(this->data + this->size_, x);
         this->size_++;
