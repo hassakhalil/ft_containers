@@ -154,8 +154,10 @@ class vector {
         {
             while (this->size_ < n)
             {
+                //debug
+                std::cerr<<"{ debug:resize } val == "<<val<<std::endl;
+                //end debug
                 this->push_back(val);
-                this->size_++;
             }
         }
     }
@@ -232,10 +234,10 @@ class vector {
     }
     //-----------------------------------------------------private members:
     private:
-    value_type* data;
-    size_type capacity_;
-    size_type size_;
-    allocator_type alloc_;
+    value_type*                 data;
+    size_type                   capacity_;
+    size_type                   size_;
+    allocator_type              alloc_;
 };
 //----------------------------------------------------------non-member operators:
 // template <class T, class Alloc>  bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
