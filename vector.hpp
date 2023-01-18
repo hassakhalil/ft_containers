@@ -86,8 +86,6 @@ namespace ft
 template <typename T, typename Allocator = std::allocator<T> >
 class vector {
     public:
-    //---------------------------------------------------iterator:
-
     //--------------------------------------------------types:
     typedef T                                                value_type;
     typedef typename Allocator::reference                    reference;
@@ -113,7 +111,7 @@ class vector {
     }
     explicit vector(size_type n, const T& value = T(),const allocator_type& = allocator_type()){
         //debug
-        std::cerr<<"hello  from { constructor }"<<std::endl;
+        std::cerr<<"hello  from { fill constructor }"<<std::endl;
         //end debug
         this->data = this->get_allocator().allocate(n);
         this->capacity_ = n;
@@ -122,10 +120,19 @@ class vector {
             this->push_back(value);
         }
     }
-    // xtemplate <class InputIterator>
-    // vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type()){
-
-    // }
+    template <typename InputIterator>
+    typename vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type()){
+        //debug
+        std::cerr<<"hello form { range constructor }"<<std::endl;
+        //end debug
+        this->capacity_ = last - first;
+        this->data = this->get_allocator().allocate(this->capacity_);
+        this->size_ = 0;
+        while (first!=last){
+            this->push_back(*first);
+            first++;
+        }
+    }
     vector(const vector<T,allocator_type >& x){
         //debug
         std::cerr<<"hello  form { copy constructor }"<<std::endl;
@@ -228,13 +235,13 @@ class vector {
         return this->data[0];
     }
     const_reference front() const{
-            return this->data[0];
+        return this->data[0];
     }
     reference       back(){
-            return this->data[this->size_];
+        return this->data[this->size_];
     }
     const_reference back() const{
-            return this->data[this->size_];
+        return this->data[this->size_];
     }
 
     //----------------------------------------------------modifiers:
