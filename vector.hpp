@@ -5,83 +5,11 @@
 #include <exception>
 #include <iostream>
 #include "iterator.hpp"
-
+#include "random_it.hpp"
+#include "equal.hpp"
+#include "lexicographical_compare.hpp"
 namespace ft
 {
-    template <typename T>
-    class random_it : public ft::iterator<std::random_access_iterator_tag,T>{
-            private:
-            T* ptr;
-            public:
-            random_it():ptr(0){}
-            random_it(T* p) :ptr(p){}
-            random_it(const random_it& other):ptr(other.ptr){}
-            random_it& operator=(const random_it& other){
-                this->ptr=other.ptr;
-                return this;
-            }
-            ~random_it(){}
-            random_it& operator++() {
-                ++ptr;
-                return *this;
-            }
-            random_it operator++(int) {
-                random_it temp(*this);
-                operator++();
-                return temp;
-            }
-            random_it& operator--() {
-                --ptr;
-                return *this;
-            }
-            random_it operator--(int) {
-                random_it temp(*this);
-                operator--();
-                return temp;
-            }
-            random_it operator+(ptrdiff_t n) const {
-                return random_it(ptr + n);
-            }
-            random_it operator-(ptrdiff_t n) const {
-                return random_it(ptr - n);
-            }
-            ptrdiff_t operator-(const random_it& other) const {
-                return ptr - other.ptr;
-            }
-            T& operator*() const {
-                return *ptr;
-            }
-            T* operator->() const {
-                return ptr;
-            }
-            bool operator==(const random_it& other) const {
-                return ptr == other.ptr;
-            }
-            bool operator!=(const random_it& other) const {
-                return !operator==(other);
-            }
-            bool operator<(const random_it& other) const {
-                return ptr < other.ptr;
-            }
-            bool operator>(const random_it& other) const {
-                return other < *this;
-            }
-            bool operator<=(const random_it& other) const {
-                return !(other < *this);
-            }
-            bool operator>=(const random_it& other) const {
-                return !(*this < other);
-            }
-            T& operator[](ptrdiff_t n) const {
-                return ptr[n];
-            }
-            void operator+=(ptrdiff_t n) const {
-                 this->ptr = &this->ptr[n];
-            }
-            void operator-=(ptrdiff_t n) const {
-                this->ptr =  &this->ptr[-n];
-            }
-    };
 
 template <typename T, typename Allocator = std::allocator<T> >
 class vector {
@@ -94,7 +22,7 @@ class vector {
     typedef random_it<value_type>                            const_iterator; 
     typedef size_t                                           size_type; 
     typedef ptrdiff_t                                        difference_type;
-    typedef std::allocator<value_type>                       allocator_type;
+    typedef Allocator                                        allocator_type;
     typedef typename Allocator::pointer                      pointer;
     typedef typename Allocator::const_pointer                const_pointer;
     typedef std::reverse_iterator<iterator>                  reverse_iterator;
@@ -109,31 +37,30 @@ class vector {
         this->capacity_= 2;
         this->size_ = 0;
     }
-    explicit vector(size_type n, const T& value = T(),const allocator_type& = allocator_type()){
+    explicit vector(size_type n, const value_type& value = T(),const allocator_type& Alloc = allocator_type()){
         //debug
         std::cerr<<"hello  from { fill constructor }"<<std::endl;
         //end debug
-        this->data = this->get_allocator().allocate(n);
+        this->data = Alloc.allocate(n);
         this->capacity_ = n;
         this->size_ = 0;
         for (int i = 0;i<(int)n;i++){
             this->push_back(value);
         }
     }
-    template <typename InputIterator>
-    typename vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type()){
+    template <class InputIterator>
+    vector(InputIterator first, InputIterator last,const allocator_type& Alloc = allocator_type()){
         //debug
         std::cerr<<"hello form { range constructor }"<<std::endl;
         //end debug
         this->capacity_ = last - first;
         this->data = this->get_allocator().allocate(this->capacity_);
         this->size_ = 0;
-        while (first!=last){
-            this->push_back(*first);
-            first++;
+        for (int i =0;i<(int)this->capacity_;i++)
+            this->push_back(first[i]);
         }
     }
-    vector(const vector<T,allocator_type >& x){
+    vector(const ft::vector<T,allocator_type >& x){
         //debug
         std::cerr<<"hello  form { copy constructor }"<<std::endl;
         //end debug
@@ -147,7 +74,7 @@ class vector {
     ~vector(){
         clear();
     }
-    vector<T,allocator_type>& operator=(const vector<T,allocator_type>& x){
+    ft::vector<T,allocator_type>& operator=(const ft::vector<T,allocator_type>& x){
         //debug
         std::cerr<<"hello from { copy assignment operator }"<<std::endl;
         //end debug
@@ -269,9 +196,9 @@ class vector {
     // iterator erase(iterator first, iterator last);
     // template <typename T, typename Allocator>
     void     swap(ft::vector<T,Allocator >& x){
-            T*     tmp1;
-            size_t tmp2;
-            size_t tmp3;
+            value_type*     tmp1;
+            difference_type tmp2;
+            difference_type tmp3;
             tmp1 = x.data;
             tmp2 = x.size_;
             tmp3 = x.capacity_;
@@ -297,17 +224,56 @@ class vector {
     allocator_type              alloc_;
 };
 //----------------------------------------------------------non-member operators:
-// template <class T, class Alloc>  bool operator== (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-// template <class T, class Alloc>  bool operator!= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-// template <class T, class Alloc>  bool operator<  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-// template <class T, class Alloc>  bool operator<= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-// template <class T, class Alloc>  bool operator>  (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
-// template <class T, class Alloc>  bool operator>= (const vector<T,Alloc>& lhs, const vector<T,Alloc>& rhs);
+template <class T, class Alloc>
+bool operator== (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){
+    return equal(x.begin(),x.end(),y.begin());
+}
+template <class T, class Alloc>
+bool operator!= (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){
+    if (!(x == y))
+        return true;
+    return false;
+}
+template <class T, class Alloc>  
+bool operator<  (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){
+    return lexicographical_compare(x.begin(),x.end(),y.begin(),y.end());
+}
+template <class T, class Alloc>  
+bool operator<= (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){
+    if (x == y || x < y)
+        return true;
+    return false;
+}
+template <class T, class Alloc>
+bool operator>  (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){
+    if (!(x < y) && x != y)
+        return true;
+    return false;
+}
+template <class T, class Alloc>  
+bool operator>= (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){
+    if (x > y || x == y)
+        return true;
+    return false;
+
+}
 
 // //-----------------------------------------------------------swap algorithm:
-// template <class T, class Allocator>
-// void swap(vector<T,Allocator>& x, vector<T,Allocator>& y);
-
+template <class T, class Allocator>
+void swap(vector<T,Allocator>& x, vector<T,Allocator>& y){
+            T*     tmp1;
+            size_t tmp2;
+            size_t tmp3;
+            tmp1 = x.data;
+            tmp2 = x.size_;
+            tmp3 = x.capacity_;
+            x.data = y.data;
+            x.size_ = y.size_;
+            x.capacity_= y.capacity_;
+            y.data = tmp1;
+            y.size_ = tmp2;
+            y.capacity_ = tmp3;    
+}
 
 }
 #endif
