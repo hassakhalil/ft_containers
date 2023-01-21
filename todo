@@ -1,3 +1,10 @@
 ------>test  vetcor iterator;
 explicit?
------->use reserve unstead of get_allocator
+------>use reserve unstead of get_allocator)(maybe)
+• std::iterator_traits
+• std::reverse_iterator
+• std::enable_if
+Yes, it is C++11 but you will be able to implement it in a C++98 manner.
+This is asked so you can discover SFINAE.
+• std::is_integral
+• std::equal and/or std::lexicographical_compare
