@@ -6,13 +6,13 @@
 int main()
 {
     //test range constructor
-    // ft::vector<int> test(10,7);
-    // ft::vector<int> test2(test.begin(),test.end());
-    // std::cout<<"range == "; 
-    // for (int i = 0;i<10;i++){
-    //     std::cout<<" "<<test2[i];
-    // }
-    // std::cout<<std::endl;
+    ft::vector<int> test(10,7);
+    ft::vector<int> test2(test.begin(),test.end());
+    std::cout<<"range == "; 
+    for (int i = 0;i<10;i++){
+        std::cout<<" "<<test2[i];
+    }
+    std::cout<<std::endl;
     //test end 
     while(1);
     ft::vector<int> foo (3,100);   // three ints with a value of 100

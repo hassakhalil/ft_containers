@@ -11,7 +11,7 @@
 namespace ft
 {
 
-template <typename T, typename Allocator = std::allocator<T> >
+template <class T, class Allocator = std::allocator<T> >
 class vector {
     public:
     //--------------------------------------------------types:
@@ -25,23 +25,23 @@ class vector {
     typedef Allocator                                        allocator_type;
     typedef typename Allocator::pointer                      pointer;
     typedef typename Allocator::const_pointer                const_pointer;
-    typedef std::reverse_iterator<iterator>                  reverse_iterator;
-    typedef std::reverse_iterator<const_iterator>            const_reverse_iterator;
+    // typedef std::reverse_iterator<iterator>                  reverse_iterator;
+    // typedef std::reverse_iterator<const_iterator>            const_reverse_iterator;
 
     //--------------------------------------------------construct/copy/destroy:
     explicit vector(const allocator_type& = allocator_type()){
         //debug
         std::cerr<<"{ default constructor }"<<std::endl;
         // end debug
-        this->data = this->get_allocator().allocate(2);
+        this->data = allocator_type().allocate(2);
         this->capacity_= 2;
         this->size_ = 0;
     }
-    explicit vector(size_type n, const value_type& value = T(),const allocator_type& Alloc = allocator_type()){
+    explicit vector(size_type n, const value_type& value = T(),const allocator_type& = allocator_type()){
         //debug
         std::cerr<<"hello  from { fill constructor }"<<std::endl;
         //end debug
-        this->data = Alloc.allocate(n);
+        this->data =allocator_type().allocate(n);
         this->capacity_ = n;
         this->size_ = 0;
         for (int i = 0;i<(int)n;i++){
@@ -49,15 +49,19 @@ class vector {
         }
     }
     template <class InputIterator>
-    vector(InputIterator first, InputIterator last,const allocator_type& Alloc = allocator_type()){
+    vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type()){
         //debug
         std::cerr<<"hello form { range constructor }"<<std::endl;
         //end debug
         this->capacity_ = last - first;
-        this->data = this->get_allocator().allocate(this->capacity_);
+        this->data = allocator_type().allocate(this->capacity_);
         this->size_ = 0;
-        for (int i =0;i<(int)this->capacity_;i++)
-            this->push_back(first[i]);
+        iterator tmpf=first;
+        iterator tmpl=last;
+
+        while(tmpf!=tmpl){
+            this->push_back(*tmpf);
+            tmpf++;
         }
     }
     vector(const ft::vector<T,allocator_type >& x){
@@ -79,10 +83,10 @@ class vector {
         std::cerr<<"hello from { copy assignment operator }"<<std::endl;
         //end debug
             for(int i=0;i<(int)this->size_;i++){
-                this->get_allocator().destroy(this->data +i);
+                allocator_type().destroy(this->data +i);
             }
             this->size_ = 0;
-            this->get_allocator().deallocate(this->data,this->capacity_);
+            allocator_type().deallocate(this->data,this->capacity_);
             this->data = this->get_allocator().allocate(x.capacity_);
             this->capacity_=x.capacity_;
             for(int i=0;i<(int)x.size_;i++){
