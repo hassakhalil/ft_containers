@@ -6,7 +6,8 @@
 
 int main()
 {
-    //testing reverse_iterator
+  //test insert
+  //testing reverse_iterator
     std::vector<int> vv;
     ft::vector<int>  vvclone;
     vv.push_back(1);
@@ -25,6 +26,9 @@ int main()
     vvclone.push_back(6);
     vvclone.push_back(7);
     vvclone.push_back(8);
+    vv.insert(vv.begin()+1,100);
+    vvclone.insert(vvclone.begin()+1,100);
+
 
     // std::vector<int>::iterator tt = vv.begin();
     ft::reverse_iterator<ft::vector<int>::iterator> rev_itclone = vvclone.rbegin();
