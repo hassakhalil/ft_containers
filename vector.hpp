@@ -19,15 +19,15 @@ class vector {
     typedef T                                                value_type;
     typedef typename Allocator::reference                    reference;
     typedef typename Allocator::const_reference              const_reference;
-    typedef random_it<value_type>                            iterator; 
-    typedef random_it<value_type>                            const_iterator; 
+    typedef ft::random_it<value_type>                        iterator; 
+    typedef ft::random_it<value_type>                        const_iterator; 
     typedef size_t                                           size_type; 
     typedef ptrdiff_t                                        difference_type;
     typedef Allocator                                        allocator_type;
     typedef typename Allocator::pointer                      pointer;
     typedef typename Allocator::const_pointer                const_pointer;
-    // typedef std::reverse_iterator<iterator>                  reverse_iterator;
-    // typedef std::reverse_iterator<const_iterator>            const_reverse_iterator;
+    typedef ft::reverse_iterator<iterator>                   reverse_iterator;
+    typedef ft::reverse_iterator<const_iterator>             const_reverse_iterator;
 
     //--------------------------------------------------construct/copy/destroy:
     explicit vector(const allocator_type& = allocator_type()){
@@ -107,10 +107,10 @@ class vector {
     const_iterator          begin() const {return const_iterator(this->data);}
     iterator                end(){return iterator(this->data + this->size_);}
     const_iterator          end() const {return const_iterator(this->data + this->size_);}
-    // reverse_iterator        rbegin();
-    // const_reverse_iterator  rbegin() const;
-    // reverse_iterator        rend();
-    // const_reverse_iterator  rend() const;
+    reverse_iterator        rbegin(){return reverse_iterator(this->end());}
+    const_reverse_iterator  rbegin() const{return const_reverse_iterator(this->end());}
+    reverse_iterator        rend(){return reverse_iterator(this->begin());}
+    const_reverse_iterator  rend() const{return const_reverse_iterator(this->begin());}
 
     //---------------------------------------------------capacity:
     size_type   size() const{ return this->size_; }

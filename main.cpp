@@ -1,10 +1,51 @@
 #include "./vector.hpp"
 #include <iostream>
+//std
 #include <vector>
 #include <iterator>
 
 int main()
 {
+    //testing reverse_iterator
+    std::vector<int> vv;
+    ft::vector<int>  vvclone;
+    vv.push_back(1);
+    vv.push_back(2);
+    vv.push_back(3);
+    vv.push_back(4);
+    vv.push_back(5);
+    vv.push_back(6);
+    vv.push_back(7);
+    vv.push_back(8);
+    vvclone.push_back(1);
+    vvclone.push_back(2);
+    vvclone.push_back(3);
+    vvclone.push_back(4);
+    vvclone.push_back(5);
+    vvclone.push_back(6);
+    vvclone.push_back(7);
+    vvclone.push_back(8);
+
+    // std::vector<int>::iterator tt = vv.begin();
+    ft::reverse_iterator<ft::vector<int>::iterator> rev_itclone = vvclone.rbegin();
+    std::reverse_iterator<std::vector<int>::iterator> rev_it = vv.rbegin();
+    std::cout<<"{ reverse iterator } == ";
+    for (int i = 0;rev_it!= vv.rend();i++)
+      {
+        std::cout<<*rev_it<<" ";
+        rev_it++;
+      }
+      std::cout<<std::endl;
+    std::cout<<"{ reverse iterator(ft) } == ";
+    for (int i = 0;rev_itclone!= vvclone.rend();i++)
+      {
+        std::cout<<*rev_itclone<<" ";
+        rev_itclone++;
+      }
+      std::cout<<std::endl;
+
+    while (1);
+    //end test
     //test range constructor
     // ft::vector<int> test(10,7);
     // ft::vector<int> test2(test.begin(),test.end());
