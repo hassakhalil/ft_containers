@@ -6,7 +6,7 @@ namespace ft
 {
 
      template <typename T>
-    class random_it : public ft::iterator<std::random_access_iterator_tag,T>{
+    class random_it : public ft::iterator<ft::random_access_iterator_tag,T>{
             private:
             T* ptr;
             public:

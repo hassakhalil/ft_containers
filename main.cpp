@@ -26,13 +26,14 @@ int main()
     vvclone.push_back(6);
     vvclone.push_back(7);
     vvclone.push_back(8);
-    vv.insert(vv.begin()+1,100);
-    vvclone.insert(vvclone.begin()+1,100);
+    vv.insert(vv.begin()+5,100);
+    vvclone.insert(vvclone.begin()+5,100);
 
 
     // std::vector<int>::iterator tt = vv.begin();
     ft::reverse_iterator<ft::vector<int>::iterator> rev_itclone = vvclone.rbegin();
     std::reverse_iterator<std::vector<int>::iterator> rev_it = vv.rbegin();
+    std::cout<<"{ std::vector } capacity == "<<vv.capacity()<<std::endl;
     std::cout<<"{ reverse iterator } == ";
     for (int i = 0;rev_it!= vv.rend();i++)
       {
@@ -40,6 +41,7 @@ int main()
         rev_it++;
       }
       std::cout<<std::endl;
+          std::cout<<"{ ft::vector } capacity == "<<vvclone.capacity()<<std::endl;
     std::cout<<"{ reverse iterator(ft) } == ";
     for (int i = 0;rev_itclone!= vvclone.rend();i++)
       {
