@@ -4,8 +4,6 @@
 
 namespace ft
 {
-
-    //implement iterator_tags here--------
     template <class iterator>
     struct iterator_traits
     {
@@ -33,7 +31,6 @@ namespace ft
         typedef  const T& reference;
         typedef  ft::random_access_iterator_tag iterator_category;
     };
-    
 }
 
 #endif

@@ -6,6 +6,7 @@
 #include <iostream>
 #include "iterator.hpp"
 #include "random_it.hpp"
+#include "reverse_iterator.hpp"
 #include "equal.hpp"
 #include "lexicographical_compare.hpp"
 namespace ft
@@ -48,22 +49,22 @@ class vector {
             this->push_back(value);
         }
     }
-    template <class InputIterator>
-    vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type()){
-        //debug
-        std::cerr<<"hello form { range constructor }"<<std::endl;
-        //end debug
-        this->capacity_ = last - first;
-        this->data = allocator_type().allocate(this->capacity_);
-        this->size_ = 0;
-        iterator tmpf=first;
-        iterator tmpl=last;
+    // template <class InputIterator>
+    // vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type()){
+    //     //debug
+    //     std::cerr<<"hello form { range constructor }"<<std::endl;
+    //     //end debug
+    //     this->capacity_ = last - first;
+    //     this->data = allocator_type().allocate(this->capacity_);
+    //     this->size_ = 0;
+    //     iterator tmpf=first;
+    //     iterator tmpl=last;
 
-        while(tmpf!=tmpl){
-            this->push_back(*tmpf);
-            tmpf++;
-        }
-    }
+    //     while(tmpf!=tmpl){
+    //         this->push_back(*tmpf);
+    //         tmpf++;
+    //     }
+    // }
     vector(const ft::vector<T,allocator_type >& x){
         //debug
         std::cerr<<"hello  form { copy constructor }"<<std::endl;
