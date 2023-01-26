@@ -13,6 +13,8 @@ int main()
     ft::vector<int>  vvclone;
     std::cout<<"vvclone.capacity_ == "<<vvclone.capacity()<<std::endl;
 
+    //test std::vector::erase outofrange --->segfault 
+    // vv.erase(vv.begin()+100);
     vv.push_back(1);
     std::cout<<"vv.capacity_ == "<<vv.capacity()<<std::endl;
     vv.push_back(2);
@@ -48,7 +50,8 @@ int main()
     vv.insert(vv.begin()+2,10,9999);
     vvclone.insert(vvclone.begin()+5,100);
     vvclone.insert(vvclone.begin()+2,10,9999);
-
+    vv.erase(vv.begin()+vv.size()-1);
+    vvclone.erase(vvclone.begin()+vvclone.size()-1);
 
     // std::vector<int>::iterator tt = vv.begin();
     ft::reverse_iterator<ft::vector<int>::iterator> rev_itclone = vvclone.rbegin();

@@ -246,7 +246,24 @@ class vector {
     }
     // template <class InputIterator>
     // void     insert(iterator position,InputIterator first, InputIterator last);
-    // iterator erase(iterator position);
+    iterator erase(iterator position){
+        //remove value at position
+        //overwrite values by next valeus
+        value_type* ptr = nullptr;
+        for (int i=0;i<(int)this->size_;i++){
+            if (this->data[i] == *position)
+            {
+                ptr = this->data +i+1;
+                for (int j = i;j<(int)this->size_-1;j++)
+                {
+                    this->data[j] = this->data[j+1];
+                }
+                this->size_--;
+                break;
+            }
+        }
+        return iterator(ptr);
+    }
     // iterator erase(iterator first, iterator last);
     void     swap(ft::vector<T,Allocator >& x){
             value_type*     tmp1;
