@@ -49,22 +49,19 @@ class vector {
             this->push_back(value);
         }
     }
-    // template <class InputIterator>
-    // vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type()){
-    //     //debug
-    //     std::cerr<<"hello form { range constructor }"<<std::endl;
-    //     //end debug
-    //     this->capacity_ = last - first;
-    //     this->data = allocator_type().allocate(this->capacity_);
-    //     this->size_ = 0;
-    //     iterator tmpf=first;
-    //     iterator tmpl=last;
-
-    //     while(tmpf!=tmpl){
-    //         this->push_back(*tmpf);
-    //         tmpf++;
-    //     }
-    // }
+    template <class InputIterator >
+    vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type(), typename std::enable_if<!std::is_integral<InputIterator>::value, InputIterator>::type = InputIterator()){
+        //debug
+        std::cerr<<"hello form { range constructor }"<<std::endl;
+        //end debug
+        this->capacity_ = last - first;
+        this->data = allocator_type().allocate(this->capacity_);
+        this->size_ = 0;
+        while(first!=last){
+            this->push_back(*first);
+            first++;
+        }
+    }
     vector(const ft::vector<T,allocator_type >& x){
         //debug
         std::cerr<<"hello  form { copy constructor }"<<std::endl;

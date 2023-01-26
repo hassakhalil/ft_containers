@@ -8,87 +8,87 @@ int main()
 {
   //test insert
   //testing reverse_iterator
-    std::vector<int> vv;
-    std::cout<<"vv.capacity_ == "<<vv.capacity()<<std::endl;
-    ft::vector<int>  vvclone;
-    std::cout<<"vvclone.capacity_ == "<<vvclone.capacity()<<std::endl;
+    // std::vector<int> vv;
+    // std::cout<<"vv.capacity_ == "<<vv.capacity()<<std::endl;
+    // ft::vector<int>  vvclone;
+    // std::cout<<"vvclone.capacity_ == "<<vvclone.capacity()<<std::endl;
 
-    //test std::vector::erase outofrange --->segfault 
-    // vv.erase(vv.begin()+100);
-    vv.push_back(1);
-    std::cout<<"vv.capacity_ == "<<vv.capacity()<<std::endl;
-    vv.push_back(2);
-    std::cout<<"vv.capacity_ == "<<vv.capacity()<<std::endl;
+    // //test std::vector::erase outofrange --->segfault 
+    // // vv.erase(vv.begin()+100);
+    // vv.push_back(1);
+    // std::cout<<"vv.capacity_ == "<<vv.capacity()<<std::endl;
+    // vv.push_back(2);
+    // std::cout<<"vv.capacity_ == "<<vv.capacity()<<std::endl;
 
-    vv.push_back(3);
-    std::cout<<"vv.capacity_ == "<<vv.capacity()<<std::endl;
+    // vv.push_back(3);
+    // std::cout<<"vv.capacity_ == "<<vv.capacity()<<std::endl;
 
-    vv.push_back(4);
-    vv.push_back(5);
-    vv.push_back(6);
-    vv.push_back(7);
-    vv.push_back(8);
-    vv.push_back(9);
-    vv.push_back(10);
-    vvclone.push_back(1);
-    std::cout<<"vvclone.capacity_ == "<<vvclone.capacity()<<std::endl;
+    // vv.push_back(4);
+    // vv.push_back(5);
+    // vv.push_back(6);
+    // vv.push_back(7);
+    // vv.push_back(8);
+    // vv.push_back(9);
+    // vv.push_back(10);
+    // vvclone.push_back(1);
+    // std::cout<<"vvclone.capacity_ == "<<vvclone.capacity()<<std::endl;
 
-    vvclone.push_back(2);
-    std::cout<<"vvclone.capacity_ == "<<vvclone.capacity()<<std::endl;
+    // vvclone.push_back(2);
+    // std::cout<<"vvclone.capacity_ == "<<vvclone.capacity()<<std::endl;
 
-    vvclone.push_back(3);
-    std::cout<<"vvclone.capacity_ == "<<vvclone.capacity()<<std::endl;
+    // vvclone.push_back(3);
+    // std::cout<<"vvclone.capacity_ == "<<vvclone.capacity()<<std::endl;
 
-    vvclone.push_back(4);
-    vvclone.push_back(5);
-    vvclone.push_back(6);
-    vvclone.push_back(7);
-    vvclone.push_back(8);
-    vvclone.push_back(9);
-    vvclone.push_back(10);
-    vv.insert(vv.begin()+5,100);
-    vv.insert(vv.begin()+2,10,9999);
-    vvclone.insert(vvclone.begin()+5,100);
-    vvclone.insert(vvclone.begin()+2,10,9999);
-    vv.erase(vv.begin()+vv.size()-1);
-    vvclone.erase(vvclone.begin()+vvclone.size()-1);
-    vv.erase(vv.begin(),vv.begin()+vv.size()-1);
-    vvclone.erase(vvclone.begin(),vvclone.begin()+vvclone.size()-1);
-    vv.assign(30,77);
-    vvclone.assign(30,77);
+    // vvclone.push_back(4);
+    // vvclone.push_back(5);
+    // vvclone.push_back(6);
+    // vvclone.push_back(7);
+    // vvclone.push_back(8);
+    // vvclone.push_back(9);
+    // vvclone.push_back(10);
+    // vv.insert(vv.begin()+5,100);
+    // vv.insert(vv.begin()+2,10,9999);
+    // vvclone.insert(vvclone.begin()+5,100);
+    // vvclone.insert(vvclone.begin()+2,10,9999);
+    // vv.erase(vv.begin()+vv.size()-1);
+    // vvclone.erase(vvclone.begin()+vvclone.size()-1);
+    // vv.erase(vv.begin(),vv.begin()+vv.size()-1);
+    // vvclone.erase(vvclone.begin(),vvclone.begin()+vvclone.size()-1);
+    // vv.assign(30,77);
+    // vvclone.assign(30,77);
 
-    // std::vector<int>::iterator tt = vv.begin();
-    ft::reverse_iterator<ft::vector<int>::iterator> rev_itclone = vvclone.rbegin();
-    std::reverse_iterator<std::vector<int>::iterator> rev_it = vv.rbegin();
-    std::cout<<"{ std::vector } capacity == "<<vv.capacity()<<std::endl;
-    std::cout<<"{ reverse iterator } == ";
-    for (int i = 0;rev_it!= vv.rend();i++)
-      {
-        std::cout<<*rev_it<<" ";
-        rev_it++;
-      }
-      std::cout<<std::endl;
-          std::cout<<"{ ft::vector } capacity == "<<vvclone.capacity()<<std::endl;
-    std::cout<<"{ reverse iterator(ft) } == ";
-    for (int i = 0;rev_itclone!= vvclone.rend();i++)
-      {
-        std::cout<<*rev_itclone<<" ";
-        rev_itclone++;
-      }
-      std::cout<<std::endl;
+    // // std::vector<int>::iterator tt = vv.begin();
+    // ft::reverse_iterator<ft::vector<int>::iterator> rev_itclone = vvclone.rbegin();
+    // std::reverse_iterator<std::vector<int>::iterator> rev_it = vv.rbegin();
+    // std::cout<<"{ std::vector } capacity == "<<vv.capacity()<<std::endl;
+    // std::cout<<"{ reverse iterator } == ";
+    // for (int i = 0;rev_it!= vv.rend();i++)
+    //   {
+    //     std::cout<<*rev_it<<" ";
+    //     rev_it++;
+    //   }
+    //   std::cout<<std::endl;
+    //       std::cout<<"{ ft::vector } capacity == "<<vvclone.capacity()<<std::endl;
+    // std::cout<<"{ reverse iterator(ft) } == ";
+    // for (int i = 0;rev_itclone!= vvclone.rend();i++)
+    //   {
+    //     std::cout<<*rev_itclone<<" ";
+    //     rev_itclone++;
+    //   }
+    //   std::cout<<std::endl;
 
-    while (1);
+    // while (1);
     //end test
     //test range constructor
-    // ft::vector<int> test(10,7);
-    // ft::vector<int> test2(test.begin(),test.end());
-    // std::cout<<"range == "; 
-    // for (int i = 0;i<10;i++){
-    //     std::cout<<" "<<test2[i];
-    // }
-    // std::cout<<std::endl;
-    // //test end 
-    // while(1);
+    ft::vector<int> test(10,7);
+    ft::vector<int> test2(test.begin(),test.end());
+    std::cout<<"range == "; 
+    for (int i = 0;i<10;i++){
+        std::cout<<" "<<test2[i];
+    }
+    std::cout<<std::endl;
+    //test end 
+    while(1);
     ft::vector<int> foo (3,100);   // three ints with a value of 100
   ft::vector<int> bar (5,200);   // five ints with a value of 200
 
