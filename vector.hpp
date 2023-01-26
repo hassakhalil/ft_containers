@@ -97,7 +97,15 @@ class vector {
     }
     // template <class InputIterator>
     // void assign(InputIterator first, InputIterator last);
-    // void assign(size_type n, const T& u);
+    void assign(size_type n, const T& u){
+        for (int i=0;i<(int)this->size_;i++){
+            this->get_allocator().destroy(this->data+i);
+        }
+        this->size_ = n;
+        for (int i=0;i<(int)this->size_;i++){
+            this->get_allocator().construct(this->data +i,u);            
+        }
+    }
     allocator_type get_allocator() const{
         return allocator_type();
     }
@@ -247,8 +255,6 @@ class vector {
     // template <class InputIterator>
     // void     insert(iterator position,InputIterator first, InputIterator last);
     iterator erase(iterator position){
-        //remove value at position
-        //overwrite values by next valeus
         value_type* ptr = nullptr;
         for (int i=0;i<(int)this->size_;i++){
             if (this->data[i] == *position)
@@ -265,8 +271,6 @@ class vector {
         return iterator(ptr);
     }
     iterator erase(iterator first, iterator last){
-        //if there is no elements left-->adjust size
-        //overwrite values starting from first element
         value_type* ptr = nullptr;
         value_type n=0;
         for (int i=0;i<(int)this->size_;i++){
@@ -275,7 +279,6 @@ class vector {
                 for (int j=i;j<(int)this->size_;j++){
                     if (this->data[j] == *last)
                     {
-                       //overwrite values starting from first element
                        ptr = &this->data[j];
                         n = j-i;
                         for (int k=j;k<(int)this->size_;k++)
@@ -283,9 +286,6 @@ class vector {
                             this->data[i] = this->data[k];
                             i++;
                         }
-                        //debug
-                        std::cerr<<"{ debug } : (first - last) == "<<first-last<<std::endl;
-                        //end debug
                         this->size_ -= n;
                         break;
                     }

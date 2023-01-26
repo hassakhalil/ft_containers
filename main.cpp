@@ -52,8 +52,10 @@ int main()
     vvclone.insert(vvclone.begin()+2,10,9999);
     vv.erase(vv.begin()+vv.size()-1);
     vvclone.erase(vvclone.begin()+vvclone.size()-1);
-    vv.erase(vv.begin(),vv.begin()+100);
-    vvclone.erase(vvclone.begin(),vvclone.begin()+100);
+    vv.erase(vv.begin(),vv.begin()+vv.size()-1);
+    vvclone.erase(vvclone.begin(),vvclone.begin()+vvclone.size()-1);
+    vv.assign(30,77);
+    vvclone.assign(30,77);
 
     // std::vector<int>::iterator tt = vv.begin();
     ft::reverse_iterator<ft::vector<int>::iterator> rev_itclone = vvclone.rbegin();
