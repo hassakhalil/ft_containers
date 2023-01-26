@@ -207,6 +207,7 @@ class vector {
                 this->get_allocator().construct(new_data + i, x);
                 ptr  = &(*(this->begin()+i));
                 j=1;
+                this->get_allocator().construct(new_data +i+j,this->data[i]);
             }
             else
                 this->get_allocator().construct(new_data + i+j, this->data[i]);
@@ -218,7 +219,31 @@ class vector {
         this->capacity_ = new_capacity;
         return iterator(ptr);
     }
-    // void     insert(iterator position, size_type n, const T& x);
+    void     insert(iterator position, size_type n, const T& x){
+        value_type new_capacity = this->capacity_;
+        if (this->size_+n>this->capacity_)
+            new_capacity = this->capacity_ + n +this->capacity_/2;
+        value_type* new_data = this->get_allocator().allocate(new_capacity);
+        int j = 0;
+        for (int i = 0;i<=(int)this->size_;i++)
+        {
+            if (this->data[i] == *position)
+            {
+                for(int l=0;l<(int)n;l++){
+                    this->get_allocator().construct(new_data + i+l, x);
+                }
+                j=n;
+                this->get_allocator().construct(new_data +i+j,this->data[i]);
+            }
+            else
+                this->get_allocator().construct(new_data + i+j, this->data[i]);
+            this->get_allocator().destroy(this->data+i);
+        }
+        this->get_allocator().deallocate(this->data, this->capacity_);
+        this->size_ += n;
+        this->data = new_data;
+        this->capacity_ = new_capacity;
+    }
     // template <class InputIterator>
     // void     insert(iterator position,InputIterator first, InputIterator last);
     // iterator erase(iterator position);
@@ -289,18 +314,7 @@ bool operator>= (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){
 // //-----------------------------------------------------------swap algorithm:
 template <class T, class Allocator>
 void swap(vector<T,Allocator>& x, vector<T,Allocator>& y){
-            T*     tmp1;
-            size_t tmp2;
-            size_t tmp3;
-            tmp1 = x.data;
-            tmp2 = x.size_;
-            tmp3 = x.capacity_;
-            x.data = y.data;
-            x.size_ = y.size_;
-            x.capacity_= y.capacity_;
-            y.data = tmp1;
-            y.size_ = tmp2;
-            y.capacity_ = tmp3;    
+    x.swap(y);
 }
 
 }
