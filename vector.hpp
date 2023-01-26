@@ -264,7 +264,31 @@ class vector {
         }
         return iterator(ptr);
     }
-    // iterator erase(iterator first, iterator last);
+    iterator erase(iterator first, iterator last){
+        //if there is no elements left-->adjust size
+        //overwrite values starting from first element
+        value_type* ptr = nullptr;
+        for (int i=0;i<(int)this->size_;i++){
+            if (this->data[i] == *first)
+            {
+                for (int j=0;j<(int)this->size_;j++){
+                    if (this->data[j] == *last)
+                    {
+                       //overwrite values starting from first element
+                       ptr = &this->data[j];
+                        for (int k=j;k<(int)this->size_;k++)
+                        {
+                            this->data[i] = this->data[k];
+                        }
+                        this->size_ -= first -last;
+                        break;
+                    }
+                }
+                break;
+            }
+        }
+        return iterator(ptr);
+    }
     void     swap(ft::vector<T,Allocator >& x){
             value_type*     tmp1;
             difference_type tmp2;
