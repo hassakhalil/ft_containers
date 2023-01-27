@@ -9,6 +9,8 @@
 #include "reverse_iterator.hpp"
 #include "equal.hpp"
 #include "lexicographical_compare.hpp"
+#include "enable_if.hpp"
+#include "is_integral.hpp"
 namespace ft
 {
 
@@ -50,7 +52,7 @@ class vector {
         }
     }
     template <class InputIterator >
-    vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type(), typename std::enable_if<!std::is_integral<InputIterator>::value, InputIterator>::type = InputIterator()){
+    vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type(), typename ft::enable_if<!std::is_integral<InputIterator>::value, InputIterator>::type = InputIterator()){
         //debug
         std::cerr<<"hello form { range constructor }"<<std::endl;
         //end debug
