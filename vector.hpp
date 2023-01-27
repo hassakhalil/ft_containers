@@ -51,14 +51,14 @@ class vector {
             this->push_back(value);
         }
     }
-    template <class InputIterator >
-    vector(InputIterator first, InputIterator last,const allocator_type& = allocator_type(), typename ft::enable_if<!std::is_integral<InputIterator>::value, InputIterator>::type = InputIterator()){
+    template <class InputIterator>
+    vector(InputIterator first, InputIterator last, const allocator_type& = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
         //debug
         std::cerr<<"hello form { range constructor }"<<std::endl;
         //end debug
-        this->capacity_ = last - first;
-        this->data = allocator_type().allocate(this->capacity_);
         this->size_ = 0;
+        this->capacity_ = 2;
+        this->data = this->get_allocator().allocate(2);
         while(first!=last){
             this->push_back(*first);
             first++;
@@ -94,16 +94,22 @@ class vector {
             }
             return *this;
     }
-    // template <class InputIterator>
-    // void assign(InputIterator first, InputIterator last);
+    template <class InputIterator>
+    void assign(InputIterator first, InputIterator last){
+        this->erase(this->begin(),this->end());
+        this->insert(this->begin(),first,last);
+    }
     void assign(size_type n, const T& u){
-        for (int i=0;i<(int)this->size_;i++){
-            this->get_allocator().destroy(this->data+i);
-        }
-        this->size_ = n;
-        for (int i=0;i<(int)this->size_;i++){
-            this->get_allocator().construct(this->data +i,u);            
-        }
+        // for (int i=0;i<(int)this->size_;i++){
+        //     this->get_allocator().destroy(this->data+i);
+        // }
+        // this->size_ = n;
+        // for (int i=0;i<(int)this->size_;i++){
+        //     this->get_allocator().construct(this->data +i,u);            
+        // }
+        this->erase(this->begin(),this->end());
+        this->insert(this->begin(),n,u);
+
     }
     allocator_type get_allocator() const{
         return allocator_type();
@@ -251,8 +257,10 @@ class vector {
         this->data = new_data;
         this->capacity_ = new_capacity;
     }
-    // template <class InputIterator>
-    // void     insert(iterator position,InputIterator first, InputIterator last);
+   // template <class InputIterator>
+    // void     insert(iterator position,InputIterator first, InputIterator last){
+    //     //
+    // }
     iterator erase(iterator position){
         value_type* ptr = nullptr;
         for (int i=0;i<(int)this->size_;i++){
