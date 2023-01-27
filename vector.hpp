@@ -257,10 +257,16 @@ class vector {
         this->data = new_data;
         this->capacity_ = new_capacity;
     }
-   // template <class InputIterator>
-    // void     insert(iterator position,InputIterator first, InputIterator last){
-    //     //
-    // }
+   template <class InputIterator>
+    void     insert(iterator position,InputIterator first, InputIterator last){
+        //
+        value_type* new_data =
+        for (int i =0;i<(int)this->size_;i++){
+            if (this->data[i] == *position){
+                
+            }
+        }
+    }
     iterator erase(iterator position){
         value_type* ptr = nullptr;
         for (int i=0;i<(int)this->size_;i++){
