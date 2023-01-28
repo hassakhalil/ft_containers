@@ -7,12 +7,14 @@ namespace ft
 
      template <typename T>
     class random_it : public ft::iterator<ft::random_access_iterator_tag,T>{
-            private:
+            protected:
             T* ptr;
             public:
-            random_it():ptr(0){}
+            T* base() const {return this->ptr;}
+            random_it():ptr(nullptr){}
             random_it(T* p) :ptr(p){}
-            random_it(const random_it& other):ptr(other.ptr){}
+            template <typename U>
+            random_it(const random_it<U>& other):ptr(other.base()){}
             random_it& operator=(const random_it& other){
                 this->ptr=other.ptr;
                 return this;

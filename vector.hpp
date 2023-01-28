@@ -21,8 +21,8 @@ class vector {
     typedef T                                                value_type;
     typedef typename Allocator::reference                    reference;
     typedef typename Allocator::const_reference              const_reference;
-    typedef ft::random_it<value_type>                        iterator; 
-    typedef ft::random_it<value_type>                        const_iterator; 
+    typedef ft::random_it<T>                        iterator; 
+    typedef ft::random_it<const T>                  const_iterator; 
     typedef size_t                                           size_type; 
     typedef ptrdiff_t                                        difference_type;
     typedef Allocator                                        allocator_type;
@@ -33,17 +33,11 @@ class vector {
 
     //--------------------------------------------------construct/copy/destroy:
     explicit vector(const allocator_type& = allocator_type()){
-        //debug
-        std::cerr<<"{ default constructor }"<<std::endl;
-        // end debug
         this->data = allocator_type().allocate(2);
         this->capacity_= 2;
         this->size_ = 0;
     }
     explicit vector(size_type n, const value_type& value = T(),const allocator_type& = allocator_type()){
-        //debug
-        std::cerr<<"hello  from { fill constructor }"<<std::endl;
-        //end debug
         this->data =allocator_type().allocate(n);
         this->capacity_ = n;
         this->size_ = 0;
@@ -53,9 +47,6 @@ class vector {
     }
     template <class InputIterator>
     vector(InputIterator first, InputIterator last, const allocator_type& = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        //debug
-        std::cerr<<"hello form { range constructor }"<<std::endl;
-        //end debug
         this->size_ = 0;
         this->capacity_ = 2;
         this->data = this->get_allocator().allocate(2);
@@ -65,9 +56,6 @@ class vector {
         }
     }
     vector(const ft::vector<T,allocator_type >& x){
-        //debug
-        std::cerr<<"hello  form { copy constructor }"<<std::endl;
-        //end debug
         this->data = this->get_allocator().allocate(x.capacity_);
         this->capacity_ = x.capacity_;
         this->size_ = 0;
@@ -79,9 +67,6 @@ class vector {
         clear();
     }
     ft::vector<T,allocator_type>& operator=(const ft::vector<T,allocator_type>& x){
-        //debug
-        std::cerr<<"hello from { copy assignment operator }"<<std::endl;
-        //end debug
             for(int i=0;i<(int)this->size_;i++){
                 allocator_type().destroy(this->data +i);
             }
@@ -117,13 +102,13 @@ class vector {
 
     //---------------------------------------------------iterators:
     iterator                begin(){return iterator(this->data);}
-    const_iterator          cbegin() const {return const_iterator(this->data);}
+    const_iterator          cbegin() {return const_iterator(this->data);}
     iterator                end(){return iterator(this->data + this->size_);}
-    const_iterator          cend() const {return const_iterator(this->data + this->size_);}
+    const_iterator          cend() {return const_iterator(this->data + this->size_);}
     reverse_iterator        rbegin(){return reverse_iterator(this->end());}
-    const_reverse_iterator  crbegin() const{return const_reverse_iterator(this->end());}
+    const_reverse_iterator  crbegin() {return const_reverse_iterator(this->end());}
     reverse_iterator        rend(){return reverse_iterator(this->begin());}
-    const_reverse_iterator  crend() const{return const_reverse_iterator(this->begin());}
+    const_reverse_iterator  crend() {return const_reverse_iterator(this->begin());}
 
     //---------------------------------------------------capacity:
     size_type   size() const{ return this->size_; }
@@ -257,13 +242,26 @@ class vector {
         this->data = new_data;
         this->capacity_ = new_capacity;
     }
-   template <class InputIterator>
-    void     insert(iterator position,InputIterator first, InputIterator last){
-        //
-        value_type* new_data =
+  template <class InputIterator>
+    void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
+        //save the old elements somewhere(before and after position)
+        //add new elements using push back
+        value_type* tmp =this->get_allocator().allocate(this->capacity_);
+        value_type old_size = this->size_;
+
         for (int i =0;i<(int)this->size_;i++){
-            if (this->data[i] == *position){
-                
+            this->get_allocator().construct(tmp+i, this->data[i]);
+            this->get_allocator().destroy(this->data + i);
+        }
+        this->size_=0;
+        for (int i=0;i<(int)old_size;i++){
+            if (tmp[i] != *position)
+                this->push_back(tmp[i]);
+            else
+            {
+                while(first!=last){
+                    this->push_back(*first);
+                }
             }
         }
     }

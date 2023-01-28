@@ -6,6 +6,18 @@
 
 int main()
 {
+  //testing const_iterator
+  const int size = 5;
+	ft::vector<int> vct(size);
+	ft::vector<int>::iterator ittt = vct.begin();
+	ft::vector<int>::const_iterator ite = vct.begin();
+
+	for (int i = 0; i < size; ++i)
+		ittt[i] = i;
+
+	// *ite = 42; // < -- error
+  // return 0;
+  //end test
   //test insert
   //testing reverse_iterator
     // std::vector<int> vv;
@@ -160,9 +172,9 @@ int main()
     {
         std::cout<<"vect["<<i<<"] == "<<vect[i]<< "  |  "<<"v["<<i<<"] == "<<v[i]<<std::endl;
     }
-    ft::vector<int>::const_iterator it = vect.begin();
+    ft::vector<int>::const_iterator it = vect.cbegin();
     std::vector<int>::const_iterator it2= v.cbegin();
-    for (int i =0;it<vect.end();it++)
+    for (int i =0;it<vect.cend();it++)
     {
         std::cout<<"{using iterator} "<<"vect["<<i<<"] == "<<*it<< "  |  "<<"v["<<i<<"] == "<<*it2<<std::endl;
         i++;
