@@ -1,0 +1,1148 @@
+In file included from vector_tests.cpp:21:
+In file included from ./../vector.hpp:11:
+./../lexicographical_compare.hpp:8:120: error: non-member function cannot have 'const' qualifier
+    bool lexicographical_compare(InputIterator1 first1,InputIterator1 last1,InputIterator2 first2,InputIterator2 last2)const{
+                                                                                                                       ^~~~~
+./../lexicographical_compare.hpp:23:135: error: non-member function cannot have 'const' qualifier
+    bool lexicographical_compare(InputIterator1 first1, InputIterator1 last1,InputIterator2 first2, InputIterator2 last2,Compare comp)const{
+                                                                                                                                      ^~~~~
+vector_tests.cpp:128:17: error: invalid operands to binary expression ('int' and 'ft::vector<int>::iterator' (aka 'random_it<int>'))
+    EQUAL(&(*(1 + my_it)) == &(*(my_it1)) && (&(*my_it) == &(*(my_v.begin()))));
+              ~ ^ ~~~~~
+vector_tests.cpp:29:20: note: expanded from macro 'EQUAL'
+#define EQUAL(x) ((x) ? (std::cout << "\033[1;32mAC\033[0m\n") : (std::cout << "\033[1;31mWA\033[0m\n"))
+                   ^
+./../reverse_iterator.hpp:96:36: note: candidate template ignored: could not match 'reverse_iterator' against 'random_it'
+    ft::reverse_iterator<Iterator> operator+(typename ft::reverse_iterator<Iterator>::difference_type n, const ft::reverse_iterator<Iterator>& x){return ft::reverse_iterator<Iterator>(x.base() - n);}
+                                   ^
+vector_tests.cpp:222:17: error: invalid operands to binary expression ('int' and 'ft::vector<int>::const_iterator' (aka 'random_it<const int>'))
+    EQUAL(&(*(1 + my_it)) == &(*(my_it1)) && (&(*my_it) == &(*(my_v.begin()))));
+              ~ ^ ~~~~~
+vector_tests.cpp:29:20: note: expanded from macro 'EQUAL'
+#define EQUAL(x) ((x) ? (std::cout << "\033[1;32mAC\033[0m\n") : (std::cout << "\033[1;31mWA\033[0m\n"))
+                   ^
+./../reverse_iterator.hpp:96:36: note: candidate template ignored: could not match 'reverse_iterator' against 'random_it'
+    ft::reverse_iterator<Iterator> operator+(typename ft::reverse_iterator<Iterator>::difference_type n, const ft::reverse_iterator<Iterator>& x){return ft::reverse_iterator<Iterator>(x.base() - n);}
+                                   ^
+vector_tests.cpp:694:60: error: 'this' argument to member function 'begin' has type 'const ft::vector<std::string>' (aka 'const vector<basic_string<char, char_traits<char>, allocator<char> > >'), but function is not marked const
+        for (ft::vector<std::string>::const_iterator rit = ft_v2.begin(); rit != ft_v2.end(); ++rit) // fill c_ft_res from const ft_v1
+                                                           ^~~~~
+./../vector.hpp:91:29: note: 'begin' declared here
+    iterator                begin(){return iterator(this->data);}
+                            ^
+vector_tests.cpp:694:82: error: 'this' argument to member function 'end' has type 'const ft::vector<std::string>' (aka 'const vector<basic_string<char, char_traits<char>, allocator<char> > >'), but function is not marked const
+        for (ft::vector<std::string>::const_iterator rit = ft_v2.begin(); rit != ft_v2.end(); ++rit) // fill c_ft_res from const ft_v1
+                                                                                 ^~~~~
+./../vector.hpp:93:29: note: 'end' declared here
+    iterator                end(){return iterator(this->data + this->size_);}
+                            ^
+vector_tests.cpp:721:68: error: 'this' argument to member function 'rbegin' has type 'const ft::vector<std::string>' (aka 'const vector<basic_string<char, char_traits<char>, allocator<char> > >'), but function is not marked const
+        for (ft::vector<std::string>::const_reverse_iterator rit = ft_v2.rbegin(); rit != ft_v2.rend(); ++rit) // fill c_ft_res from const ft_v1
+                                                                   ^~~~~
+./../vector.hpp:95:29: note: 'rbegin' declared here
+    reverse_iterator        rbegin(){return reverse_iterator(this->end());}
+                            ^
+vector_tests.cpp:721:91: error: 'this' argument to member function 'rend' has type 'const ft::vector<std::string>' (aka 'const vector<basic_string<char, char_traits<char>, allocator<char> > >'), but function is not marked const
+        for (ft::vector<std::string>::const_reverse_iterator rit = ft_v2.rbegin(); rit != ft_v2.rend(); ++rit) // fill c_ft_res from const ft_v1
+                                                                                          ^~~~~
+./../vector.hpp:97:29: note: 'rend' declared here
+    reverse_iterator        rend(){return reverse_iterator(this->begin());}
+                            ^
+vector_tests.cpp:1618:15: error: no matching member function for call to 'insert'
+            v.insert(v.end(), v1.begin(), v1.end());
+            ~~^~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:737:14: note: candidate function not viable: no known conversion from 'ft::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::iterator' (aka 'random_it<std::__1::basic_string<char> >') to 'std::__1::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::size_type' (aka 'unsigned long') for 2nd argument
+    iterator insert(const_iterator __position, size_type __n, const_reference __x);
+             ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:748:9: note: candidate template ignored: substitution failure [with _InputIterator = ft::random_it<std::__1::basic_string<char> >]: no type named 'reference' in 'std::__1::iterator_traits<ft::random_it<std::__1::basic_string<char> > >'
+        insert(const_iterator __position, _InputIterator __first, _InputIterator __last);
+        ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:758:9: note: candidate template ignored: substitution failure [with _ForwardIterator = ft::random_it<std::__1::basic_string<char> >]: no type named 'reference' in 'std::__1::iterator_traits<ft::random_it<std::__1::basic_string<char> > >'
+        insert(const_iterator __position, _ForwardIterator __first, _ForwardIterator __last);
+        ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:729:14: note: candidate function not viable: requires 2 arguments, but 3 were provided
+    iterator insert(const_iterator __position, const_reference __x);
+             ^
+vector_tests.cpp:1668:15: error: no matching member function for call to 'insert'
+            v.insert(v.begin() + 10, v1.begin(), v1.end());
+            ~~^~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:737:14: note: candidate function not viable: no known conversion from 'ft::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::iterator' (aka 'random_it<std::__1::basic_string<char> >') to 'std::__1::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::size_type' (aka 'unsigned long') for 2nd argument
+    iterator insert(const_iterator __position, size_type __n, const_reference __x);
+             ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:748:9: note: candidate template ignored: substitution failure [with _InputIterator = ft::random_it<std::__1::basic_string<char> >]: no type named 'reference' in 'std::__1::iterator_traits<ft::random_it<std::__1::basic_string<char> > >'
+        insert(const_iterator __position, _InputIterator __first, _InputIterator __last);
+        ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:758:9: note: candidate template ignored: substitution failure [with _ForwardIterator = ft::random_it<std::__1::basic_string<char> >]: no type named 'reference' in 'std::__1::iterator_traits<ft::random_it<std::__1::basic_string<char> > >'
+        insert(const_iterator __position, _ForwardIterator __first, _ForwardIterator __last);
+        ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:729:14: note: candidate function not viable: requires 2 arguments, but 3 were provided
+    iterator insert(const_iterator __position, const_reference __x);
+             ^
+vector_tests.cpp:1744:58: error: no matching function for call to 'distance'
+        cond = (cond && (std::distance(v.begin(), it) == std::distance(ft_v.begin(), ft_it)));
+                                                         ^~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:608:1: note: candidate template ignored: substitution failure [with _InputIter = ft::random_it<std::__1::basic_string<char> >]: no type named 'difference_type' in 'std::__1::iterator_traits<ft::random_it<std::__1::basic_string<char> > >'
+distance(_InputIter __first, _InputIter __last)
+^
+vector_tests.cpp:1783:62: error: no matching function for call to 'distance'
+            cond = (cond && (std::distance(v.begin(), it) == std::distance(ft_v.begin(), ft_it)));
+                                                             ^~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:608:1: note: candidate template ignored: substitution failure [with _InputIter = ft::random_it<std::__1::basic_string<char> >]: no type named 'difference_type' in 'std::__1::iterator_traits<ft::random_it<std::__1::basic_string<char> > >'
+distance(_InputIter __first, _InputIter __last)
+^
+vector_tests.cpp:1807:62: error: no matching function for call to 'distance'
+            cond = (cond && (std::distance(v.begin(), it) == std::distance(ft_v.begin(), ft_it)));
+                                                             ^~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:608:1: note: candidate template ignored: substitution failure [with _InputIter = ft::random_it<std::__1::basic_string<char> >]: no type named 'difference_type' in 'std::__1::iterator_traits<ft::random_it<std::__1::basic_string<char> > >'
+distance(_InputIter __first, _InputIter __last)
+^
+vector_tests.cpp:1830:62: error: no matching function for call to 'distance'
+            cond = (cond && (std::distance(v.begin(), it) == std::distance(ft_v.begin(), ft_it)));
+                                                             ^~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:608:1: note: candidate template ignored: substitution failure [with _InputIter = ft::random_it<std::__1::basic_string<char> >]: no type named 'difference_type' in 'std::__1::iterator_traits<ft::random_it<std::__1::basic_string<char> > >'
+distance(_InputIter __first, _InputIter __last)
+^
+vector_tests.cpp:1854:62: error: no matching function for call to 'distance'
+            cond = (cond && (std::distance(v.begin(), it) == std::distance(ft_v.begin(), ft_it)));
+                                                             ^~~~~~~~~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:608:1: note: candidate template ignored: substitution failure [with _InputIter = ft::random_it<std::__1::basic_string<char> >]: no type named 'difference_type' in 'std::__1::iterator_traits<ft::random_it<std::__1::basic_string<char> > >'
+distance(_InputIter __first, _InputIter __last)
+^
+vector_tests.cpp:2124:39: error: invalid operands to binary expression ('ft::vector<int>' and 'ft::vector<int>')
+            cond = ((v < v1) == (ft_v < ft_v1));
+                                 ~~~~ ^ ~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:306:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_condition' for 1st argument
+operator<(const error_condition& __x, const error_condition& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:383:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_code' for 1st argument
+operator<(const error_code& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:596:1: note: candidate template ignored: could not match 'pair' against 'vector'
+operator< (const pair<_T1,_T2>& __x, const pair<_T1,_T2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:720:1: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+operator<(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1161:1: note: candidate template ignored: could not match 'move_iterator' against 'vector'
+operator<(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1456:5: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+    operator<(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT_DEBUG;
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:2974:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator< (const unique_ptr<_T1, _D1>& __x, const unique_ptr<_T2, _D2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3032:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(const unique_ptr<_T1, _D1>& __x, nullptr_t)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3041:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(nullptr_t, const unique_ptr<_T1, _D1>& __x)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4812:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, const shared_ptr<_Up>& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4882:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4890:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(nullptr_t, const shared_ptr<_Tp>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:3378:1: note: candidate template ignored: could not match 'std::__1::vector' against 'ft::vector'
+operator< (const vector<_Tp, _Allocator>& __x, const vector<_Tp, _Allocator>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:674:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs, basic_string_view<_CharT, _Traits> __rhs) _NOEXCEPT
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:681:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:689:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3921:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3930:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3939:1: note: candidate template ignored: could not match 'const _CharT *' against 'ft::vector<int>'
+operator< (const _CharT* __lhs,
+^
+./../reverse_iterator.hpp:84:10: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+    bool operator<(const ft::reverse_iterator<Iterator>& x, const ft::reverse_iterator<Iterator>& y){return x.base() < y.base();}
+         ^
+vector_tests.cpp:2127:48: error: invalid operands to binary expression ('ft::vector<int>' and 'ft::vector<int>')
+            cond = (cond && ((v < v1) == (ft_v < ft_v1)));
+                                          ~~~~ ^ ~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:306:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_condition' for 1st argument
+operator<(const error_condition& __x, const error_condition& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:383:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_code' for 1st argument
+operator<(const error_code& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:596:1: note: candidate template ignored: could not match 'pair' against 'vector'
+operator< (const pair<_T1,_T2>& __x, const pair<_T1,_T2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:720:1: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+operator<(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1161:1: note: candidate template ignored: could not match 'move_iterator' against 'vector'
+operator<(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1456:5: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+    operator<(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT_DEBUG;
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:2974:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator< (const unique_ptr<_T1, _D1>& __x, const unique_ptr<_T2, _D2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3032:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(const unique_ptr<_T1, _D1>& __x, nullptr_t)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3041:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(nullptr_t, const unique_ptr<_T1, _D1>& __x)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4812:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, const shared_ptr<_Up>& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4882:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4890:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(nullptr_t, const shared_ptr<_Tp>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:3378:1: note: candidate template ignored: could not match 'std::__1::vector' against 'ft::vector'
+operator< (const vector<_Tp, _Allocator>& __x, const vector<_Tp, _Allocator>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:674:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs, basic_string_view<_CharT, _Traits> __rhs) _NOEXCEPT
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:681:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:689:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3921:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3930:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3939:1: note: candidate template ignored: could not match 'const _CharT *' against 'ft::vector<int>'
+operator< (const _CharT* __lhs,
+^
+./../reverse_iterator.hpp:84:10: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+    bool operator<(const ft::reverse_iterator<Iterator>& x, const ft::reverse_iterator<Iterator>& y){return x.base() < y.base();}
+         ^
+vector_tests.cpp:2130:48: error: invalid operands to binary expression ('ft::vector<int>' and 'ft::vector<int>')
+            cond = (cond && ((v < v1) == (ft_v < ft_v1)));
+                                          ~~~~ ^ ~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:306:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_condition' for 1st argument
+operator<(const error_condition& __x, const error_condition& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:383:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_code' for 1st argument
+operator<(const error_code& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:596:1: note: candidate template ignored: could not match 'pair' against 'vector'
+operator< (const pair<_T1,_T2>& __x, const pair<_T1,_T2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:720:1: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+operator<(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1161:1: note: candidate template ignored: could not match 'move_iterator' against 'vector'
+operator<(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1456:5: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+    operator<(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT_DEBUG;
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:2974:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator< (const unique_ptr<_T1, _D1>& __x, const unique_ptr<_T2, _D2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3032:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(const unique_ptr<_T1, _D1>& __x, nullptr_t)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3041:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(nullptr_t, const unique_ptr<_T1, _D1>& __x)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4812:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, const shared_ptr<_Up>& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4882:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4890:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(nullptr_t, const shared_ptr<_Tp>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:3378:1: note: candidate template ignored: could not match 'std::__1::vector' against 'ft::vector'
+operator< (const vector<_Tp, _Allocator>& __x, const vector<_Tp, _Allocator>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:674:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs, basic_string_view<_CharT, _Traits> __rhs) _NOEXCEPT
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:681:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:689:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3921:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3930:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3939:1: note: candidate template ignored: could not match 'const _CharT *' against 'ft::vector<int>'
+operator< (const _CharT* __lhs,
+^
+./../reverse_iterator.hpp:84:10: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+    bool operator<(const ft::reverse_iterator<Iterator>& x, const ft::reverse_iterator<Iterator>& y){return x.base() < y.base();}
+         ^
+vector_tests.cpp:2140:47: error: invalid operands to binary expression ('ft::vector<int>' and 'ft::vector<int>')
+            cond = (cond && (v < v1) == (ft_v < ft_v1));
+                                         ~~~~ ^ ~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:306:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_condition' for 1st argument
+operator<(const error_condition& __x, const error_condition& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:383:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_code' for 1st argument
+operator<(const error_code& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:596:1: note: candidate template ignored: could not match 'pair' against 'vector'
+operator< (const pair<_T1,_T2>& __x, const pair<_T1,_T2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:720:1: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+operator<(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1161:1: note: candidate template ignored: could not match 'move_iterator' against 'vector'
+operator<(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1456:5: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+    operator<(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT_DEBUG;
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:2974:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator< (const unique_ptr<_T1, _D1>& __x, const unique_ptr<_T2, _D2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3032:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(const unique_ptr<_T1, _D1>& __x, nullptr_t)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3041:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(nullptr_t, const unique_ptr<_T1, _D1>& __x)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4812:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, const shared_ptr<_Up>& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4882:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4890:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(nullptr_t, const shared_ptr<_Tp>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:3378:1: note: candidate template ignored: could not match 'std::__1::vector' against 'ft::vector'
+operator< (const vector<_Tp, _Allocator>& __x, const vector<_Tp, _Allocator>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:674:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs, basic_string_view<_CharT, _Traits> __rhs) _NOEXCEPT
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:681:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:689:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3921:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3930:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3939:1: note: candidate template ignored: could not match 'const _CharT *' against 'ft::vector<int>'
+operator< (const _CharT* __lhs,
+^
+./../reverse_iterator.hpp:84:10: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+    bool operator<(const ft::reverse_iterator<Iterator>& x, const ft::reverse_iterator<Iterator>& y){return x.base() < y.base();}
+         ^
+vector_tests.cpp:2143:48: error: invalid operands to binary expression ('ft::vector<int>' and 'ft::vector<int>')
+            cond = (cond && ((v < v1) == (ft_v < ft_v1)));
+                                          ~~~~ ^ ~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:306:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_condition' for 1st argument
+operator<(const error_condition& __x, const error_condition& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:383:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_code' for 1st argument
+operator<(const error_code& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:596:1: note: candidate template ignored: could not match 'pair' against 'vector'
+operator< (const pair<_T1,_T2>& __x, const pair<_T1,_T2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:720:1: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+operator<(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1161:1: note: candidate template ignored: could not match 'move_iterator' against 'vector'
+operator<(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1456:5: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+    operator<(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT_DEBUG;
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:2974:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator< (const unique_ptr<_T1, _D1>& __x, const unique_ptr<_T2, _D2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3032:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(const unique_ptr<_T1, _D1>& __x, nullptr_t)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3041:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(nullptr_t, const unique_ptr<_T1, _D1>& __x)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4812:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, const shared_ptr<_Up>& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4882:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4890:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(nullptr_t, const shared_ptr<_Tp>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:3378:1: note: candidate template ignored: could not match 'std::__1::vector' against 'ft::vector'
+operator< (const vector<_Tp, _Allocator>& __x, const vector<_Tp, _Allocator>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:674:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs, basic_string_view<_CharT, _Traits> __rhs) _NOEXCEPT
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:681:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:689:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3921:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3930:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3939:1: note: candidate template ignored: could not match 'const _CharT *' against 'ft::vector<int>'
+operator< (const _CharT* __lhs,
+^
+./../reverse_iterator.hpp:84:10: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+    bool operator<(const ft::reverse_iterator<Iterator>& x, const ft::reverse_iterator<Iterator>& y){return x.base() < y.base();}
+         ^
+vector_tests.cpp:2146:48: error: invalid operands to binary expression ('ft::vector<int>' and 'ft::vector<int>')
+            cond = (cond && ((v < v1) == (ft_v < ft_v1)));
+                                          ~~~~ ^ ~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:306:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_condition' for 1st argument
+operator<(const error_condition& __x, const error_condition& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:383:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_code' for 1st argument
+operator<(const error_code& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:596:1: note: candidate template ignored: could not match 'pair' against 'vector'
+operator< (const pair<_T1,_T2>& __x, const pair<_T1,_T2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:720:1: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+operator<(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1161:1: note: candidate template ignored: could not match 'move_iterator' against 'vector'
+operator<(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1456:5: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+    operator<(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT_DEBUG;
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:2974:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator< (const unique_ptr<_T1, _D1>& __x, const unique_ptr<_T2, _D2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3032:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(const unique_ptr<_T1, _D1>& __x, nullptr_t)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3041:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(nullptr_t, const unique_ptr<_T1, _D1>& __x)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4812:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, const shared_ptr<_Up>& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4882:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4890:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(nullptr_t, const shared_ptr<_Tp>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:3378:1: note: candidate template ignored: could not match 'std::__1::vector' against 'ft::vector'
+operator< (const vector<_Tp, _Allocator>& __x, const vector<_Tp, _Allocator>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:674:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs, basic_string_view<_CharT, _Traits> __rhs) _NOEXCEPT
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:681:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:689:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3921:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3930:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3939:1: note: candidate template ignored: could not match 'const _CharT *' against 'ft::vector<int>'
+operator< (const _CharT* __lhs,
+^
+./../reverse_iterator.hpp:84:10: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+    bool operator<(const ft::reverse_iterator<Iterator>& x, const ft::reverse_iterator<Iterator>& y){return x.base() < y.base();}
+         ^
+vector_tests.cpp:2156:47: error: invalid operands to binary expression ('ft::vector<int>' and 'ft::vector<int>')
+            cond = (cond && (v < v1) == (ft_v < ft_v1));
+                                         ~~~~ ^ ~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:306:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_condition' for 1st argument
+operator<(const error_condition& __x, const error_condition& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:383:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_code' for 1st argument
+operator<(const error_code& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:596:1: note: candidate template ignored: could not match 'pair' against 'vector'
+operator< (const pair<_T1,_T2>& __x, const pair<_T1,_T2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:720:1: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+operator<(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1161:1: note: candidate template ignored: could not match 'move_iterator' against 'vector'
+operator<(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1456:5: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+    operator<(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT_DEBUG;
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:2974:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator< (const unique_ptr<_T1, _D1>& __x, const unique_ptr<_T2, _D2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3032:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(const unique_ptr<_T1, _D1>& __x, nullptr_t)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3041:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(nullptr_t, const unique_ptr<_T1, _D1>& __x)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4812:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, const shared_ptr<_Up>& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4882:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4890:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(nullptr_t, const shared_ptr<_Tp>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:3378:1: note: candidate template ignored: could not match 'std::__1::vector' against 'ft::vector'
+operator< (const vector<_Tp, _Allocator>& __x, const vector<_Tp, _Allocator>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:674:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs, basic_string_view<_CharT, _Traits> __rhs) _NOEXCEPT
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:681:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:689:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3921:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3930:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3939:1: note: candidate template ignored: could not match 'const _CharT *' against 'ft::vector<int>'
+operator< (const _CharT* __lhs,
+^
+./../reverse_iterator.hpp:84:10: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+    bool operator<(const ft::reverse_iterator<Iterator>& x, const ft::reverse_iterator<Iterator>& y){return x.base() < y.base();}
+         ^
+vector_tests.cpp:2159:48: error: invalid operands to binary expression ('ft::vector<int>' and 'ft::vector<int>')
+            cond = (cond && ((v < v1) == (ft_v < ft_v1)));
+                                          ~~~~ ^ ~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:306:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_condition' for 1st argument
+operator<(const error_condition& __x, const error_condition& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:383:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_code' for 1st argument
+operator<(const error_code& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:596:1: note: candidate template ignored: could not match 'pair' against 'vector'
+operator< (const pair<_T1,_T2>& __x, const pair<_T1,_T2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:720:1: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+operator<(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1161:1: note: candidate template ignored: could not match 'move_iterator' against 'vector'
+operator<(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1456:5: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+    operator<(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT_DEBUG;
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:2974:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator< (const unique_ptr<_T1, _D1>& __x, const unique_ptr<_T2, _D2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3032:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(const unique_ptr<_T1, _D1>& __x, nullptr_t)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3041:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(nullptr_t, const unique_ptr<_T1, _D1>& __x)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4812:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, const shared_ptr<_Up>& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4882:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4890:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(nullptr_t, const shared_ptr<_Tp>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:3378:1: note: candidate template ignored: could not match 'std::__1::vector' against 'ft::vector'
+operator< (const vector<_Tp, _Allocator>& __x, const vector<_Tp, _Allocator>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:674:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs, basic_string_view<_CharT, _Traits> __rhs) _NOEXCEPT
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:681:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:689:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3921:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3930:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3939:1: note: candidate template ignored: could not match 'const _CharT *' against 'ft::vector<int>'
+operator< (const _CharT* __lhs,
+^
+./../reverse_iterator.hpp:84:10: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+    bool operator<(const ft::reverse_iterator<Iterator>& x, const ft::reverse_iterator<Iterator>& y){return x.base() < y.base();}
+         ^
+vector_tests.cpp:2162:48: error: invalid operands to binary expression ('ft::vector<int>' and 'ft::vector<int>')
+            cond = (cond && ((v < v1) == (ft_v < ft_v1)));
+                                          ~~~~ ^ ~~~~~
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:306:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_condition' for 1st argument
+operator<(const error_condition& __x, const error_condition& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:383:1: note: candidate function not viable: no known conversion from 'ft::vector<int>' to 'const std::__1::error_code' for 1st argument
+operator<(const error_code& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:596:1: note: candidate template ignored: could not match 'pair' against 'vector'
+operator< (const pair<_T1,_T2>& __x, const pair<_T1,_T2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:720:1: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+operator<(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1161:1: note: candidate template ignored: could not match 'move_iterator' against 'vector'
+operator<(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1456:5: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+    operator<(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT_DEBUG;
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:2974:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator< (const unique_ptr<_T1, _D1>& __x, const unique_ptr<_T2, _D2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3032:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(const unique_ptr<_T1, _D1>& __x, nullptr_t)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3041:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(nullptr_t, const unique_ptr<_T1, _D1>& __x)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4812:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, const shared_ptr<_Up>& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4882:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4890:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(nullptr_t, const shared_ptr<_Tp>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:3378:1: note: candidate template ignored: could not match 'std::__1::vector' against 'ft::vector'
+operator< (const vector<_Tp, _Allocator>& __x, const vector<_Tp, _Allocator>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:674:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs, basic_string_view<_CharT, _Traits> __rhs) _NOEXCEPT
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:681:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:689:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3921:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3930:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3939:1: note: candidate template ignored: could not match 'const _CharT *' against 'ft::vector<int>'
+operator< (const _CharT* __lhs,
+^
+./../reverse_iterator.hpp:84:10: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+    bool operator<(const ft::reverse_iterator<Iterator>& x, const ft::reverse_iterator<Iterator>& y){return x.base() < y.base();}
+         ^
+In file included from vector_tests.cpp:21:
+In file included from ./../vector.hpp:8:
+./../random_it.hpp:20:24: error: non-const lvalue reference to type 'ft::random_it<int>' cannot bind to a temporary of type 'ft::random_it<int> *'
+                return this;
+                       ^~~~
+vector_tests.cpp:54:11: note: in instantiation of member function 'ft::random_it<int>::operator=' requested here
+    my_it = my_v.begin();
+          ^
+In file included from vector_tests.cpp:21:
+In file included from ./../vector.hpp:8:
+./../random_it.hpp:20:24: error: non-const lvalue reference to type 'ft::random_it<const int>' cannot bind to a temporary of type 'ft::random_it<const int> *'
+                return this;
+                       ^~~~
+vector_tests.cpp:67:14: note: in instantiation of member function 'ft::random_it<const int>::operator=' requested here
+        c_it = my_it;
+             ^
+In file included from vector_tests.cpp:21:
+In file included from ./../vector.hpp:8:
+./../random_it.hpp:78:28: error: cannot assign to non-static data member within const member function 'operator+='
+                 this->ptr = &this->ptr[n];
+                 ~~~~~~~~~ ^
+vector_tests.cpp:109:11: note: in instantiation of member function 'ft::random_it<int>::operator+=' requested here
+    my_it += 1;
+          ^
+./../random_it.hpp:77:18: note: member function 'ft::random_it<int>::operator+=' is declared const here
+            void operator+=(ptrdiff_t n) const {
+            ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./../random_it.hpp:81:27: error: cannot assign to non-static data member within const member function 'operator-='
+                this->ptr =  &this->ptr[-n];
+                ~~~~~~~~~ ^
+vector_tests.cpp:113:11: note: in instantiation of member function 'ft::random_it<int>::operator-=' requested here
+    my_it -= 1;
+          ^
+./../random_it.hpp:80:18: note: member function 'ft::random_it<int>::operator-=' is declared const here
+            void operator-=(ptrdiff_t n) const {
+            ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./../random_it.hpp:78:28: error: cannot assign to non-static data member within const member function 'operator+='
+                 this->ptr = &this->ptr[n];
+                 ~~~~~~~~~ ^
+vector_tests.cpp:203:11: note: in instantiation of member function 'ft::random_it<const int>::operator+=' requested here
+    my_it += 1;
+          ^
+./../random_it.hpp:77:18: note: member function 'ft::random_it<const int>::operator+=' is declared const here
+            void operator+=(ptrdiff_t n) const {
+            ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./../random_it.hpp:81:27: error: cannot assign to non-static data member within const member function 'operator-='
+                this->ptr =  &this->ptr[-n];
+                ~~~~~~~~~ ^
+vector_tests.cpp:207:11: note: in instantiation of member function 'ft::random_it<const int>::operator-=' requested here
+    my_it -= 1;
+          ^
+./../random_it.hpp:80:18: note: member function 'ft::random_it<const int>::operator-=' is declared const here
+            void operator-=(ptrdiff_t n) const {
+            ~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+In file included from vector_tests.cpp:21:
+In file included from ./../vector.hpp:9:
+./../reverse_iterator.hpp:27:70: error: 'current' is a protected member of 'ft::reverse_iterator<ft::random_it<int> >'
+        reverse_iterator(const ft::reverse_iterator<U>& u):current(u.current){}
+                                                                     ^
+vector_tests.cpp:259:16: note: in instantiation of function template specialization 'ft::reverse_iterator<ft::random_it<const int> >::reverse_iterator<ft::random_it<int> >' requested here
+        c_it = my_rit2;
+               ^
+./../reverse_iterator.hpp:16:18: note: declared protected here
+        Iterator current;
+                 ^
+In file included from vector_tests.cpp:21:
+In file included from ./../vector.hpp:8:
+./../random_it.hpp:20:24: error: non-const lvalue reference to type 'ft::random_it<std::__1::basic_string<char> >' cannot bind to a temporary of type 'ft::random_it<std::__1::basic_string<char> > *'
+                return this;
+                       ^~~~
+vector_tests.cpp:829:21: note: in instantiation of member function 'ft::random_it<std::__1::basic_string<char> >::operator=' requested here
+        ft_valid_it = ft_v1.begin();
+                    ^
+In file included from vector_tests.cpp:21:
+./../vector.hpp:164:20: error: no viable conversion from 'ft::vector::size_type' (aka 'unsigned long') to 'ft::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::value_type' (aka 'std::__1::basic_string<char>')
+        value_type new_capacity = this->capacity_;
+                   ^              ~~~~~~~~~~~~~~~
+vector_tests.cpp:1361:26: note: in instantiation of member function 'ft::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::insert' requested here
+            ft_it = ft_v.insert(ft_v.begin(), "hello");
+                         ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:800:5: note: candidate constructor not viable: no known conversion from 'ft::vector::size_type' (aka 'unsigned long') to 'const std::__1::basic_string<char> &' for 1st argument
+    basic_string(const basic_string& __str);
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:818:5: note: candidate constructor template not viable: no known conversion from 'ft::vector::size_type' (aka 'unsigned long') to 'const char *' for 1st argument
+    basic_string(const _CharT* __s) {
+    ^
+In file included from vector_tests.cpp:21:
+./../vector.hpp:188:20: error: no viable conversion from 'ft::vector::size_type' (aka 'unsigned long') to 'ft::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::value_type' (aka 'std::__1::basic_string<char>')
+        value_type new_capacity = this->capacity_;
+                   ^              ~~~~~~~~~~~~~~~
+vector_tests.cpp:1470:18: note: in instantiation of member function 'ft::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::insert' requested here
+            ft_v.insert(ft_v.begin(), 100, "hello");
+                 ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:800:5: note: candidate constructor not viable: no known conversion from 'ft::vector::size_type' (aka 'unsigned long') to 'const std::__1::basic_string<char> &' for 1st argument
+    basic_string(const basic_string& __str);
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:818:5: note: candidate constructor template not viable: no known conversion from 'ft::vector::size_type' (aka 'unsigned long') to 'const char *' for 1st argument
+    basic_string(const _CharT* __s) {
+    ^
+In file included from vector_tests.cpp:21:
+./../vector.hpp:214:20: error: no viable conversion from 'ft::vector::size_type' (aka 'unsigned long') to 'ft::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::value_type' (aka 'std::__1::basic_string<char>')
+        value_type old_size = this->size_;
+                   ^          ~~~~~~~~~~~
+vector_tests.cpp:1599:18: note: in instantiation of function template specialization 'ft::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::insert<std::__1::__wrap_iter<std::__1::basic_string<char> *> >' requested here
+            ft_v.insert(ft_v.begin(), v1.begin(), v1.end());
+                 ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:800:5: note: candidate constructor not viable: no known conversion from 'ft::vector::size_type' (aka 'unsigned long') to 'const std::__1::basic_string<char> &' for 1st argument
+    basic_string(const basic_string& __str);
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:818:5: note: candidate constructor template not viable: no known conversion from 'ft::vector::size_type' (aka 'unsigned long') to 'const char *' for 1st argument
+    basic_string(const _CharT* __s) {
+    ^
+In file included from vector_tests.cpp:21:
+./../vector.hpp:214:20: error: no viable conversion from 'ft::vector::size_type' (aka 'unsigned long') to 'ft::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::value_type' (aka 'std::__1::basic_string<char>')
+        value_type old_size = this->size_;
+                   ^          ~~~~~~~~~~~
+vector_tests.cpp:1619:18: note: in instantiation of function template specialization 'ft::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::insert<ft::random_it<std::__1::basic_string<char> > >' requested here
+            ft_v.insert(ft_v.end(), v1.begin(), v1.end());
+                 ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:800:5: note: candidate constructor not viable: no known conversion from 'ft::vector::size_type' (aka 'unsigned long') to 'const std::__1::basic_string<char> &' for 1st argument
+    basic_string(const basic_string& __str);
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:818:5: note: candidate constructor template not viable: no known conversion from 'ft::vector::size_type' (aka 'unsigned long') to 'const char *' for 1st argument
+    basic_string(const _CharT* __s) {
+    ^
+In file included from vector_tests.cpp:21:
+./../vector.hpp:264:37: error: invalid operands to binary expression ('ft::vector::size_type' (aka 'unsigned long') and 'ft::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::value_type' (aka 'std::__1::basic_string<char>'))
+                        this->size_ -= n;
+                        ~~~~~~~~~~~ ^  ~
+vector_tests.cpp:1772:26: note: in instantiation of member function 'ft::vector<std::__1::basic_string<char>, std::__1::allocator<std::__1::basic_string<char> > >::erase' requested here
+            ft_it = ft_v.erase(ft_v.begin(), ft_v.end());
+                         ^
+In file included from vector_tests.cpp:21:
+./../vector.hpp:304:18: error: 'this' argument to member function 'begin' has type 'const ft::vector<int, allocator<int> >', but function is not marked const
+    return equal(x.begin(),x.end(),y.begin());
+                 ^
+vector_tests.cpp:2018:40: note: in instantiation of function template specialization 'ft::operator==<int, std::__1::allocator<int> >' requested here
+            cond = ((v == v1) == (ft_v == ft_v1));
+                                       ^
+./../vector.hpp:91:29: note: 'begin' declared here
+    iterator                begin(){return iterator(this->data);}
+                            ^
+./../vector.hpp:308:13: error: invalid operands to binary expression ('const ft::vector<int, allocator<int> >' and 'const ft::vector<int, allocator<int> >')
+    if (!(x == y))
+          ~ ^  ~
+vector_tests.cpp:2071:40: note: in instantiation of function template specialization 'ft::operator!=<int, std::__1::allocator<int> >' requested here
+            cond = ((v != v1) == (ft_v != ft_v1));
+                                       ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:391:1: note: candidate function not viable: no known conversion from 'const ft::vector<int, allocator<int> >' to 'const std::__1::error_code' for 1st argument
+operator==(const error_code& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:398:1: note: candidate function not viable: no known conversion from 'const ft::vector<int, allocator<int> >' to 'const std::__1::error_code' for 1st argument
+operator==(const error_code& __x, const error_condition& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:406:1: note: candidate function not viable: no known conversion from 'const ft::vector<int, allocator<int> >' to 'const std::__1::error_condition' for 1st argument
+operator==(const error_condition& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:413:1: note: candidate function not viable: no known conversion from 'const ft::vector<int, allocator<int> >' to 'const std::__1::error_condition' for 1st argument
+operator==(const error_condition& __x, const error_condition& __y) _NOEXCEPT
+^
+./../vector.hpp:303:6: note: candidate template ignored: substitution failure [with T = int, Alloc = std::__1::allocator<int>]
+bool operator== (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:580:1: note: candidate template ignored: could not match 'pair' against 'vector'
+operator==(const pair<_T1,_T2>& __x, const pair<_T1,_T2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:712:1: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+operator==(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:941:1: note: candidate template ignored: could not match 'istream_iterator' against 'vector'
+operator==(const istream_iterator<_Tp, _CharT, _Traits, _Distance>& __x,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1045:6: note: candidate template ignored: could not match 'istreambuf_iterator' against 'vector'
+bool operator==(const istreambuf_iterator<_CharT,_Traits>& __a,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1153:1: note: candidate template ignored: could not match 'move_iterator' against 'vector'
+operator==(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1451:5: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+    operator==(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT_DEBUG;
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:1987:6: note: candidate template ignored: could not match 'allocator' against 'vector'
+bool operator==(const allocator<_Tp>&, const allocator<_Up>&) _NOEXCEPT {return true;}
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:2964:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator==(const unique_ptr<_T1, _D1>& __x, const unique_ptr<_T2, _D2>& __y) {return __x.get() == __y.get();}
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3000:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator==(const unique_ptr<_T1, _D1>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3008:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator==(nullptr_t, const unique_ptr<_T1, _D1>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4796:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator==(const shared_ptr<_Tp>& __x, const shared_ptr<_Up>& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4850:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator==(const shared_ptr<_Tp>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4858:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator==(nullptr_t, const shared_ptr<_Tp>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__functional_03:1569:1: note: candidate template ignored: could not match 'function' against 'vector'
+operator==(const function<_Fp>& __f, nullptr_t) {return !__f;}
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__functional_03:1574:1: note: candidate template ignored: could not match 'function' against 'vector'
+operator==(nullptr_t, const function<_Fp>& __f) {return !__f;}
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:3361:1: note: candidate template ignored: could not match 'std::__1::vector' against 'ft::vector'
+operator==(const vector<_Tp, _Allocator>& __x, const vector<_Tp, _Allocator>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:614:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator==(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:623:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator==(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:632:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator==(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:564:6: note: candidate template ignored: could not match 'fpos' against 'vector'
+bool operator==(const fpos<_StateT>& __x, const fpos<_StateT>& __y)
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3835:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator==(const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3847:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator==(const basic_string<char, char_traits<char>, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3866:1: note: candidate template ignored: could not match 'const _CharT *' against 'ft::vector<int, allocator<int> >'
+operator==(const _CharT* __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3879:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator==(const basic_string<_CharT,_Traits,_Allocator>& __lhs,
+^
+./../reverse_iterator.hpp:82:10: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+    bool operator==(const ft::reverse_iterator<Iterator>& x,const ft::reverse_iterator<Iterator>& y){return x.base() == y.base();}
+         ^
+In file included from vector_tests.cpp:21:
+./../vector.hpp:318:11: error: invalid operands to binary expression ('const ft::vector<int, allocator<int> >' and 'const ft::vector<int, allocator<int> >')
+    if (x == y || x < y)
+        ~ ^  ~
+vector_tests.cpp:2177:40: note: in instantiation of function template specialization 'ft::operator<=<int, std::__1::allocator<int> >' requested here
+            cond = ((v <= v1) == (ft_v <= ft_v1));
+                                       ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:391:1: note: candidate function not viable: no known conversion from 'const ft::vector<int, allocator<int> >' to 'const std::__1::error_code' for 1st argument
+operator==(const error_code& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:398:1: note: candidate function not viable: no known conversion from 'const ft::vector<int, allocator<int> >' to 'const std::__1::error_code' for 1st argument
+operator==(const error_code& __x, const error_condition& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:406:1: note: candidate function not viable: no known conversion from 'const ft::vector<int, allocator<int> >' to 'const std::__1::error_condition' for 1st argument
+operator==(const error_condition& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:413:1: note: candidate function not viable: no known conversion from 'const ft::vector<int, allocator<int> >' to 'const std::__1::error_condition' for 1st argument
+operator==(const error_condition& __x, const error_condition& __y) _NOEXCEPT
+^
+./../vector.hpp:303:6: note: candidate template ignored: substitution failure [with T = int, Alloc = std::__1::allocator<int>]
+bool operator== (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:580:1: note: candidate template ignored: could not match 'pair' against 'vector'
+operator==(const pair<_T1,_T2>& __x, const pair<_T1,_T2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:712:1: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+operator==(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:941:1: note: candidate template ignored: could not match 'istream_iterator' against 'vector'
+operator==(const istream_iterator<_Tp, _CharT, _Traits, _Distance>& __x,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1045:6: note: candidate template ignored: could not match 'istreambuf_iterator' against 'vector'
+bool operator==(const istreambuf_iterator<_CharT,_Traits>& __a,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1153:1: note: candidate template ignored: could not match 'move_iterator' against 'vector'
+operator==(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1451:5: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+    operator==(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT_DEBUG;
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:1987:6: note: candidate template ignored: could not match 'allocator' against 'vector'
+bool operator==(const allocator<_Tp>&, const allocator<_Up>&) _NOEXCEPT {return true;}
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:2964:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator==(const unique_ptr<_T1, _D1>& __x, const unique_ptr<_T2, _D2>& __y) {return __x.get() == __y.get();}
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3000:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator==(const unique_ptr<_T1, _D1>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3008:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator==(nullptr_t, const unique_ptr<_T1, _D1>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4796:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator==(const shared_ptr<_Tp>& __x, const shared_ptr<_Up>& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4850:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator==(const shared_ptr<_Tp>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4858:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator==(nullptr_t, const shared_ptr<_Tp>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__functional_03:1569:1: note: candidate template ignored: could not match 'function' against 'vector'
+operator==(const function<_Fp>& __f, nullptr_t) {return !__f;}
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/__functional_03:1574:1: note: candidate template ignored: could not match 'function' against 'vector'
+operator==(nullptr_t, const function<_Fp>& __f) {return !__f;}
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:3361:1: note: candidate template ignored: could not match 'std::__1::vector' against 'ft::vector'
+operator==(const vector<_Tp, _Allocator>& __x, const vector<_Tp, _Allocator>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:614:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator==(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:623:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator==(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:632:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator==(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:564:6: note: candidate template ignored: could not match 'fpos' against 'vector'
+bool operator==(const fpos<_StateT>& __x, const fpos<_StateT>& __y)
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3835:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator==(const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3847:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator==(const basic_string<char, char_traits<char>, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3866:1: note: candidate template ignored: could not match 'const _CharT *' against 'ft::vector<int, allocator<int> >'
+operator==(const _CharT* __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3879:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator==(const basic_string<_CharT,_Traits,_Allocator>& __lhs,
+^
+./../reverse_iterator.hpp:82:10: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+    bool operator==(const ft::reverse_iterator<Iterator>& x,const ft::reverse_iterator<Iterator>& y){return x.base() == y.base();}
+         ^
+In file included from vector_tests.cpp:21:
+./../vector.hpp:324:13: error: invalid operands to binary expression ('const ft::vector<int, allocator<int> >' and 'const ft::vector<int, allocator<int> >')
+    if (!(x < y) && x != y)
+          ~ ^ ~
+vector_tests.cpp:2230:39: note: in instantiation of function template specialization 'ft::operator><int, std::__1::allocator<int> >' requested here
+            cond = ((v > v1) == (ft_v > ft_v1));
+                                      ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:306:1: note: candidate function not viable: no known conversion from 'const ft::vector<int, allocator<int> >' to 'const std::__1::error_condition' for 1st argument
+operator<(const error_condition& __x, const error_condition& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/system_error:383:1: note: candidate function not viable: no known conversion from 'const ft::vector<int, allocator<int> >' to 'const std::__1::error_code' for 1st argument
+operator<(const error_code& __x, const error_code& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:596:1: note: candidate template ignored: could not match 'pair' against 'vector'
+operator< (const pair<_T1,_T2>& __x, const pair<_T1,_T2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:720:1: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+operator<(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1161:1: note: candidate template ignored: could not match 'move_iterator' against 'vector'
+operator<(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1456:5: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+    operator<(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT_DEBUG;
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:2974:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator< (const unique_ptr<_T1, _D1>& __x, const unique_ptr<_T2, _D2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3032:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(const unique_ptr<_T1, _D1>& __x, nullptr_t)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3041:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator<(nullptr_t, const unique_ptr<_T1, _D1>& __x)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4812:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, const shared_ptr<_Up>& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4882:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(const shared_ptr<_Tp>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4890:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator<(nullptr_t, const shared_ptr<_Tp>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:3378:1: note: candidate template ignored: could not match 'std::__1::vector' against 'ft::vector'
+operator< (const vector<_Tp, _Allocator>& __x, const vector<_Tp, _Allocator>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:674:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs, basic_string_view<_CharT, _Traits> __rhs) _NOEXCEPT
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:681:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:689:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator<(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3921:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3930:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator< (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3939:1: note: candidate template ignored: could not match 'const _CharT *' against 'ft::vector<int, allocator<int> >'
+operator< (const _CharT* __lhs,
+^
+./../reverse_iterator.hpp:84:10: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+    bool operator<(const ft::reverse_iterator<Iterator>& x, const ft::reverse_iterator<Iterator>& y){return x.base() < y.base();}
+         ^
+In file included from vector_tests.cpp:21:
+./../vector.hpp:330:11: error: invalid operands to binary expression ('const ft::vector<int, allocator<int> >' and 'const ft::vector<int, allocator<int> >')
+    if (x > y || x == y)
+        ~ ^ ~
+vector_tests.cpp:2283:40: note: in instantiation of function template specialization 'ft::operator>=<int, std::__1::allocator<int> >' requested here
+            cond = ((v >= v1) == (ft_v >= ft_v1));
+                                       ^
+./../vector.hpp:323:6: note: candidate template ignored: substitution failure [with T = int, Alloc = std::__1::allocator<int>]
+bool operator>  (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/utility:604:1: note: candidate template ignored: could not match 'pair' against 'vector'
+operator> (const pair<_T1,_T2>& __x, const pair<_T1,_T2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:736:1: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+operator>(const reverse_iterator<_Iter1>& __x, const reverse_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1177:1: note: candidate template ignored: could not match 'move_iterator' against 'vector'
+operator>(const move_iterator<_Iter1>& __x, const move_iterator<_Iter2>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1466:5: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+    operator>(const __wrap_iter<_Iter1>&, const __wrap_iter<_Iter2>&) _NOEXCEPT_DEBUG;
+    ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/iterator:1585:1: note: candidate template ignored: could not match '__wrap_iter' against 'vector'
+operator>(const __wrap_iter<_Iter1>& __x, const __wrap_iter<_Iter1>& __y) _NOEXCEPT_DEBUG
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:2985:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator> (const unique_ptr<_T1, _D1>& __x, const unique_ptr<_T2, _D2>& __y) {return __y < __x;}
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3050:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator>(const unique_ptr<_T1, _D1>& __x, nullptr_t)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:3058:1: note: candidate template ignored: could not match 'unique_ptr' against 'vector'
+operator>(nullptr_t, const unique_ptr<_T1, _D1>& __x)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4826:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator>(const shared_ptr<_Tp>& __x, const shared_ptr<_Up>& __y) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4898:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator>(const shared_ptr<_Tp>& __x, nullptr_t) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/memory:4906:1: note: candidate template ignored: could not match 'shared_ptr' against 'vector'
+operator>(nullptr_t, const shared_ptr<_Tp>& __x) _NOEXCEPT
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/vector:3386:1: note: candidate template ignored: could not match 'std::__1::vector' against 'ft::vector'
+operator> (const vector<_Tp, _Allocator>& __x, const vector<_Tp, _Allocator>& __y)
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:699:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator> (basic_string_view<_CharT, _Traits> __lhs, basic_string_view<_CharT, _Traits> __rhs) _NOEXCEPT
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:706:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator>(basic_string_view<_CharT, _Traits> __lhs,
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string_view:714:6: note: candidate template ignored: could not match 'basic_string_view' against 'vector'
+bool operator>(typename common_type<basic_string_view<_CharT, _Traits> >::type __lhs, 
+     ^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3950:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator> (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3959:1: note: candidate template ignored: could not match 'basic_string' against 'vector'
+operator> (const basic_string<_CharT, _Traits, _Allocator>& __lhs,
+^
+/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/../include/c++/v1/string:3968:1: note: candidate template ignored: could not match 'const _CharT *' against 'ft::vector<int, allocator<int> >'
+operator> (const _CharT* __lhs,
+^
+./../reverse_iterator.hpp:88:10: note: candidate template ignored: could not match 'reverse_iterator' against 'vector'
+    bool operator>(const ft::reverse_iterator<Iterator>& x ,const ft::reverse_iterator<Iterator>& y){return x.base() > y.base();}
+         ^
+42 errors generated.
+make: *** [vector] Error 1

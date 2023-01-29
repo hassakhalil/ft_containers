@@ -60,6 +60,13 @@
         "typeinfo": "cpp",
         "variant": "cpp",
         "algorithm": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "__functional_base": "cpp",
+        "__functional_base_03": "cpp",
+        "__tree": "cpp",
+        "filesystem": "cpp",
+        "functional": "cpp",
+        "random": "cpp",
+        "utility": "cpp"
     }
 }

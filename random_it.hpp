@@ -16,8 +16,8 @@ namespace ft
             template <typename U>
             random_it(const random_it<U>& other):ptr(other.base()){}
             random_it& operator=(const random_it& other){
-                this->ptr=other.ptr;
-                return this;
+                this->ptr=other.base();
+                return *this;
             }
             ~random_it(){}
             random_it& operator++() {
@@ -74,10 +74,10 @@ namespace ft
             T& operator[](ptrdiff_t n) const {
                 return ptr[n];
             }
-            void operator+=(ptrdiff_t n) const {
+            void operator+=(ptrdiff_t n){
                  this->ptr = &this->ptr[n];
             }
-            void operator-=(ptrdiff_t n) const {
+            void operator-=(ptrdiff_t n){
                 this->ptr =  &this->ptr[-n];
             }
     };
