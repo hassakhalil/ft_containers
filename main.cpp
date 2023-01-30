@@ -8,16 +8,12 @@ int main()
 {
   //testing const_iterator
   const int size = 5;
-	ft::vector<int> vct(size,3);
-  ft::vector<int> vctclone(size,4);
-  bool bb = vct > vctclone;
-  std::cout<<bb<<std::endl;
-  
-	// ft::vector<int>::iterator ittt = vct.begin();
-	// ft::vector<int>::const_iterator ite = vct.begin();
+	ft::vector<int> vct(size);
+	ft::vector<int>::iterator ittt = vct.begin();
+	ft::vector<int>::const_iterator ite = vct.begin();
 
-	// for (int i = 0; i < size; ++i)
-	// 	ittt[i] = i;
+	for (int i = 0; i < size; ++i)
+		ittt[i] = i;
 
 	// *ite = 42; // < -- error
   // return 0;

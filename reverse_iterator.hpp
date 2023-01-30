@@ -21,18 +21,18 @@ namespace ft
         typedef typename ft::iterator_traits<Iterator>::reference       reference;
         typedef typename ft::iterator_traits<Iterator>::pointer         pointer;
 
-        Iterator base()const{
-            return this->current;
-        }
         reverse_iterator():current(Iterator()){}
         explicit reverse_iterator(Iterator X):current(X){}
         template <class U>
-        reverse_iterator(const ft::reverse_iterator<U>& u):current(u.base()){}
+        reverse_iterator(const ft::reverse_iterator<U>& u):current(u.current){}
         ft::reverse_iterator<Iterator>& operator=(const ft::reverse_iterator<Iterator>& other){
-            this->current = other.base();
+            this->current = other.current;
             return *this;
         }
         ~reverse_iterator(){}
+        Iterator base()const{
+                return this->current;
+        }
         reference operator*()const{
             Iterator tmp = this->current;
             return *--tmp;
