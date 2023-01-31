@@ -50,9 +50,8 @@ class vector {
         this->size_ = 0;
         this->capacity_ = 2;
         this->data = this->get_allocator().allocate(2);
-        while(first!=last){
+        for(;first!=last;first++){
             this->push_back(*first);
-            first++;
         }
     }
     vector(const ft::vector<T,allocator_type >& x){
@@ -67,11 +66,8 @@ class vector {
         clear();
     }
     ft::vector<T,allocator_type>& operator=(const ft::vector<T,allocator_type>& x){
-            for(int i=0;i<(int)this->size_;i++){
-                allocator_type().destroy(this->data +i);
-            }
+            this->clear();
             this->size_ = 0;
-            allocator_type().deallocate(this->data,this->capacity_);
             this->data = this->get_allocator().allocate(x.capacity_);
             this->capacity_=x.capacity_;
             for(int i=0;i<(int)x.size_;i++){
@@ -110,10 +106,7 @@ class vector {
         if (n < this->size_)
         {
             while (this->size_ > n)
-            {
-                this->get_allocator().destroy(this->data + this->size_);
-                this->size_--;
-            }
+                this->pop_back();
         }
         else if (n > this->size_)
         {
@@ -138,12 +131,8 @@ class vector {
     }
 
     //----------------------------------------------------element access:
-    reference       operator[](size_type n){
-        return this->data[n];
-    }
-    const_reference operator[](size_type n) const{
-        return this->data[n];
-    }
+    reference       operator[](size_type n){return this->data[n];}
+    const_reference operator[](size_type n) const{return this->data[n];}
     const_reference at(size_type n) const{
         if (n>=this->size())
             throw std::out_of_range("Error: index is out of range");
@@ -154,18 +143,10 @@ class vector {
             throw std::out_of_range("Error: index is out of range");
         return this->data[n];
     }
-    reference       front(){
-        return this->data[0];
-    }
-    const_reference front() const{
-        return this->data[0];
-    }
-    reference       back(){
-        return this->data[this->size_];
-    }
-    const_reference back() const{
-        return this->data[this->size_];
-    }
+    reference       front(){return this->data[0];}
+    const_reference front() const{return this->data[0];}
+    reference       back(){return this->data[this->size_];}
+    const_reference back() const{return this->data[this->size_];}
 
     //----------------------------------------------------modifiers:
     void     push_back(const value_type& x){
