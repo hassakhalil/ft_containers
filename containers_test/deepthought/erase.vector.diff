@@ -1,0 +1,132 @@
+0a1,131
+> size: 10
+> capacity: OK
+> max_size: 768614336404564650
+> 
+> Content is:
+> - AAAAAAAAAA
+> - BBBBBBBBB
+> - CCCCCCCC
+> - DDDDDDD
+> - EEEEEE
+> - FFFFF
+> - GGGG
+> - HHH
+> - II
+> - J
+> ###############################################
+> [0] erase: 3
+> size: 9
+> capacity: OK
+> max_size: 768614336404564650
+> 
+> Content is:
+> - AAAAAAAAAA
+> - BBBBBBBBB
+> - DDDDDDD
+> - EEEEEE
+> - FFFFF
+> - GGGG
+> - HHH
+> - II
+> - J
+> ###############################################
+> [1] erase: 1
+> size: 8
+> capacity: OK
+> max_size: 768614336404564650
+> 
+> Content is:
+> - BBBBBBBBB
+> - DDDDDDD
+> - EEEEEE
+> - FFFFF
+> - GGGG
+> - HHH
+> - II
+> - J
+> ###############################################
+> [2] erase: 8
+> size: 7
+> capacity: OK
+> max_size: 768614336404564650
+> 
+> Content is:
+> - BBBBBBBBB
+> - DDDDDDD
+> - EEEEEE
+> - FFFFF
+> - GGGG
+> - HHH
+> - II
+> ###############################################
+> [3] erase: 3
+> size: 4
+> capacity: OK
+> max_size: 768614336404564650
+> 
+> Content is:
+> - FFFFF
+> - GGGG
+> - HHH
+> - II
+> ###############################################
+> [4] erase: 3
+> size: 2
+> capacity: OK
+> max_size: 768614336404564650
+> 
+> Content is:
+> - FFFFF
+> - II
+> ###############################################
+> size: 4
+> capacity: OK
+> max_size: 768614336404564650
+> 
+> Content is:
+> - FFFFF
+> - II
+> - Hello
+> - Hi there
+> ###############################################
+> [5] erase: -5858623575836
+> size: 4
+> capacity: OK
+> max_size: 768614336404564650
+> 
+> Content is:
+> - FFFFF
+> - II
+> - Hello
+> - Hi there
+> ###############################################
+> size: 8
+> capacity: OK
+> max_size: 768614336404564650
+> 
+> Content is:
+> - FFFFF
+> - II
+> - Hello
+> - Hi there
+> - ONE
+> - TWO
+> - THREE
+> - FOUR
+> ###############################################
+> [6] erase: -5858623575836
+> size: 8
+> capacity: OK
+> max_size: 768614336404564650
+> 
+> Content is:
+> - FFFFF
+> - II
+> - Hello
+> - Hi there
+> - ONE
+> - TWO
+> - THREE
+> - FOUR
+> ###############################################

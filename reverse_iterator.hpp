@@ -24,9 +24,9 @@ namespace ft
         reverse_iterator():current(Iterator()){}
         explicit reverse_iterator(Iterator X):current(X){}
         template <class U>
-        reverse_iterator(const ft::reverse_iterator<U>& u):current(u.current){}
+        reverse_iterator(const ft::reverse_iterator<U>& u):current(u.base()){}
         ft::reverse_iterator<Iterator>& operator=(const ft::reverse_iterator<Iterator>& other){
-            this->current = other.current;
+            this->current = other.base();
             return *this;
         }
         ~reverse_iterator(){}

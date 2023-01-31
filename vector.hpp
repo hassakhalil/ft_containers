@@ -85,13 +85,6 @@ class vector {
         this->insert(this->begin(),first,last);
     }
     void assign(size_type n, const T& u){
-        // for (int i=0;i<(int)this->size_;i++){
-        //     this->get_allocator().destroy(this->data+i);
-        // }
-        // this->size_ = n;
-        // for (int i=0;i<(int)this->size_;i++){
-        //     this->get_allocator().construct(this->data +i,u);            
-        // }
         this->erase(this->begin(),this->end());
         this->insert(this->begin(),n,u);
 
@@ -101,14 +94,14 @@ class vector {
     }
 
     //---------------------------------------------------iterators:
-    iterator                begin(){return iterator(this->data);}
-    const_iterator          cbegin() {return const_iterator(this->data);}
-    iterator                end(){return iterator(this->data + this->size_);}
-    const_iterator          cend() {return const_iterator(this->data + this->size_);}
-    reverse_iterator        rbegin(){return reverse_iterator(this->end());}
-    const_reverse_iterator  crbegin() {return const_reverse_iterator(this->end());}
-    reverse_iterator        rend(){return reverse_iterator(this->begin());}
-    const_reverse_iterator  crend() {return const_reverse_iterator(this->begin());}
+    iterator                begin()const{return iterator(this->data);}
+    const_iterator          cbegin() const{return const_iterator(this->data);}
+    iterator                end()const{return iterator(this->data + this->size_);}
+    const_iterator          cend() const{return const_iterator(this->data + this->size_);}
+    reverse_iterator        rbegin()const{return reverse_iterator(this->end());}
+    const_reverse_iterator  crbegin() const{return const_reverse_iterator(this->end());}
+    reverse_iterator        rend()const{return reverse_iterator(this->begin());}
+    const_reverse_iterator  crend() const{return const_reverse_iterator(this->begin());}
 
     //---------------------------------------------------capacity:
     size_type   size() const{ return this->size_; }
@@ -193,7 +186,7 @@ class vector {
     }
     iterator insert(iterator position, const T& x){
         value_type* ptr;
-        value_type new_capacity = this->capacity_;
+        size_type new_capacity = this->capacity_;
         if (this->size_+1>this->capacity_)
             new_capacity = this->capacity_ + this->capacity_/2;
         value_type* new_data = this->get_allocator().allocate(new_capacity);
@@ -218,7 +211,7 @@ class vector {
         return iterator(ptr);
     }
     void     insert(iterator position, size_type n, const T& x){
-        value_type new_capacity = this->capacity_;
+        size_type new_capacity = this->capacity_;
         if (this->size_+n>this->capacity_)
             new_capacity = this->capacity_ + n +this->capacity_/2;
         value_type* new_data = this->get_allocator().allocate(new_capacity);
@@ -244,10 +237,8 @@ class vector {
     }
   template <class InputIterator>
     void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        //save the old elements somewhere(before and after position)
-        //add new elements using push back
         value_type* tmp =this->get_allocator().allocate(this->capacity_);
-        value_type old_size = this->size_;
+        size_type old_size = this->size_;
 
         for (int i =0;i<(int)this->size_;i++){
             this->get_allocator().construct(tmp+i, this->data[i]);
@@ -283,7 +274,7 @@ class vector {
     }
     iterator erase(iterator first, iterator last){
         value_type* ptr = nullptr;
-        value_type n=0;
+        size_type n=0;
         for (int i=0;i<(int)this->size_;i++){
             if (this->data[i] == *first)
             {
@@ -308,8 +299,8 @@ class vector {
     }
     void     swap(ft::vector<T,Allocator >& x){
             value_type*     tmp1;
-            difference_type tmp2;
-            difference_type tmp3;
+            size_type tmp2;
+            size_type tmp3;
             tmp1 = x.data;
             tmp2 = x.size_;
             tmp3 = x.capacity_;
