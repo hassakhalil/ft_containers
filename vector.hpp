@@ -39,10 +39,10 @@ class vector {
         this->size_ = 0;
     }
     explicit vector(size_type n, const value_type& value = T(),const allocator_type& = allocator_type()){
-        this->data =allocator_type().allocate(n);
+        this->data =this->get_allocator().allocate(n);
         this->capacity_ = n;
         this->size_ = 0;
-        for (int i = 0;i<(int)n;i++){
+        for (size_type i = 0;i<n;i++){
             this->push_back(value);
         }
     }
