@@ -77,13 +77,14 @@ namespace ft
         reference operator[](difference_type n)const{
             return this->current[-n-1];
         }
+        bool operator !=(const ft::reverse_iterator<Iterator>& other){return !(this->base() == other.base());}
     };
     template <class Iterator>
     bool operator==(const ft::reverse_iterator<Iterator>& x,const ft::reverse_iterator<Iterator>& y){return x.base() == y.base();}
     template <class Iterator>
     bool operator<(const ft::reverse_iterator<Iterator>& x, const ft::reverse_iterator<Iterator>& y){return x.base() < y.base();}
     template <class Iterator>
-    bool operator !=(const ft::reverse_iterator<Iterator>& x, const ft::reverse_iterator<Iterator>& y){return x.base() != y.base();}
+    bool operator !=(const ft::reverse_iterator<Iterator>& x, const ft::reverse_iterator<Iterator>& y){return !(x.base() == y.base());}
     template <class Iterator>
     bool operator>(const ft::reverse_iterator<Iterator>& x ,const ft::reverse_iterator<Iterator>& y){return x.base() > y.base();}
     template <class Iterator>

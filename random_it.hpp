@@ -46,28 +46,28 @@ namespace ft
                 return temp;
             }
             random_it operator+(ptrdiff_t n) const {
-                return random_it(ptr + n);
+                return random_it(this->ptr + n);
             }
             random_it operator-(ptrdiff_t n) const {
-                return random_it(ptr - n);
+                return random_it(this->ptr - n);
             }
             ptrdiff_t operator-(const random_it& other) const {
-                return ptr - other.ptr;
+                return this->ptr - other.ptr;
             }
             T& operator*() const {
-                return *ptr;
+                return *this->ptr;
             }
             T* operator->() const {
-                return ptr;
+                return this->ptr;
             }
             bool operator==(const random_it& other) const {
-                return ptr == other.ptr;
+                return this->ptr == other.ptr;
             }
             bool operator!=(const random_it& other) const {
-                return !operator==(other);
+                return !(this->ptr ==other.ptr);
             }
             bool operator<(const random_it& other) const {
-                return ptr < other.ptr;
+                return this->ptr < other.ptr;
             }
             bool operator>(const random_it& other) const {
                 return other < *this;
@@ -79,7 +79,7 @@ namespace ft
                 return !(*this < other);
             }
             T& operator[](ptrdiff_t n) const {
-                return ptr[n];
+                return this->ptr[n];
             }
             void operator+=(ptrdiff_t n){
                  this->ptr = &this->ptr[n];
@@ -88,5 +88,21 @@ namespace ft
                 this->ptr =  &this->ptr[-n];
             }
     };
+     template <class T>
+    bool operator==(const ft::random_it<T>& x,const ft::random_it<T>& y){return x.base() == y.base();}
+    template <class T>
+    bool operator<(const ft::random_it<T>& x, const ft::random_it<T>& y){return x.base() < y.base();}
+    template <class T>
+    bool operator !=(const ft::random_it<T>& x, const ft::random_it<T>& y){return x.base() != y.base();}
+    template <class T>
+    bool operator>(const ft::random_it<T>& x ,const ft::random_it<T>& y){return x.base() > y.base();}
+    template <class T>
+    bool operator>=(const ft::random_it<T>& x, const ft::random_it<T>& y){return x.base() >= y.base();}
+    template <class T>
+    bool operator<=(const ft::random_it<T>& x, const ft::random_it<T>& y){return x.base() <= y.base();}
+    template <class T>
+    typename ft::random_it<T> operator-(const ft::random_it<T>& x, const ft::random_it<T>& y){return x.base() - y.base();}
+    template <class T>
+    ft::random_it<T> operator+(typename ft::random_it<T>::difference_type n, const ft::random_it<T>& x){return ft::random_it<T>(x.base() + n);}
 }
 #endif
