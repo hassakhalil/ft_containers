@@ -43,6 +43,9 @@ class vector {
         this->capacity_ = n;
         this->size_ = 0;
         for (size_type i = 0; i<n ; i++){
+            //debug
+            // std::cerr<<"i == "<<i<<std::endl;
+            //end debug
             this->push_back(value);
         }
     }
@@ -63,9 +66,7 @@ class vector {
                 this->push_back(x.data[i]);
         }
     }
-    ~vector(){
-        clear();
-    }
+    ~vector(){clear();}
     ft::vector<T,allocator_type>& operator=(const ft::vector<T,allocator_type>& x){
             this->clear();
             this->size_ = 0;
@@ -86,9 +87,7 @@ class vector {
         this->insert(this->begin(),n,u);
 
     }
-    allocator_type get_allocator() const{
-        return allocator_type();
-    }
+    allocator_type get_allocator() const{return allocator_type();}
 
     //---------------------------------------------------iterators:
     iterator                begin()const{return iterator(this->data);}
@@ -118,14 +117,16 @@ class vector {
     size_type   capacity() const{ return this->capacity_; }
     bool        empty() const{ return !this->size_; }
     void        reserve(size_type n){
-        if (n > this->capacity_)
+        if (n > this->capacity_ && n < this->max_size())
         {
+            //debug
+            std::cout<<"{ vector::reserve } n == "<<n<<std::endl;
+            //end debug
             value_type* new_data = this->get_allocator().allocate(n);
             for (size_type i=0; i<n ; i++){
                this->get_allocator().construct(new_data + i, this->data[i]);
-                this->get_allocator().destroy(this->data + i);
             }
-            this->get_allocator().deallocate(this->data,this->capacity_);
+            this->clear();
             this->data = new_data;
             this->capacity_ = n;
         }
