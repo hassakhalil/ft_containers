@@ -39,24 +39,22 @@ class vector {
         this->size_ = 0;
     }
     explicit vector(size_type n, const value_type& value = T(),const allocator_type& = allocator_type()){
-        this->data =this->get_allocator().allocate(n);
-        this->capacity_ = n;
-        this->size_ = 0;
-        for (size_type i = 0; i<n ; i++){
-            //debug
-            // std::cerr<<"i == "<<i<<std::endl;
-            //end debug
+        this->size_=0;
+        this->capacity_=n;
+        this->data = this->get_allocator().allocate(n);
+        for (size_type i=0;i<n;i++){
             this->push_back(value);
         }
+        //debug
+        std::cout<<"{ vector } out of fill constructor"<<std::endl;
+        //end debug
     }
     template <class InputIterator>
     vector(InputIterator first, InputIterator last, const allocator_type& = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        this->size_ = 0;
-        this->capacity_ = 2;
-        this->data = this->get_allocator().allocate(2);
-        for(;first!=last;first++){
-            this->push_back(*first);
-        }
+        this->size_=0;
+        this->capacity_=0;
+        this->insert(this->begin(),first,last);
+        std::cout<<"{ vector }out of range constructor"<<std::endl;
     }
     vector(const ft::vector<T,allocator_type >& x){
         this->data = this->get_allocator().allocate(x.capacity_);
@@ -117,7 +115,7 @@ class vector {
     size_type   capacity() const{ return this->capacity_; }
     bool        empty() const{ return !this->size_; }
     void        reserve(size_type n){
-        if (n > this->capacity_ && n < this->max_size())
+        if (n > this->capacity_)
         {
             //debug
             std::cout<<"{ vector::reserve } n == "<<n<<std::endl;
@@ -153,10 +151,7 @@ class vector {
     //----------------------------------------------------modifiers:
     void     push_back(const value_type& x){
         if (this->size_ ==this->capacity_)
-        {
-            reserve(this->capacity_ + this->capacity_/2);
-            this->capacity_ += this->capacity_/2;
-        }
+            reserve(2*this->capacity_);
         this->get_allocator().construct(this->data + this->size_, x);
         this->size_++;
     }
@@ -168,61 +163,29 @@ class vector {
         }
     }
     iterator insert(iterator position, const T& x){
-        value_type* ptr;
-        size_type new_capacity = this->capacity_;
-        if (this->size_+1>this->capacity_)
-            new_capacity = this->capacity_ + this->capacity_/2;
-        value_type* new_data = this->get_allocator().allocate(new_capacity);
-        int j = 0;
-        for (size_type i = 0;i<=this->size_;i++)
-        {
-            if (this->data[i] == *position)
-            {
-                this->get_allocator().construct(new_data + i, x);
-                ptr  = &(*(this->begin()+i));
-                j=1;
-                this->get_allocator().construct(new_data +i+j,this->data[i]);
-            }
-            else
-                this->get_allocator().construct(new_data + i+j, this->data[i]);
-            this->get_allocator().destroy(this->data+i);
-        }
-        this->get_allocator().deallocate(this->data, this->capacity_);
-        this->size_ += 1;
-        this->data = new_data;
-        this->capacity_ = new_capacity;
-        return iterator(ptr);
+        this->insert(position,1,x);
+        return position;
     }
     void     insert(iterator position, size_type n, const T& x){
-        size_type new_capacity = this->capacity_;
-        if (this->size_+n>this->capacity_)
-            new_capacity = this->capacity_ + n +this->capacity_/2;
-        value_type* new_data = this->get_allocator().allocate(new_capacity);
-        int j = 0;
-        for (size_type i = 0;i<=this->size_;i++)
-        {
-            if (this->data[i] == *position)
-            {
-                for(size_type l=0;l<n;l++){
-                    this->get_allocator().construct(new_data + i+l, x);
-                }
-                j=n;
-                this->get_allocator().construct(new_data +i+j,this->data[i]);
-            }
-            else
-                this->get_allocator().construct(new_data + i+j, this->data[i]);
-            this->get_allocator().destroy(this->data+i);
-        }
-        this->get_allocator().deallocate(this->data, this->capacity_);
-        this->size_ += n;
-        this->data = new_data;
-        this->capacity_ = new_capacity;
+        ft::vector<value_type> tmp(n,x);
+        this->insert(position,tmp.begin(),tmp.end());
     }
-  template <class InputIterator>
+    template <class InputIterator>
     void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
         value_type* tmp =this->get_allocator().allocate(this->capacity_);
         size_type old_size = this->size_;
 
+        if (this->size_ ==0)
+        {
+            this->data = this->get_allocator().allocate(2);
+            this->capacity_=2;
+            while(first!=last)
+            {
+                this->push_back(*first);
+                first++;
+            }
+            return;
+        }
         for (size_type i =0;i<this->size_;i++){
             this->get_allocator().construct(tmp+i, this->data[i]);
             this->get_allocator().destroy(this->data + i);
