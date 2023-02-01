@@ -16,9 +16,9 @@ template<typename Category,typename T,typename Distance=ptrdiff_t,typename Point
 struct iterator{
     public:
     typedef T           value_type;
-    typedef Distance    difference_type;
-    typedef Pointer     pointer;
-    typedef Reference   reference;
+    typedef ptrdiff_t    difference_type;
+    typedef T*     pointer;
+    typedef T&   reference;
     typedef Category    iterator_category;
 };
 

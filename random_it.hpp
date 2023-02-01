@@ -1,15 +1,22 @@
 #ifndef RANDOM_H
 #define RANDOM_H
 #include "iterator.hpp"
+#include "iterator_traits.hpp"
+#include <cstddef>
 
 namespace ft
 {
 
-     template <typename T>
+    template <typename T>
     class random_it : public ft::iterator<ft::random_access_iterator_tag,T>{
             protected:
             T* ptr;
             public:
+            typedef typename ft::iterator_traits<ft::iterator<ft::random_access_iterator_tag,T> >::difference_type    difference_type;
+            typedef typename ft::iterator_traits<ft::iterator<ft::random_access_iterator_tag,T> >::value_type         value_type;
+            typedef typename ft::iterator_traits<ft::iterator<ft::random_access_iterator_tag,T> >::pointer            pointer;
+            typedef typename ft::iterator_traits<ft::iterator<ft::random_access_iterator_tag,T> >::reference          reference;
+            typedef typename ft::iterator_traits<ft::iterator<ft::random_access_iterator_tag,T> >::iterator_category  iterator_category;
             T* base() const {return this->ptr;}
             random_it():ptr(nullptr){}
             random_it(T* p) :ptr(p){}

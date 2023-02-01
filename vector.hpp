@@ -11,6 +11,7 @@
 #include "lexicographical_compare.hpp"
 #include "enable_if.hpp"
 #include "is_integral.hpp"
+#include "iterator_traits.hpp"
 namespace ft
 {
 
@@ -21,8 +22,8 @@ class vector {
     typedef T                                                value_type;
     typedef typename Allocator::reference                    reference;
     typedef typename Allocator::const_reference              const_reference;
-    typedef ft::random_it<T>                        iterator; 
-    typedef ft::random_it<const T>                  const_iterator; 
+    typedef ft::random_it<T>                                 iterator; 
+    typedef ft::random_it<const T>                           const_iterator; 
     typedef size_t                                           size_type; 
     typedef ptrdiff_t                                        difference_type;
     typedef Allocator                                        allocator_type;
@@ -308,11 +309,11 @@ class vector {
 };
 //----------------------------------------------------------non-member operators:
 template <class T, class Alloc>
-bool operator== (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){return equal(x.begin(),x.end(),y.begin());}
+bool operator== (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){return ft::equal(x.begin(),x.end(),y.begin());}
 template <class T, class Alloc>
 bool operator!= (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){return (!(x == y))?true:false;}
 template <class T, class Alloc>  
-bool operator<  (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){return lexicographical_compare(x.begin(),x.end(),y.begin(),y.end());}
+bool operator<  (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){return ft::lexicographical_compare(x.begin(),x.end(),y.begin(),y.end());}
 template <class T, class Alloc>  
 bool operator<= (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){return (x == y || x < y)?true:false;}
 template <class T, class Alloc>

@@ -67,6 +67,7 @@
         "filesystem": "cpp",
         "functional": "cpp",
         "random": "cpp",
-        "utility": "cpp"
+        "utility": "cpp",
+        "iterator": "cpp"
     }
 }
