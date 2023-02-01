@@ -8,15 +8,24 @@ int main()
 {
   //testing const_iterator
   const int size = 5;
-	ft::vector<int> vct(size,100);
+	ft::vector<std::string> vct(size,"hello world!");
+  std::cout<<"size = "<<vct.size()<<" capacity = "<<vct.capacity()<<std::endl;
+  for (int i=0;i<(int)vct.size();i++)
+  {
+    std::cout<<"vct["<<i<<"] == "<<vct[i]<<" ";
+  }
+  std::cout<<std::endl;
+  while (1)
+  ;
+  
   //debug iterators
-    std::cout << "{ main debug }The distance is: " << std::distance(vct.begin(),vct.end()) << std::endl;
+    // std::cout << "{ main debug }The distance is: " << std::distance(vct.begin(),vct.end()) << std::endl;
   //end debug
-	ft::vector<int>::iterator ittt = vct.begin();
-	ft::vector<int>::const_iterator ite = vct.begin();
+	// ft::vector<int>::iterator ittt = vct.begin();
+	// ft::vector<int>::const_iterator ite = vct.begin();
 
-	for (int i = 0; i < size; ++i)
-		ittt[i] = i;
+	// for (int i = 0; i < size; ++i)
+	// 	ittt[i] = i;
 
 	// *ite = 42; // < -- error
   // return 0;

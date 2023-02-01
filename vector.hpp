@@ -42,7 +42,7 @@ class vector {
         this->data =this->get_allocator().allocate(n);
         this->capacity_ = n;
         this->size_ = 0;
-        for (size_type i = 0;i<n;i++){
+        for (size_type i = 0; i<n ; i++){
             this->push_back(value);
         }
     }
@@ -59,7 +59,7 @@ class vector {
         this->data = this->get_allocator().allocate(x.capacity_);
         this->capacity_ = x.capacity_;
         this->size_ = 0;
-        for (int i = 0;i<(int)x.size_;i++){
+        for (size_type i = 0;i<x.size_;i++){
                 this->push_back(x.data[i]);
         }
     }
@@ -71,7 +71,7 @@ class vector {
             this->size_ = 0;
             this->data = this->get_allocator().allocate(x.capacity_);
             this->capacity_=x.capacity_;
-            for(int i=0;i<(int)x.size_;i++){
+            for(size_type i=0;i<x.size_;i++){
                 this->push_back(x.data[i]);
             }
             return *this;
@@ -121,7 +121,7 @@ class vector {
         if (n > this->capacity_)
         {
             value_type* new_data = this->get_allocator().allocate(n);
-            for (int i=0; i<(int)n ; i++){
+            for (size_type i=0; i<n ; i++){
                this->get_allocator().construct(new_data + i, this->data[i]);
                 this->get_allocator().destroy(this->data + i);
             }
@@ -173,7 +173,7 @@ class vector {
             new_capacity = this->capacity_ + this->capacity_/2;
         value_type* new_data = this->get_allocator().allocate(new_capacity);
         int j = 0;
-        for (int i = 0;i<=(int)this->size_;i++)
+        for (size_type i = 0;i<=this->size_;i++)
         {
             if (this->data[i] == *position)
             {
@@ -198,11 +198,11 @@ class vector {
             new_capacity = this->capacity_ + n +this->capacity_/2;
         value_type* new_data = this->get_allocator().allocate(new_capacity);
         int j = 0;
-        for (int i = 0;i<=(int)this->size_;i++)
+        for (size_type i = 0;i<=this->size_;i++)
         {
             if (this->data[i] == *position)
             {
-                for(int l=0;l<(int)n;l++){
+                for(size_type l=0;l<n;l++){
                     this->get_allocator().construct(new_data + i+l, x);
                 }
                 j=n;
@@ -222,12 +222,12 @@ class vector {
         value_type* tmp =this->get_allocator().allocate(this->capacity_);
         size_type old_size = this->size_;
 
-        for (int i =0;i<(int)this->size_;i++){
+        for (size_type i =0;i<this->size_;i++){
             this->get_allocator().construct(tmp+i, this->data[i]);
             this->get_allocator().destroy(this->data + i);
         }
         this->size_=0;
-        for (int i=0;i<(int)old_size;i++){
+        for (size_type i=0;i<old_size;i++){
             if (tmp[i] != *position)
                 this->push_back(tmp[i]);
             else
@@ -240,11 +240,11 @@ class vector {
     }
     iterator erase(iterator position){
         value_type* ptr = nullptr;
-        for (int i=0;i<(int)this->size_;i++){
+        for (size_type i=0;i<this->size_;i++){
             if (this->data[i] == *position)
             {
                 ptr = this->data +i+1;
-                for (int j = i;j<(int)this->size_-1;j++)
+                for (size_type j = i;j<this->size_-1;j++)
                 {
                     this->data[j] = this->data[j+1];
                 }
@@ -256,16 +256,16 @@ class vector {
     }
     iterator erase(iterator first, iterator last){
         value_type* ptr = nullptr;
-        size_type n=0;
-        for (int i=0;i<(int)this->size_;i++){
+        size_type n = 0;
+        for (size_type i=0;i<this->size_;i++){
             if (this->data[i] == *first)
             {
-                for (int j=i;j<(int)this->size_;j++){
+                for (size_type j=i;j<this->size_;j++){
                     if (this->data[j] == *last)
                     {
                        ptr = &this->data[j];
                         n = j-i;
-                        for (int k=j;k<(int)this->size_;k++)
+                        for (size_type k=j;k<this->size_;k++)
                         {
                             this->data[i] = this->data[k];
                             i++;
@@ -294,7 +294,7 @@ class vector {
             this->capacity_ = tmp3;
     }
     void     clear(){
-        for (int i = 0; i<(int)this->size_ ;i++){
+        for (size_type i = 0; i<this->size_ ;i++){
             this->get_allocator().destroy(this->data + i);
         }
        this-> get_allocator().deallocate(this->data, this->capacity_);
