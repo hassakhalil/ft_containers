@@ -53,8 +53,13 @@ class vector {
     vector(InputIterator first, InputIterator last, const allocator_type& = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
         this->size_=0;
         this->capacity_=0;
+        try{
         this->insert(this->begin(),first,last);
         std::cout<<"{ vector }out of range constructor"<<std::endl;
+        }
+        catch(std::bad_alloc& e){
+            std::cerr<<e.what()<<std::endl;
+        }
     }
     vector(const ft::vector<T,allocator_type >& x){
         this->data = this->get_allocator().allocate(x.capacity_);
@@ -64,10 +69,13 @@ class vector {
                 this->push_back(x.data[i]);
         }
     }
-    ~vector(){clear();}
+    ~vector(){
+        clear();
+        this->get_allocator().deallocate(this->data,this->capacity_);
+    }
     ft::vector<T,allocator_type>& operator=(const ft::vector<T,allocator_type>& x){
             this->clear();
-            this->size_ = 0;
+            this->get_allocator().deallocate(this->data,this->capacity_);
             this->data = this->get_allocator().allocate(x.capacity_);
             this->capacity_=x.capacity_;
             for(size_type i=0;i<x.size_;i++){
@@ -120,13 +128,21 @@ class vector {
             //debug
             std::cout<<"{ vector::reserve } n == "<<n<<std::endl;
             //end debug
+            try{
             value_type* new_data = this->get_allocator().allocate(n);
             for (size_type i=0; i<n ; i++){
                this->get_allocator().construct(new_data + i, this->data[i]);
             }
             this->clear();
+            this->get_allocator().deallocate(this->data,this->capacity_);
+            this->size_ = n;
             this->data = new_data;
             this->capacity_ = n;
+            }
+            catch(std::bad_alloc& e)
+            {
+                std::cerr<<e.what()<<std::endl;
+            }
         }
     }
 
@@ -152,8 +168,14 @@ class vector {
     void     push_back(const value_type& x){
         if (this->size_ ==this->capacity_)
             reserve(2*this->capacity_);
+        try{
         this->get_allocator().construct(this->data + this->size_, x);
         this->size_++;
+        
+        }
+        catch(std::bad_alloc & e){
+            std::cerr<<e.what()<<std::endl;
+        }
     }
     void     pop_back(){
         if (this->size_)
@@ -261,7 +283,7 @@ class vector {
         for (size_type i = 0; i<this->size_ ;i++){
             this->get_allocator().destroy(this->data + i);
         }
-       this-> get_allocator().deallocate(this->data, this->capacity_);
+        this->size_=0;
     }
     
     //-----------------------------------------------------private members:

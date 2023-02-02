@@ -16,6 +16,7 @@ FLAGS = --std=c++98 -Wall -Wextra -Werror
 
 vector_tle:
 	@$(COMPILER) $(FLAGS_DEBUG)	vector_tests_tle.cpp -o vector.out 
+	# @$(COMPILER) $(FLAGS_DEBUG)	vector_tests_tle.cpp -o vector.out 
 
 vector:
 	@$(COMPILER) $(FLAGS)	vector_tests.cpp -ferror-limit=0 -o vector.out 

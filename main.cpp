@@ -37,34 +37,34 @@ int main()
             diff = (diff) ? (diff * 3) : 3;
 
             ualarm(diff * 1e3, 0);
-            // ft::vector<std::string> my_v(v.begin(), v.end());
+            ft::vector<std::string> my_v(v.begin(), v.end());
             ualarm(0, 0);
         }
         // /*-----------------------------------------------------------------------------------------------*/
         /*--------------- fill std::vector with 10 strings and ft::vector with range of iterators ------*/
-        // std::vector<std::string> v(10, "range constructor test");
-        // ft::vector<std::string> my_v(10, "range constructor test");
+        std::vector<std::string> v(10, "range constructor test");
+        ft::vector<std::string> my_v(10, "range constructor test");
         //debug
         // std::cerr<<"{ main } before segfault"<<std::endl;
         //end debug
 
-        // ft::vector<std::string> my_v1(my_v.begin(), my_v.end()); // this one is to check if the range works with ft::vector
+        ft::vector<std::string> my_v1(my_v.begin(), my_v.end()); // this one is to check if the range works with ft::vector
         // /*----------------------------------------------------------------------------------------------*/
         // /*--------------- declare tow strings to store the results ------*/
-        // std::string res, my_res, my_res1;
+        std::string res, my_res, my_res1;
         // /*--------------------------------------------------------*/
-        // for (std::vector<std::string>::iterator it = v.begin(); it != v.end(); ++it) // fill res from std::vector
-        //     res += *it;
+        for (std::vector<std::string>::iterator it = v.begin(); it != v.end(); ++it) // fill res from std::vector
+            res += *it;
 
-        // for (ft::vector<std::string>::iterator it = my_v.begin(); it != my_v.end(); ++it) // fill my_res from ft::vector
-        //     my_res += *it;
+        for (ft::vector<std::string>::iterator it = my_v.begin(); it != my_v.end(); ++it) // fill my_res from ft::vector
+            my_res += *it;
 
-        // for (ft::vector<std::string>::iterator it = my_v1.begin(); it != my_v1.end(); ++it) // fill my_res1 from ft::vector
-        //     my_res1 += *it;
-        // if(res == my_res && my_res == my_res1)
-        //           std::cout<<"yes they are equal"<<std::endl;
-        // else  
-        //   std::cout<<"no they are not equal"<<std::endl;
+        for (ft::vector<std::string>::iterator it = my_v1.begin(); it != my_v1.end(); ++it) // fill my_res1 from ft::vector
+            my_res1 += *it;
+        if(res == my_res && my_res == my_res1)
+                  std::cout<<"yes they are equal"<<std::endl;
+        else  
+          std::cout<<"no they are not equal"<<std::endl;
         while(1)
         ;
 
