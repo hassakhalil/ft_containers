@@ -1,11 +1,10 @@
 #include "./vector.hpp"
 #include <iostream>
+
 //std
 #include <vector>
 #include <iterator>
 
-
-//tools for testing
 #include <unistd.h>
  #include <sys/time.h>
 time_t get_time(void)

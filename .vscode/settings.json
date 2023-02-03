@@ -77,6 +77,8 @@
         "queue": "cpp",
         "set": "cpp",
         "stack": "cpp",
-        "bit": "cpp"
+        "bit": "cpp",
+        "csignal": "cpp",
+        "fstream": "cpp"
     }
 }

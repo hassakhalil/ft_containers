@@ -34,7 +34,7 @@ class vector {
 
     //--------------------------------------------------construct/copy/destroy:
     explicit vector(const allocator_type& = allocator_type()){
-        this->data = allocator_type().allocate(2);
+        this->data = this->get_allocator().allocate(2);
         this->capacity_= 2;
         this->size_ = 0;
     }
@@ -45,20 +45,17 @@ class vector {
         for (size_type i=0;i<n;i++){
             this->push_back(value);
         }
-        //debug
-        std::cout<<"{ vector } out of fill constructor"<<std::endl;
+        //debug 
+        // std::cout<<"{ vector } out of fill constructor"<<std::endl;
         //end debug
     }
     template <class InputIterator>
     vector(InputIterator first, InputIterator last, const allocator_type& = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
+        this->data = this->get_allocator().allocate(2);
+        this->capacity_ = 2;
         this->size_=0;
-        this->capacity_=0;
-        try{
-        this->insert(this->begin(),first,last);
-        std::cout<<"{ vector }out of range constructor"<<std::endl;
-        }
-        catch(std::bad_alloc& e){
-            std::cerr<<e.what()<<std::endl;
+        for(;first!=last;first++){
+            this->push_back(*first);
         }
     }
     vector(const ft::vector<T,allocator_type >& x){
@@ -116,6 +113,8 @@ class vector {
         }
         else if (n > this->size_)
         {
+            if (n >= this->capacity_)
+                this->reserve(2*n);
             while (this->size_ < n)
                 this->push_back(val);
         }
@@ -126,23 +125,18 @@ class vector {
         if (n > this->capacity_)
         {
             //debug
-            std::cout<<"{ vector::reserve } n == "<<n<<std::endl;
+            // std::cout<<"{ vector::reserve } n == "<<n<<std::endl;
             //end debug
-            try{
             value_type* new_data = this->get_allocator().allocate(n);
-            for (size_type i=0; i<n ; i++){
+            for (size_type i=0; i<this->size_ ; i++){
                this->get_allocator().construct(new_data + i, this->data[i]);
+                this->get_allocator().destroy(this->data + i);
             }
-            this->clear();
+            size_type tmp = this->size_;
             this->get_allocator().deallocate(this->data,this->capacity_);
-            this->size_ = n;
+            this->size_ = tmp;
             this->data = new_data;
             this->capacity_ = n;
-            }
-            catch(std::bad_alloc& e)
-            {
-                std::cerr<<e.what()<<std::endl;
-            }
         }
     }
 
@@ -155,33 +149,27 @@ class vector {
         return this->data[n];
     }
     reference       at(size_type n){
-        if (n>=this->size())
+        if (n>=this->size_)
             throw std::out_of_range("Error: index is out of range");
         return this->data[n];
     }
     reference       front(){return this->data[0];}
     const_reference front() const{return this->data[0];}
-    reference       back(){return this->data[this->size_];}
-    const_reference back() const{return this->data[this->size_];}
+    reference       back(){return this->data[this->size_-1];}
+    const_reference back() const{return this->data[this->size_-1];}
 
     //----------------------------------------------------modifiers:
     void     push_back(const value_type& x){
         if (this->size_ ==this->capacity_)
             reserve(2*this->capacity_);
-        try{
         this->get_allocator().construct(this->data + this->size_, x);
         this->size_++;
-        
-        }
-        catch(std::bad_alloc & e){
-            std::cerr<<e.what()<<std::endl;
-        }
     }
     void     pop_back(){
         if (this->size_)
         {
-            this->get_allocator().destroy(this->data+this->size_);
-            this->size_--;
+            this->get_allocator().destroy(this->data+(this->size_-1));
+            --this->size_;
         }
     }
     iterator insert(iterator position, const T& x){
@@ -287,7 +275,7 @@ class vector {
     }
     
     //-----------------------------------------------------private members:
-    private:
+    protected:
     value_type*                 data;
     size_type                   capacity_;
     size_type                   size_;
@@ -297,7 +285,7 @@ class vector {
 template <class T, class Alloc>
 bool operator== (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){return ft::equal(x.begin(),x.end(),y.begin());}
 template <class T, class Alloc>
-bool operator!= (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){return (!(x == y))?true:false;}
+bool operator!= (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){return (x == y)?false:true;}
 template <class T, class Alloc>  
 bool operator<  (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){return ft::lexicographical_compare(x.begin(),x.end(),y.begin(),y.end());}
 template <class T, class Alloc>  
