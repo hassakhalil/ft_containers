@@ -33,34 +33,24 @@ class vector {
     typedef ft::reverse_iterator<const_iterator>             const_reverse_iterator;
 
     //--------------------------------------------------construct/copy/destroy:
-    explicit vector(const allocator_type& = allocator_type()){
-        this->data = this->get_allocator().allocate(2);
-        this->capacity_= 2;
-        this->size_ = 0;
-    }
+    explicit vector(const allocator_type& = allocator_type()):capacity_(0),size_(0){}
     explicit vector(size_type n, const value_type& value = T(),const allocator_type& = allocator_type()){
         this->size_=0;
-        this->capacity_=n;
-        this->data = this->get_allocator().allocate(n);
+        this->capacity_=0;
         for (size_type i=0;i<n;i++){
             this->push_back(value);
         }
-        //debug 
-        // std::cout<<"{ vector } out of fill constructor"<<std::endl;
-        //end debug
     }
     template <class InputIterator>
     vector(InputIterator first, InputIterator last, const allocator_type& = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        this->data = this->get_allocator().allocate(2);
-        this->capacity_ = 2;
+        this->capacity_ = 0;
         this->size_=0;
         for(;first!=last;first++){
             this->push_back(*first);
         }
     }
     vector(const ft::vector<T,allocator_type >& x){
-        this->data = this->get_allocator().allocate(x.capacity_);
-        this->capacity_ = x.capacity_;
+        this->capacity_ = 0;
         this->size_ = 0;
         for (size_type i = 0;i<x.size_;i++){
                 this->push_back(x.data[i]);
@@ -68,13 +58,15 @@ class vector {
     }
     ~vector(){
         clear();
-        this->get_allocator().deallocate(this->data,this->capacity_);
+        if (this->capacity_)
+            this->get_allocator().deallocate(this->data,this->capacity_);
     }
     ft::vector<T,allocator_type>& operator=(const ft::vector<T,allocator_type>& x){
-            this->clear();
-            this->get_allocator().deallocate(this->data,this->capacity_);
-            this->data = this->get_allocator().allocate(x.capacity_);
-            this->capacity_=x.capacity_;
+            if (this->capacity_){
+                this->clear();
+                this->get_allocator().deallocate(this->data,this->capacity_);
+                this->capacity_ = 0;
+            }
             for(size_type i=0;i<x.size_;i++){
                 this->push_back(x.data[i]);
             }
@@ -90,7 +82,7 @@ class vector {
         this->insert(this->begin(),n,u);
 
     }
-    allocator_type get_allocator() const{return allocator_type();}
+    allocator_type get_allocator() const{return this->alloc_;}
 
     //---------------------------------------------------iterators:
     iterator                begin()const{return iterator(this->data);}
@@ -113,8 +105,6 @@ class vector {
         }
         else if (n > this->size_)
         {
-            if (n >= this->capacity_)
-                this->reserve(2*n);
             while (this->size_ < n)
                 this->push_back(val);
         }
@@ -124,17 +114,18 @@ class vector {
     void        reserve(size_type n){
         if (n > this->capacity_)
         {
-            //debug
-            // std::cout<<"{ vector::reserve } n == "<<n<<std::endl;
-            //end debug
+            if (this->capacity_ ==0)
+            {
+                this->data = this->get_allocator().allocate(n);
+                this->capacity_=n;
+                return ;
+            }
             value_type* new_data = this->get_allocator().allocate(n);
             for (size_type i=0; i<this->size_ ; i++){
-               this->get_allocator().construct(new_data + i, this->data[i]);
+                this->get_allocator().construct(new_data + i, this->data[i]);
                 this->get_allocator().destroy(this->data + i);
             }
-            size_type tmp = this->size_;
             this->get_allocator().deallocate(this->data,this->capacity_);
-            this->size_ = tmp;
             this->data = new_data;
             this->capacity_ = n;
         }
@@ -161,7 +152,7 @@ class vector {
     //----------------------------------------------------modifiers:
     void     push_back(const value_type& x){
         if (this->size_ ==this->capacity_)
-            reserve(2*this->capacity_);
+            reserve(2*this->capacity_ + 1);
         this->get_allocator().construct(this->data + this->size_, x);
         this->size_++;
     }
