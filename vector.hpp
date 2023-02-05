@@ -33,14 +33,13 @@ class vector {
     typedef ft::reverse_iterator<const_iterator>             const_reverse_iterator;
 
     //--------------------------------------------------construct/copy/destroy:
-    explicit vector(const allocator_type& = allocator_type()):data(nullptr),capacity_(0),size_(0){}
+    explicit vector(const allocator_type& = allocator_type()):capacity_(0),size_(0){}
     explicit vector(size_type n, const value_type& value = T(),const allocator_type& = allocator_type()){
-        this->size_=0;
+        this->size_=n;
         this->capacity_=n;
         this->data = this->get_allocator().allocate(n);
         for (size_type i=0;i<n;i++){
             this->get_allocator().construct(this->data+i,value);
-            this->size_++;
         }
     }
     template <class InputIterator>
@@ -52,12 +51,11 @@ class vector {
         }
     }
     vector(const ft::vector<T,allocator_type >& x){
-        this->size_ = 0;
+        this->size_ = x.size_;
         this->capacity_=x.capacity_;
         this->data = this->get_allocator().allocate(x.capacity_);
         for (size_type i=0;i<x.size_;i++){
             this->get_allocator().construct(this->data+i,x[i]);
-            this->size_++;
         }
     }
     ~vector(){
@@ -72,9 +70,10 @@ class vector {
                 this->capacity_ = 0;
             }
             this->data = this->get_allocator().allocate(x.capacity_);
+            this->capacity_ = x.capacity_;
+            this->size_= x.size_;
             for (size_type i=0;i<x.size_;i++){
                 this->get_allocator().construct(this->data+i,x[i]);
-                this->size_++;
             }
             return *this;
     }
@@ -95,10 +94,10 @@ class vector {
     const_iterator          cbegin() const{return const_iterator(this->data);}
     iterator                end()const{return iterator(this->data + this->size_);}
     const_iterator          cend() const{return const_iterator(this->data + this->size_);}
-    reverse_iterator        rbegin()const{return reverse_iterator(this->end());}
-    const_reverse_iterator  crbegin() const{return const_reverse_iterator(this->end());}
-    reverse_iterator        rend()const{return reverse_iterator(this->begin());}
-    const_reverse_iterator  crend() const{return const_reverse_iterator(this->begin());}
+    reverse_iterator        rbegin()const{return reverse_iterator(--this->end());}
+    const_reverse_iterator  crbegin() const{return const_reverse_iterator(--this->end());}
+    reverse_iterator        rend()const{return reverse_iterator(--this->begin());}
+    const_reverse_iterator  crend() const{return const_reverse_iterator(--this->begin());}
 
     //---------------------------------------------------capacity:
     size_type   size() const{ return this->size_; }
@@ -120,10 +119,10 @@ class vector {
     void        reserve(size_type n){
         if (n > this->capacity_)
         {
+            this->capacity_=n;
             if (this->capacity_ ==0)
             {
                 this->data = this->get_allocator().allocate(n);
-                this->capacity_=n;
                 return ;
             }
             value_type* new_data = this->get_allocator().allocate(n);
@@ -133,27 +132,26 @@ class vector {
             }
             this->get_allocator().deallocate(this->data,this->capacity_);
             this->data = new_data;
-            this->capacity_ = n;
         }
     }
 
     //----------------------------------------------------element access:
-    reference       operator[](size_type n){return this->data[n];}
-    const_reference operator[](size_type n) const{return this->data[n];}
+    reference       operator[](size_type n){return  *(this->begin() + n);}
+    const_reference operator[](size_type n) const{return *(this->begin() + n);}
     const_reference at(size_type n) const{
-        if (n>=this->size())
+        if (n>=this->size_)
             throw std::out_of_range("Error: index is out of range");
-        return this->data[n];
+        return *(this->begin() + n);
     }
     reference       at(size_type n){
         if (n>=this->size_)
             throw std::out_of_range("Error: index is out of range");
-        return this->data[n];
+        return *(this->begin() + n);
     }
-    reference       front(){return this->data[0];}
-    const_reference front() const{return this->data[0];}
-    reference       back(){return this->data[this->size_-1];}
-    const_reference back() const{return this->data[this->size_-1];}
+    reference       front(){return *this->begin();}
+    const_reference front() const{return *this->begin();}
+    reference       back(){return *--this->end();}
+    const_reference back() const{return *--this->end();}
 
     //----------------------------------------------------modifiers:
     void     push_back(const value_type& x){
@@ -165,8 +163,8 @@ class vector {
     void     pop_back(){
         if (this->size_)
         {
-            this->get_allocator().destroy(this->data+(this->size_-1));
             --this->size_;
+            this->get_allocator().destroy(this->data+this->size_);
         }
     }
     iterator insert(iterator position, const T& x){
