@@ -18,57 +18,76 @@ time_t get_time(void)
 
 int main()
 {
+   /*------------------ std::vectors ---------------------*/
+        std::vector<std::string> v1(10, "string2");          // fill constructor
+        std::vector<std::string> v2;                         // empty constructor
+        std::vector<std::string> v3(v1.begin(), v1.end());   // range constructor with normal iterators
+        std::vector<std::string> v4(v3);                     // copy constructor
+        std::vector<std::string> v5(v1.rbegin(), v1.rend()); // range constructor with reverse iterators
+        /*-----------------------------------------------------*/
+        /*------------------ ft::vectors ---------------------*/
+        ft::vector<std::string> ft_v1(10, "string2");
+        ft::vector<std::string> ft_v2;
+        ft::vector<std::string> ft_v3(ft_v1.begin(), ft_v1.end());
+        ft::vector<std::string> ft_v4(ft_v1);
+        ft::vector<std::string> ft_v5(ft_v1.rbegin(), ft_v1.rend());
+        std::cout<<v1.capacity()<<" | "<<ft_v1.capacity()<<std::endl;
+        std::cout<<v2.capacity()<<" | "<<ft_v2.capacity()<<std::endl;
+        std::cout<<v3.capacity()<<" | "<<ft_v3.capacity()<<std::endl;
+        std::cout<<v4.capacity()<<" | "<<ft_v4.capacity()<<std::endl;
+        std::cout<<v5.capacity()<<" | "<<ft_v5.capacity()<<std::endl;
+
   //testing range constructor
   /*---------------------------------- time limit test --------------------------------------------*/
-        {
-            time_t start, end, diff;
-            //debug
-            // std::cerr<<"{main} before seg"<<std::endl;
-            //end debug
-            std::vector<std::string> v(1e5, "range constructor test");
-            //debug
-            // std::cerr<<"{main} after"<<std::endl;
-            //end debug
-            start = get_time();
-            std::vector<std::string> v1(v.begin(), v.end());
-            end = get_time();
-            diff = end - start;
-            diff = (diff) ? (diff * 3) : 3;
+  //       {
+  //           time_t start, end, diff;
+  //           //debug
+  //           // std::cerr<<"{main} before seg"<<std::endl;
+  //           //end debug
+  //           std::vector<std::string> v(1e5, "range constructor test");
+  //           //debug
+  //           // std::cerr<<"{main} after"<<std::endl;
+  //           //end debug
+  //           start = get_time();
+  //           std::vector<std::string> v1(v.begin(), v.end());
+  //           end = get_time();
+  //           diff = end - start;
+  //           diff = (diff) ? (diff * 3) : 3;
 
-            ualarm(diff * 1e3, 0);
-            ft::vector<std::string> my_v(v.begin(), v.end());
-            ualarm(0, 0);
-        }
-        // /*-----------------------------------------------------------------------------------------------*/
-        /*--------------- fill std::vector with 10 strings and ft::vector with range of iterators ------*/
-        std::vector<std::string> v(10, "range constructor test");
-        ft::vector<std::string> my_v(10, "range constructor test");
-        //debug
-        // std::cerr<<"{ main } before segfault"<<std::endl;
-        //end debug
+  //           ualarm(diff * 1e3, 0);
+  //           ft::vector<std::string> my_v(v.begin(), v.end());
+  //           ualarm(0, 0);
+  //       }
+  //       // /*-----------------------------------------------------------------------------------------------*/
+  //       /*--------------- fill std::vector with 10 strings and ft::vector with range of iterators ------*/
+  //       std::vector<std::string> v(10, "range constructor test");
+  //       ft::vector<std::string> my_v(10, "range constructor test");
+  //       //debug
+  //       // std::cerr<<"{ main } before segfault"<<std::endl;
+  //       //end debug
 
-        ft::vector<std::string> my_v1(my_v.begin(), my_v.end()); // this one is to check if the range works with ft::vector
-        // /*----------------------------------------------------------------------------------------------*/
-        // /*--------------- declare tow strings to store the results ------*/
-        std::string res, my_res, my_res1;
-        // /*--------------------------------------------------------*/
-        for (std::vector<std::string>::iterator it = v.begin(); it != v.end(); ++it) // fill res from std::vector
-            res += *it;
+  //       ft::vector<std::string> my_v1(my_v.begin(), my_v.end()); // this one is to check if the range works with ft::vector
+  //       // /*----------------------------------------------------------------------------------------------*/
+  //       // /*--------------- declare tow strings to store the results ------*/
+  //       std::string res, my_res, my_res1;
+  //       // /*--------------------------------------------------------*/
+  //       for (std::vector<std::string>::iterator it = v.begin(); it != v.end(); ++it) // fill res from std::vector
+  //           res += *it;
 
-        for (ft::vector<std::string>::iterator it = my_v.begin(); it != my_v.end(); ++it) // fill my_res from ft::vector
-            my_res += *it;
+  //       for (ft::vector<std::string>::iterator it = my_v.begin(); it != my_v.end(); ++it) // fill my_res from ft::vector
+  //           my_res += *it;
 
-        for (ft::vector<std::string>::iterator it = my_v1.begin(); it != my_v1.end(); ++it) // fill my_res1 from ft::vector
-            my_res1 += *it;
-        if(res == my_res && my_res == my_res1)
-                  std::cout<<"yes they are equal"<<std::endl;
-        else  
-          std::cout<<"no they are not equal"<<std::endl;
-        while(1)
-        ;
+  //       for (ft::vector<std::string>::iterator it = my_v1.begin(); it != my_v1.end(); ++it) // fill my_res1 from ft::vector
+  //           my_res1 += *it;
+  //       if(res == my_res && my_res == my_res1)
+  //                 std::cout<<"yes they are equal"<<std::endl;
+  //       else  
+  //         std::cout<<"no they are not equal"<<std::endl;
+  //       while(1)
+  //       ;
 
-  //testing fill constructor
-  /*----------------------------------------------------------------------------------------------*/
+  // //testing fill constructor
+  // /*----------------------------------------------------------------------------------------------*/
    /*---------------------------------- time limit test --------------------------------------------*/
   //       {
   //           time_t start, end, diff;

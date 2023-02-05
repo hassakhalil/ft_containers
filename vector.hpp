@@ -33,12 +33,14 @@ class vector {
     typedef ft::reverse_iterator<const_iterator>             const_reverse_iterator;
 
     //--------------------------------------------------construct/copy/destroy:
-    explicit vector(const allocator_type& = allocator_type()):capacity_(0),size_(0){}
+    explicit vector(const allocator_type& = allocator_type()):data(nullptr),capacity_(0),size_(0){}
     explicit vector(size_type n, const value_type& value = T(),const allocator_type& = allocator_type()){
         this->size_=0;
-        this->capacity_=0;
+        this->capacity_=n;
+        this->data = this->get_allocator().allocate(n);
         for (size_type i=0;i<n;i++){
-            this->push_back(value);
+            this->get_allocator().construct(this->data+i,value);
+            this->size_++;
         }
     }
     template <class InputIterator>
@@ -50,10 +52,12 @@ class vector {
         }
     }
     vector(const ft::vector<T,allocator_type >& x){
-        this->capacity_ = 0;
         this->size_ = 0;
-        for (size_type i = 0;i<x.size_;i++){
-                this->push_back(x.data[i]);
+        this->capacity_=x.capacity_;
+        this->data = this->get_allocator().allocate(x.capacity_);
+        for (size_type i=0;i<x.size_;i++){
+            this->get_allocator().construct(this->data+i,x[i]);
+            this->size_++;
         }
     }
     ~vector(){
@@ -67,8 +71,10 @@ class vector {
                 this->get_allocator().deallocate(this->data,this->capacity_);
                 this->capacity_ = 0;
             }
-            for(size_type i=0;i<x.size_;i++){
-                this->push_back(x.data[i]);
+            this->data = this->get_allocator().allocate(x.capacity_);
+            for (size_type i=0;i<x.size_;i++){
+                this->get_allocator().construct(this->data+i,x[i]);
+                this->size_++;
             }
             return *this;
     }
@@ -176,17 +182,6 @@ class vector {
         value_type* tmp =this->get_allocator().allocate(this->capacity_);
         size_type old_size = this->size_;
 
-        if (this->size_ ==0)
-        {
-            this->data = this->get_allocator().allocate(2);
-            this->capacity_=2;
-            while(first!=last)
-            {
-                this->push_back(*first);
-                first++;
-            }
-            return;
-        }
         for (size_type i =0;i<this->size_;i++){
             this->get_allocator().construct(tmp+i, this->data[i]);
             this->get_allocator().destroy(this->data + i);
