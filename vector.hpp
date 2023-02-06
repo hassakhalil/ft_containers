@@ -202,8 +202,13 @@ class vector {
                     first++;
                     j++;
                 }
+                this->get_allocator().construct(new_data +i+j,this->data[i]);
+                i++;
             }
         }
+        this->clear();
+        this->get_allocator().deallocate(this->data,this->capacity_);
+        this->data = new_data;
         this->size_= new_capacity;
         this->capacity_ = this->size_;
     }
