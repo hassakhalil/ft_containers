@@ -36,6 +36,7 @@ int main()
         std::cout<<v3.capacity()<<" | "<<ft_v3.capacity()<<std::endl;
         std::cout<<v4.capacity()<<" | "<<ft_v4.capacity()<<std::endl;
         std::cout<<v5.capacity()<<" | "<<ft_v5.capacity()<<std::endl;
+        // ¬std::cout<<"front (std::vector) == "<<v2.front()<<" | size (ft::vector) == "<<ft_v2.size()<<std::endl;
 
   //testing range constructor
   /*---------------------------------- time limit test --------------------------------------------*/

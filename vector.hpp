@@ -44,16 +44,26 @@ class vector {
     }
     template <class InputIterator>
     vector(InputIterator first, InputIterator last, const allocator_type& = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        this->capacity_ = 0;
-        this->size_=0;
-        for(;first!=last;first++){
-            this->push_back(*first);
-        }
+        // this->capacity_ = 0;
+        // this->size_=0;
+        ptrdiff_t tmp = first - last;
+        if (tmp<0)
+            tmp *= -1;
+        this->capacity_ = tmp;
+        this->size_ = tmp;
+        this->data = this->get_allocator().allocate(this->capacity_);
+        for (size_type i=0;i<this->capacity_;i++){
+            this->get_allocator().construct(this->data + i, *first);
+            first++;
+        }         
+        // for(;first!=last;first++){
+        //     this->push_back(*first);
+        // }
     }
     vector(const ft::vector<T,allocator_type >& x){
         this->size_ = x.size_;
         this->capacity_=x.capacity_;
-        this->data = this->get_allocator().allocate(x.capacity_);
+        this->data = x.get_allocator().allocate(x.capacity_);
         for (size_type i=0;i<x.size_;i++){
             this->get_allocator().construct(this->data+i,x[i]);
         }
@@ -94,10 +104,10 @@ class vector {
     const_iterator          cbegin() const{return const_iterator(this->data);}
     iterator                end()const{return iterator(this->data + this->size_);}
     const_iterator          cend() const{return const_iterator(this->data + this->size_);}
-    reverse_iterator        rbegin()const{return reverse_iterator(--this->end());}
-    const_reverse_iterator  crbegin() const{return const_reverse_iterator(--this->end());}
-    reverse_iterator        rend()const{return reverse_iterator(--this->begin());}
-    const_reverse_iterator  crend() const{return const_reverse_iterator(--this->begin());}
+    reverse_iterator        rbegin()const{return reverse_iterator(this->end());}
+    const_reverse_iterator  crbegin() const{return const_reverse_iterator(this->end());}
+    reverse_iterator        rend()const{return reverse_iterator(this->begin());}
+    const_reverse_iterator  crend() const{return const_reverse_iterator(this->begin());}
 
     //---------------------------------------------------capacity:
     size_type   size() const{ return this->size_; }
@@ -177,24 +187,25 @@ class vector {
     }
     template <class InputIterator>
     void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        value_type* tmp =this->get_allocator().allocate(this->capacity_);
-        size_type old_size = this->size_;
-
-        for (size_type i =0;i<this->size_;i++){
-            this->get_allocator().construct(tmp+i, this->data[i]);
-            this->get_allocator().destroy(this->data + i);
-        }
-        this->size_=0;
-        for (size_type i=0;i<old_size;i++){
-            if (tmp[i] != *position)
-                this->push_back(tmp[i]);
-            else
-            {
+        ptrdiff_t n = last -first;
+        if (n < 0)
+            n *= -1;
+        size_type new_capacity = this->size_ + n;
+        value_type* new_data = this->get_allocator().allocate(new_capacity);
+        int j=0;
+        for (size_type i=0;i<new_capacity;i++){
+            if (this->data[i] != *position)
+                this->get_allocator().construct(new_data + i+j,this->data[i]);
+            else{
                 while(first!=last){
-                    this->push_back(*first);
+                    this->get_allocator().construct(new_data +i+j,*first);
+                    first++;
+                    j++;
                 }
             }
         }
+        this->size_= new_capacity;
+        this->capacity_ = this->size_;
     }
     iterator erase(iterator position){
         value_type* ptr = nullptr;
