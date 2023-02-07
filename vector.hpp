@@ -193,7 +193,7 @@ class vector {
         size_type new_capacity = this->size_ + n;
         value_type* new_data = this->get_allocator().allocate(new_capacity);
         int j=0;
-        for (size_type i=0;i<new_capacity;i++){
+        for (size_type i=0;i<this->size_;i++){
             if (this->data[i] != *position)
                 this->get_allocator().construct(new_data + i+j,this->data[i]);
             else{
