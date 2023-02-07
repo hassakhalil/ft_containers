@@ -48,9 +48,14 @@ class vector {
     }
     template <class InputIterator>
     vector(InputIterator first, InputIterator last, const allocator_type& = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        this->capacity_ = 0;
+        ptrdiff_t n = abs(last - first);
+        this->capacity_ = n;
         this->size_ = 0;
-        this->insert(this->begin(),first,last);
+        this->data = this->get_allocator().allocate(n);
+        for (;first!=last;first++){
+            this->get_allocator().construct(this->data + this->size_, *first);
+            ++this->size_;
+        }
     }
     vector(const ft::vector<T,allocator_type >& x){
         this->size_ = x.size_;
@@ -163,7 +168,7 @@ class vector {
 
     //----------------------------------------------------modifiers:
     void     push_back(const value_type& x){
-        if (this->size_ +1 >= this->capacity_)
+        if (this->size_ +1 > this->capacity_)
             this->reserve(2*this->capacity_ + 1);
         this->get_allocator().construct(this->data + this->size_, x);
         ++this->size_;
@@ -316,12 +321,9 @@ class vector {
         return iterator(ptr);
     }
     void     swap(ft::vector<T,Allocator >& x){
-            value_type*     tmp1;
-            size_type       tmp2;
-            size_type       tmp3;
-            tmp1 = x.data;
-            tmp2 = x.size_;
-            tmp3 = x.capacity_;
+            value_type*     tmp1 = x.data;
+            size_type       tmp2 = x.size_;
+            size_type       tmp3 = x.capacity_;
             x.data = this->data;
             x.size_ = this->size_;
             x.capacity_= this->capacity_;

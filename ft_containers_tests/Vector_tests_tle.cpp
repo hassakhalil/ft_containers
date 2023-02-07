@@ -550,10 +550,7 @@ void vector_tests(void)
 
         for (ft::vector<std::string>::iterator it = my_v1.begin(); it != my_v1.end(); ++it) // fill my_res1 from ft::vector
         {
-            std::cout << "==BEF==0==" << std::endl;
-            std::cout << "==BEF==1== " << *it << std::endl;
             my_res1 += *it;
-            std::cout << "==AFT==" << std::endl;
         }
         EQUAL(res == my_res && my_res == my_res1);
     }
