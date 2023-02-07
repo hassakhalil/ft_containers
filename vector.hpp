@@ -1,6 +1,7 @@
 #ifndef VECTOR_H
 #define VECTOR_H
 #include <cstddef>
+#include <cmath>
 #include <memory>
 #include <exception>
 #include <iostream>
@@ -44,21 +45,9 @@ class vector {
     }
     template <class InputIterator>
     vector(InputIterator first, InputIterator last, const allocator_type& = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        // this->capacity_ = 0;
-        // this->size_=0;
-        ptrdiff_t tmp = first - last;
-        if (tmp<0)
-            tmp *= -1;
-        this->capacity_ = tmp;
-        this->size_ = tmp;
-        this->data = this->get_allocator().allocate(this->capacity_);
-        for (size_type i=0;i<this->capacity_;i++){
-            this->get_allocator().construct(this->data + i, *first);
-            first++;
-        }         
-        // for(;first!=last;first++){
-        //     this->push_back(*first);
-        // }
+        this->capacity_ = 0;
+        this->size_ = 0;
+        this->insert(this->begin(),first,last);
     }
     vector(const ft::vector<T,allocator_type >& x){
         this->size_ = x.size_;
@@ -182,14 +171,38 @@ class vector {
         return position;
     }
     void     insert(iterator position, size_type n, const T& x){
-        ft::vector<value_type> tmp(n,x);
-        this->insert(position,tmp.begin(),tmp.end());
+        size_type new_capacity = this->size_ + n;
+        value_type* new_data = this->get_allocator().allocate(new_capacity);
+        if (this->size_)
+        {
+            size_type j=0;
+            for (size_type i=0;i<this->size_;i++){
+                if (this->data[i] != *position)
+                    this->get_allocator().construct(new_data + i+j,this->data[i]);
+                else{
+                    for(;j<n;j++){
+                        this->get_allocator().construct(new_data +i+j,x);
+                    }
+                    this->get_allocator().construct(new_data +i+j,this->data[i]);
+                    i++;
+                }
+            }
+            this->clear();
+        }
+        else{
+            for(size_type i=0;i<n;i++){
+                this->get_allocator().construct(new_data + i,x);
+            }
+        }
+        if (this->capacity_)
+            this->get_allocator().deallocate(this->data,this->capacity_);
+        this->data = new_data;
+        this->size_= new_capacity;
+        this->capacity_ = this->size_;
     }
     template <class InputIterator>
     void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        ptrdiff_t n = last -first;
-        if (n < 0)
-            n *= -1;
+        ptrdiff_t n =  abs(last -first);
         size_type new_capacity = this->size_ + n;
         value_type* new_data = this->get_allocator().allocate(new_capacity);
         if (this->size_)

@@ -1,6 +1,6 @@
 In file included from ../vector_tests/insert(range).cpp:2:
 In file included from ../vector_tests/__service.ipp:3:
-../vector_tests/../../../vector.hpp:199:35: error: invalid operands to binary expression ('ft::vector<A, std::__1::allocator<A> >::value_type' (aka 'A') and 'A')
+../vector_tests/../../../vector.hpp:212:35: error: invalid operands to binary expression ('ft::vector<A, std::__1::allocator<A> >::value_type' (aka 'A') and 'A')
                 if (this->data[i] != *position)
                     ~~~~~~~~~~~~~ ^  ~~~~~~~~~
 ../vector_tests/insert(range).cpp:86:14: note: in instantiation of function template specialization 'ft::vector<A, std::__1::allocator<A> >::insert<ft::random_it<B *> >' requested here
