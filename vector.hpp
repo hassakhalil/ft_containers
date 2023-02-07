@@ -34,7 +34,10 @@ class vector {
     typedef ft::reverse_iterator<const_iterator>             const_reverse_iterator;
 
     //--------------------------------------------------construct/copy/destroy:
-    explicit vector(const allocator_type& = allocator_type()):capacity_(0),size_(0){}
+    explicit vector(const allocator_type& = allocator_type()){
+        this->capacity_=0;
+        this->size_=0;
+    }
     explicit vector(size_type n, const value_type& value = T(),const allocator_type& = allocator_type()){
         this->size_=n;
         this->capacity_=n;
@@ -58,7 +61,12 @@ class vector {
         }
     }
     ~vector(){
-        clear();
+        if (this->size_)
+        {
+            for (size_type i = 0; i<this->size_ ;i++){
+            this->get_allocator().destroy(this->data + i);
+            }
+        }
         if (this->capacity_)
             this->get_allocator().deallocate(this->data,this->capacity_);
     }
@@ -66,7 +74,6 @@ class vector {
             if (this->capacity_){
                 this->clear();
                 this->get_allocator().deallocate(this->data,this->capacity_);
-                this->capacity_ = 0;
             }
             this->data = this->get_allocator().allocate(x.capacity_);
             this->capacity_ = x.capacity_;
@@ -104,13 +111,18 @@ class vector {
     void        resize(size_type n, value_type val = value_type()){
         if (n < this->size_)
         {
-            while (n < this->size_)
-                this->pop_back();
+            while (n < this->size_){
+                this->get_allocator().destroy(this->data + this->size_);
+                --this->size_;
+            }
         }
         else if (n > this->size_)
         {
+            if (n > this->capacity_)
+                this->reserve(n);
             while (this->size_ < n){
-                this->push_back(val);
+                this->get_allocator().construct(this->data + this->size_,val);
+                ++this->size_;
             }
         }
     }
@@ -151,10 +163,11 @@ class vector {
 
     //----------------------------------------------------modifiers:
     void     push_back(const value_type& x){
-        if (this->size_ == this->capacity_)
-            reserve(2*this->capacity_ + 1);
+        if (this->size_ +1 >= this->capacity_)
+            this->reserve(2*this->capacity_ + 1);
         this->get_allocator().construct(this->data + this->size_, x);
         ++this->size_;
+        
     }
     void     pop_back(){
         if (this->size_)
@@ -164,11 +177,35 @@ class vector {
         }
     }
     iterator insert(iterator position, const T& x){
-        this->insert(position,1,x);
-        ft::random_it<T> it = this->begin();
-        while(*it!=x)
-            it++;
-        return it;
+        value_type* ptr = nullptr;
+        size_type new_capacity = this->size_ + 1;
+        value_type* new_data = this->get_allocator().allocate(new_capacity);
+        if (this->size_)
+        {
+            size_type j=0;
+            for (size_type i=0;i<this->size_;i++){
+                if (this->data[i] != *position)
+                    this->get_allocator().construct(new_data + i+j,this->data[i]);
+                else{
+                    this->get_allocator().construct(new_data +i,x);
+                    ptr = &new_data[i];
+                    j=1;
+                    this->get_allocator().construct(new_data +i+j,this->data[i]);
+                    i++;
+                }
+            }
+            this->clear();
+        }
+        else{
+                this->get_allocator().construct(new_data,x);
+                ptr = new_data;
+        }
+        if (this->capacity_)
+            this->get_allocator().deallocate(this->data,this->capacity_);
+        this->data = new_data;
+        this->size_= new_capacity;
+        this->capacity_ = this->size_;
+       return iterator(ptr);
     }
     void     insert(iterator position, size_type n, const T& x){
         size_type new_capacity = this->size_ + n;
@@ -235,18 +272,22 @@ class vector {
     }
     iterator erase(iterator position){
         value_type* ptr = nullptr;
-        for (size_type i=0;i<this->size_;i++){
+        value_type* new_data = this->get_allocator().allocate(this->capacity_);
+        int j=0;
+        for (size_type i=0;i<this->size_-1;i++){
             if (this->data[i] == *position)
             {
-                ptr = this->data +i+1;
-                for (size_type j = i;j<this->size_-1;j++)
-                {
-                    this->data[j] = this->data[j+1];
-                }
-                this->size_--;
-                break;
+                j=1;
+                ptr = this->data + i + j;
             }
+                this->get_allocator().construct(new_data + i, this->data[i+j]);
         }
+        size_type tmp = --this->size_; 
+        clear();
+        if(this->capacity_)
+            this->get_allocator().deallocate(this->data, this->capacity_);
+        this->data = new_data;
+        this->size_ = tmp;
         return iterator(ptr);
     }
     iterator erase(iterator first, iterator last){
@@ -276,8 +317,8 @@ class vector {
     }
     void     swap(ft::vector<T,Allocator >& x){
             value_type*     tmp1;
-            size_type tmp2;
-            size_type tmp3;
+            size_type       tmp2;
+            size_type       tmp3;
             tmp1 = x.data;
             tmp2 = x.size_;
             tmp3 = x.capacity_;
