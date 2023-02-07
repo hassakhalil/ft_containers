@@ -202,10 +202,9 @@ class vector {
                     this->get_allocator().construct(new_data + i+j,this->data[i]);
                 else{
                     this->get_allocator().construct(new_data +i,x);
-                    ptr = &new_data[i];
+                    ptr = new_data + i;
                     j=1;
                     this->get_allocator().construct(new_data +i+j,this->data[i]);
-                    i++;
                 }
             }
             this->clear();
@@ -218,7 +217,7 @@ class vector {
             this->get_allocator().deallocate(this->data,this->capacity_);
         this->data = new_data;
         this->size_= new_capacity;
-        this->capacity_ = this->size_;
+        this->capacity_ = new_capacity;
        return iterator(ptr);
     }
     void     insert(iterator position, size_type n, const T& x){
@@ -235,10 +234,9 @@ class vector {
                         this->get_allocator().construct(new_data +i+j,x);
                     }
                     this->get_allocator().construct(new_data +i+j,this->data[i]);
-                    i++;
                 }
+                this->get_allocator().destroy(this->data + i);
             }
-            this->clear();
         }
         else{
             for(size_type i=0;i<n;i++){
@@ -258,24 +256,27 @@ class vector {
         value_type* new_data = this->get_allocator().allocate(new_capacity);
         if (this->size_)
         {
-            int j=0;
-            for (size_type i=0;i<this->size_;i++){
-                if (this->data[i] != *position)
-                    this->get_allocator().construct(new_data + i+j,this->data[i]);
+            size_type j=0;
+            size_type i=0;
+            for (iterator it=this->begin();it<this->end();it++){
+                if (it != position)
+                    this->get_allocator().construct(new_data + i+j,*it);
                 else{
-                    for(;first!=last;first++){
-                        this->get_allocator().construct(new_data +i+j,*first);
-                        j++;
+                    while(first!=last){
+                        this->get_allocator().construct(new_data +i+j++,*(first++));
                     }
-                    this->get_allocator().construct(new_data +i+j,this->data[i]);
-                    i++;
+                    if (position != this->end())
+                        this->get_allocator().construct(new_data +i+j,*it);
                 }
+                if (position != this->end())
+                    this->get_allocator().destroy(this->data +i);
+                i++;
             }
-            this->clear();
         }
         else{
-            for(int i=0;first != last;first++,i++){
-                this->get_allocator().construct(new_data + i,*first);
+            size_type i= 0;
+            while(first != last){
+                this->get_allocator().construct(new_data + i++,*(first++));
             }
         }
         if (this->capacity_)

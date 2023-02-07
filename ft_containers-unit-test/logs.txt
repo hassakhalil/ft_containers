@@ -1,15 +1,1 @@
-In file included from ../vector_tests/insert(range).cpp:2:
-In file included from ../vector_tests/__service.ipp:3:
-../vector_tests/../../../vector.hpp:263:35: error: invalid operands to binary expression ('ft::vector<A, std::__1::allocator<A> >::value_type' (aka 'A') and 'A')
-                if (this->data[i] != *position)
-                    ~~~~~~~~~~~~~ ^  ~~~~~~~~~
-../vector_tests/insert(range).cpp:86:14: note: in instantiation of function template specialization 'ft::vector<A, std::__1::allocator<A> >::insert<ft::random_it<B *> >' requested here
-    try { vv.insert(vv.begin(), v1.begin(), v1.end()); }
-             ^
-../vector_tests/insert(range).cpp:97:68: note: in instantiation of function template specialization 'insert_test_3<int>' requested here
-    exit(run_vector_unit_test<int>("insert(range)", insert_test_3, insert_test_3));
-                                                                   ^
-../vector_tests/../../../random_it.hpp:96:10: note: candidate template ignored: could not match 'random_it<type-parameter-0-0>' against 'A'
-    bool operator !=(const ft::random_it<T>& x, const ft::random_it<T>& y){return x.base() != y.base();}
-         ^
-1 error generated.
+
