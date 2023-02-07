@@ -168,11 +168,20 @@ class vector {
 
     //----------------------------------------------------modifiers:
     void     push_back(const value_type& x){
-        if (this->size_ +1 > this->capacity_)
-            this->reserve(2*this->capacity_ + 1);
+        if (this->size_ == this->capacity_ || !this->capacity_){
+            // this->reserve(2*this->capacity_ + 1);
+            value_type* new_data = this->get_allocator().allocate(2*(this->capacity_ +1));
+            for (size_type i=0;i<this->size_;i++){
+                this->get_allocator().construct(new_data + i, this->data[i]);
+                this->get_allocator().destroy(this->data + i);
+            }
+            if (this->capacity_)
+                this->get_allocator().deallocate(this->data, this->capacity_);
+            this->capacity_ = 2*(this->capacity_ + 1);
+            this->data = new_data;
+        }
         this->get_allocator().construct(this->data + this->size_, x);
         ++this->size_;
-        
     }
     void     pop_back(){
         if (this->size_)
