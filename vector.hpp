@@ -347,7 +347,11 @@ class vector {
 };
 //----------------------------------------------------------non-member operators:
 template <class T, class Alloc>
-bool operator== (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){return ft::equal(x.begin(),x.end(),y.begin());}
+bool operator== (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){
+    if (x.size() == y.size())
+        return ft::equal(x.begin(),x.end(),y.begin());
+    return false;
+    }
 template <class T, class Alloc>
 bool operator!= (const ft::vector<T,Alloc>& x, const ft::vector<T,Alloc>& y){return (x == y)?false:true;}
 template <class T, class Alloc>  
