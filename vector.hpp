@@ -109,8 +109,12 @@ class vector {
         }
         else if (n > this->size_)
         {
-            while (this->size_ < n)
-                this->push_back(val);
+            if (this->capacity_ < n)
+                this->reserve(n);
+            while (this->size_ < n){
+                this->get_allocator().construct(this->data +this->size_, val);
+                this->size_++;
+            }
         }
     }
     size_type   capacity() const{ return this->capacity_; }
@@ -118,18 +122,14 @@ class vector {
     void        reserve(size_type n){
         if (n > this->capacity_)
         {
-            this->capacity_=n;
-            if (this->capacity_ ==0)
-            {
-                this->data = this->get_allocator().allocate(n);
-                return ;
-            }
             value_type* new_data = this->get_allocator().allocate(n);
             for (size_type i=0; i<this->size_ ; i++){
                 this->get_allocator().construct(new_data + i, this->data[i]);
                 this->get_allocator().destroy(this->data + i);
             }
-            this->get_allocator().deallocate(this->data,this->capacity_);
+            if (this->capacity_)
+                this->get_allocator().deallocate(this->data,this->capacity_);
+            this->capacity_=n;
             this->data = new_data;
         }
     }
@@ -168,7 +168,10 @@ class vector {
     }
     iterator insert(iterator position, const T& x){
         this->insert(position,1,x);
-        return position;
+        ft::random_it<T> it = this->begin();
+        while(*it!=x)
+            it++;
+        return it;
     }
     void     insert(iterator position, size_type n, const T& x){
         size_type new_capacity = this->size_ + n;
