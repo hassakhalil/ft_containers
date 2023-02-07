@@ -104,16 +104,13 @@ class vector {
     void        resize(size_type n, value_type val = value_type()){
         if (n < this->size_)
         {
-            while (this->size_ > n)
+            while (n < this->size_)
                 this->pop_back();
         }
         else if (n > this->size_)
         {
-            if (this->capacity_ < n)
-                this->reserve(n);
             while (this->size_ < n){
-                this->get_allocator().construct(this->data +this->size_, val);
-                this->size_++;
+                this->push_back(val);
             }
         }
     }
@@ -154,10 +151,10 @@ class vector {
 
     //----------------------------------------------------modifiers:
     void     push_back(const value_type& x){
-        if (this->size_ ==this->capacity_)
+        if (this->size_ == this->capacity_)
             reserve(2*this->capacity_ + 1);
         this->get_allocator().construct(this->data + this->size_, x);
-        this->size_++;
+        ++this->size_;
     }
     void     pop_back(){
         if (this->size_)
