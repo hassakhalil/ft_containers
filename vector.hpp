@@ -286,23 +286,25 @@ class vector {
         this->capacity_ = this->size_;
     }
     iterator erase(iterator position){
-        value_type* ptr = nullptr;
-        value_type* new_data = this->get_allocator().allocate(this->capacity_);
-        int j=0;
-        for (size_type i=0;i<this->size_-1;i++){
-            if (this->data[i] == *position)
+        value_type *ptr;
+        value_type *new_data = this->get_allocator().allocate(this->capacity_);
+        size_type j=0;
+        size_type i=0;
+        for (iterator it = this->begin();it!=this->end();it++){
+            if (it == position)
             {
-                j=1;
-                ptr = this->data + i + j;
+                j= 1;
+                ptr = new_data + i;
+                this->get_allocator().destroy(this->data + i);
             }
-                this->get_allocator().construct(new_data + i, this->data[i+j]);
+            this->get_allocator().construct(new_data +i,this->data[i+j]);
+            this->get_allocator().destroy(this->data + i+j);            
+            i++;
         }
-        size_type tmp = --this->size_; 
-        clear();
-        if(this->capacity_)
+        if (this->capacity_)
             this->get_allocator().deallocate(this->data, this->capacity_);
         this->data = new_data;
-        this->size_ = tmp;
+        --this->size_;
         return iterator(ptr);
     }
     iterator erase(iterator first, iterator last){
