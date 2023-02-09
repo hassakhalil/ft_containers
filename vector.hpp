@@ -283,24 +283,18 @@ class vector {
         this->size_ = new_size;
     }
     iterator erase(iterator position){
-        value_type *ptr;
-        value_type *new_data = this->get_allocator().allocate(this->capacity_);
-        size_type j=0;
-        size_type i=0;
-        for (iterator it = this->begin();it!=this->end();it++){
-            if (it == position)
-            {
-                j= 1;
-                this->get_allocator().destroy(this->data + i);
-                ptr = new_data + i;
-            }
-            this->get_allocator().construct(new_data +i,this->data[i+j]);
-            this->get_allocator().destroy(this->data + i+j);            
-            i++;
+        value_type *ptr = nullptr;
+        if (position == this->end())
+            return this->end();
+        size_type n = std::distance(this->begin(),position);
+        size_type m = n;
+        for (iterator it = position+1;it != this->end();it++){
+            this->get_allocator().destroy(this->data + n);
+            this->get_allocator().construct(this->data +n,*it);
+            if (n == m)
+                ptr = this->data + n;
+            ++n;
         }
-        if (this->capacity_)
-            this->get_allocator().deallocate(this->data, this->capacity_);
-        this->data = new_data;
         --this->size_;
         return iterator(ptr);
     }
