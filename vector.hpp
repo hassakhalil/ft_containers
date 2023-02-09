@@ -46,13 +46,13 @@ class vector {
     }
     template <class InputIterator>
     vector(InputIterator first, InputIterator last, const allocator_type& = allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        difference_type n=std::distance(first,last);
+        size_type n=std::distance(first,last);
         this->capacity_ = n;
-        this->size_ = 0;
+        this->size_ = n;
         this->data = this->get_allocator().allocate(n);
-        for (;first!=last;first++){
-            this->get_allocator().construct(this->data + this->size_, *first);
-            this->size_++;
+        for (size_type i = 0;i < n;i++){
+            this->get_allocator().construct(this->data + i, *first);
+            first++;
         }
     }
     vector(const ft::vector<T,allocator_type >& x){
@@ -127,15 +127,22 @@ class vector {
     size_type   size() const{ return this->size_; }
     size_type   max_size() const{ return this->get_allocator().max_size(); }
     void        resize(size_type n, value_type val = value_type()){
+        size_type i;
         if (n < this->size_)
         {
-            while (n != this->size_)
+            i = this->size_;
+            while (n != i){
                 this->pop_back();
+                i--;
+            }
         }           
         else if (n > this->size_)
         {
-            while (n != this->size_)
+            i= this->size_;
+            while (n != i){
                 this->push_back(val);
+                i++;
+            }
         }
     }
     size_type   capacity() const{ return this->capacity_; }
