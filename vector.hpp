@@ -82,13 +82,36 @@ class vector {
             return *this;
     }
     template <class InputIterator>
-    void assign(InputIterator first, InputIterator last){
-        this->erase(this->begin(),this->end());
-        this->insert(this->begin(),first,last);
+    void assign(InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
+        size_type n = std::distance(first,last);
+        this->clear();
+        if (n > this->capacity_)
+        {
+            if (this->capacity_)
+                this->get_allocator().deallocate(this->data,this->capacity_);
+            this->data = this->get_allocator().allocate(n);
+            this->capacity_ = n;
+        }
+        this->size_ = 0;
+        for (;first!=last;first++){
+            this->get_allocator().construct(this->data + this->size_,*first);
+            this->size_++;
+        }
     }
     void assign(size_type n, const T& u){
-        this->erase(this->begin(),this->end());
-        this->insert(this->begin(),n,u);
+        this->clear();
+        if (n > this->capacity_)
+        {
+            if (this->capacity_)
+                this->get_allocator().deallocate(this->data,this->capacity_);
+            this->data = this->get_allocator().allocate(n);
+            this->capacity_ = n;
+        }
+        this->size_ = 0;
+        for (size_type i=0;i<n;i++){
+            this->get_allocator().construct(this->data + i,u);
+            this->size_++;
+        }
     }
     allocator_type get_allocator() const{return this->alloc_;}
     //---------------------------------------------------iterators:
