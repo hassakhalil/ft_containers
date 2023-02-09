@@ -79,6 +79,7 @@
         "stack": "cpp",
         "bit": "cpp",
         "csignal": "cpp",
-        "fstream": "cpp"
+        "fstream": "cpp",
+        "__functional_03": "cpp"
     }
 }
