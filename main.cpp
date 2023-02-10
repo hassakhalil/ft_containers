@@ -38,33 +38,61 @@ int main()
         /*------------------------------- test 1: empty vector ----------------------------------------*/
         // insert at the begin
         {
+            //debug
+            std::cout<<"start of test 1"<<std::endl;
+            //end debug
             std::vector<std::string> v;
             ft::vector<std::string> ft_v;
             it = v.insert(v.begin(), "hello");
+            //debug
+            std::cout<<"--test1 msg 1"<<std::endl;
+            //end debug
             ft_it = ft_v.insert(ft_v.begin(), "hello");
             ft_it->length();
+            //debug
+            std::cout<<"--test1 msg 2"<<std::endl;
+            //end debug
 
             s = v.size();
             ft_s = ft_v.size();
             c = v.capacity();
             ft_c = ft_v.capacity();
+                        //debug
+            std::cout<<"--test1 msg 3"<<std::endl;
+            //end debug
+
             for (size_t i = 0; i < v.size(); ++i)
                 str += v[i];
+            //debug
+            std::cout<<"--test1 msg 4"<<std::endl;
+            //end debug
+
             for (size_t i = 0; i < ft_v.size(); ++i)
                 ft_str += ft_v[i];
             cond = ((str == ft_str) && (s == ft_s) && (c == ft_c) && (*ft_it == *it));
         }
         // insert at the end
         {
+                        //debug
+            std::cout<<"--test1 msg 5"<<std::endl;
+            //end debug
+
             std::vector<std::string> v;
             ft::vector<std::string> ft_v;
 
             it = v.insert(v.end(), "hello");
+                        //debug
+            std::cout<<"--test1 msg 6"<<std::endl;
+            //end debug
+
             ft_it = ft_v.insert(ft_v.end(), "hello");
             ft_it->length();
 
             str.clear();
             ft_str.clear();
+            //debug
+            std::cout<<"--test1 msg 7"<<std::endl;
+            //end debug
 
             s = v.size();
             ft_s = ft_v.size();
@@ -76,6 +104,9 @@ int main()
                 ft_str += ft_v[i];
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c) && (*it == *ft_it));
         }
+        //debug
+        std::cout<<"start of test 2"<<std::endl;
+        //end debug
         /*---------------------------------------------------------------------------------------------------*/
         /*------------------------------- test 2: the vector capacity >= size + the new element ----------------------------------------*/
         {
@@ -105,6 +136,9 @@ int main()
         /*---------------------------------------------------------------------------------------------------*/
         /*------------------------------- test 3: the vector capacity < size + the new element ----------------------------------------*/
         {
+            //debug
+            std::cout<<" start of test 3"<<std::endl;
+            //end debug 
             std::vector<std::string> v(20, "string");
             ft::vector<std::string> ft_v(20, "string");
 

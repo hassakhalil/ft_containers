@@ -130,14 +130,20 @@ class vector {
         size_type i = this->size_;
         if (n < this->size_)
         {
-            while (n != i--)
+            while (n != i)
+            {
                 this->pop_back();
+                i--;
+            }
         }           
         else if (n > this->size_)
         {
-            while (n != i++)
+            while (n != i){
                 this->push_back(val);
+                i++;
+            }
         }
+        this->size_=n;
     }
     size_type   capacity() const{ return this->capacity_; }
     bool        empty() const{ return !this->size_; }
@@ -189,34 +195,14 @@ class vector {
             this->get_allocator().destroy(this->data+ --this->size_);
     }
     iterator insert(iterator position, const T& x){
-        value_type* ptr = nullptr;
-        size_type new_capacity = this->capacity_ + 1;
-        value_type* new_data = this->get_allocator().allocate(new_capacity);
-        if (this->size_)
+        if (position == this->end())
         {
-            size_type j=0;
-            for (size_type i=0;i<this->size_;i++){
-                if (this->data[i] != *position)
-                    this->get_allocator().construct(new_data + i+j,this->data[i]);
-                else{
-                    this->get_allocator().construct(new_data +i,x);
-                    ptr = new_data + i;
-                    j=1;
-                    this->get_allocator().construct(new_data +i+j,this->data[i]);
-                }
-            }
-            this->clear();
+            size_type i=this->size_;
+            this->push_back(x);
+            return this->begin()+i;
         }
-        else{
-            this->get_allocator().construct(new_data,x);
-            ptr = new_data;
-        }
-        if (this->capacity_)
-            this->get_allocator().deallocate(this->data,this->capacity_);
-        this->data = new_data;
-        this->size_= this->size_ + 1;
-        this->capacity_ = new_capacity;
-       return iterator(ptr);
+        this->insert(position, 1, x);
+        return this->begin()+std::distance(this->begin(),position);
     }
     void     insert(iterator position, size_type n, const T& x){
         size_type new_capacity = this->capacity_ + n;
@@ -249,55 +235,54 @@ class vector {
     }
     template <class InputIterator>
     void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        size_type n =  abs(last -first);
-        size_type new_capacity = this->capacity_ + n;
-        size_type new_size = this->size_ + n;
-        value_type* new_data = this->get_allocator().allocate(new_capacity);
+        size_type n =  std::distance(first, last);
+        value_type* new_data = this->get_allocator().allocate(this->capacity_ + n);
+
         if (this->size_)
         {
             size_type j=0;
-            iterator it = this->begin();
-            for (size_type i=0 ;i<this->size_;i++){
-                if (it != position)
-                    this->get_allocator().construct(new_data + i+j,this->data[i]);
-                else{
-                    for (;j<n;j++){
+            size_type i=0;
+            for (iterator it=this->begin();it!=this->end();it++)
+            {
+                if (it== position)
+                {
+                    for (;j<n;j++)
+                    {
                         this->get_allocator().construct(new_data +i+j,*first);
-                        first++;
+                        ++first;
                     }
+                    this->get_allocator().construct(new_data +i +j, this->data[i]);
                 }
-                it++;
+                else
+                    this->get_allocator().construct(new_data +i +j, this->data[i]);
+                this->get_allocator().destroy(this->data + i);
+                i++;
             }
         }
-        else{
-            for (size_type i=0; i<n;i++){
-                this->get_allocator().construct(new_data + i,*first);
-                first++;
+        else
+        {
+            for (size_type i=0;i<n;i++){
+                this->get_allocator().construct(new_data +i, *first);
+                ++first;
             }
         }
-        this->clear();
         if (this->capacity_)
             this->get_allocator().deallocate(this->data,this->capacity_);
         this->data = new_data;
-        this->capacity_ = new_capacity;
-        this->size_ = new_size;
+        this->capacity_ += n;
+        this->size_ += n;   
     }
     iterator erase(iterator position){
-        value_type *ptr = nullptr;
-        if (position == this->end())
-            return this->end();
-        size_type n = std::distance(this->begin(),position);
-        size_type m = n;
-        for (iterator it = position+1;it != this->end();it++){
-            this->get_allocator().destroy(this->data + n);
-            this->get_allocator().construct(this->data +n,*it);
-            if (n == m)
-                ptr = this->data + n;
-            ++n;
+        size_type bef = std::distance(this->begin(),position);
+        for (size_type i = bef;i<this->size_-1;i++){
+            this->get_allocator().destroy(this->data + i);
+            this->get_allocator().construct(this->data +i,this->data[i + 1]);
         }
-        --this->size_;
-        return iterator(ptr);
+        if (this->size_)
+            --this->size_;
+        return this->begin() +bef;
     }
+
     iterator erase(iterator first, iterator last){
         value_type *ptr = nullptr;
         size_type m = std::distance(this->begin(),first);
@@ -323,10 +308,13 @@ class vector {
             this->capacity_ = tmp3;
     }
     void     clear(){
-        while (this->size_)
+        size_type i = 0;
+        while (i < this->size_)
         {
-            this->get_allocator().destroy(this->data + --this->size_);
+            this->get_allocator().destroy(this->data + i);
+            i++;
         }
+        this->size_ = 0;
     }
     //-----------------------------------------------------private members:
     protected:
