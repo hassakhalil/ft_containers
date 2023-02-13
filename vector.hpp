@@ -183,8 +183,6 @@ class vector {
         return this->begin()+n;
     }
     void     insert(iterator position, size_type n, const T& x){
-        if (n == 0)
-            return ;
         if (position == this->end() || (position == this->begin() && this->size_==0))
         {
             for (size_type i= 0;i<n;i++)
@@ -201,15 +199,23 @@ class vector {
     }
     template <class InputIterator>
     void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        if (last == first)
-            return ;
         if (position == this->end() || (this->size_==0 && position == this->end()))
         {
             for (;first!=last;first++)
                 this->push_back(*first);
             return ;
         }
-
+        ft::vector<T> tmp(first,last);
+        size_type n = tmp.size();
+        if (this->size_ + n > this->capacity_)
+            this->reserve(this->capacity_ + n);
+        iterator it = tmp.end() - 1;
+        for (size_type i =n;i>0;i--){
+            this->get_allocator().construct(this->data + this->size_-1+i,this->data[this->size_ -1+i-n]);
+            this->get_allocator().construct(this->data + this->size_ -1+ i-n,*it);
+            it--;
+        }
+        this->size_+=n;
     }
     iterator erase(iterator position){
         if (this->size_){
