@@ -50,6 +50,7 @@ int main()
         for (int i=0;i<3;i++){
           std::cout<<"v["<<i<<"] == "<<v[i]<<" _v["<<i<<"] == "<<_v[i]<<std::endl;
         }
+        while(1);
         // v.push_back(v.size());
 
         // // v.insert(v.end(),"last element inserted so far");

@@ -191,29 +191,13 @@ class vector {
                 this->push_back(x);
             return ;
         }
-        size_type new_capacity = this->capacity_;
-        size_type new_size = 0;
-        if (this->size_ + n > this->capacity_)
-            new_capacity = 2*this->capacity_ + n;
-        value_type* new_data = this->get_allocator().allocate(new_capacity);
-        for (size_type i=0;i<this->size_;i++){
-            if (this->data[i] != *position)
-                this->get_allocator().construct(new_data + new_size++,this->data[i]);
-            else{
-                for(size_type j=0;j<n;j++)
-                    this->get_allocator().construct(new_data + new_size++,x);
-                this->get_allocator().construct(new_data + new_size++,this->data[i]);
-            }
-            this->get_allocator().destroy(this->data + i);
-            //debug
-            // std::cerr<<"(ft::vector) i == "<<i<<std::endl;
-            //end debug
+        if (this->size_ + n >this->capacity_)
+            this->reserve(this->capacity_ + n);
+        for (size_type i =n;i>0;i--){
+            this->get_allocator().construct(this->data + this->size_-1+i,this->data[this->size_ -1+i-n]);
+            this->get_allocator().construct(this->data + this->size_ -1+ i-n,x);
         }
-        if (this->capacity_)
-            this->get_allocator().deallocate(this->data, this->capacity_);
-        this->data = new_data;
-        this->size_= new_size;
-        this->capacity_ = new_capacity;
+        this->size_+=n;
     }
     template <class InputIterator>
     void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
@@ -225,37 +209,7 @@ class vector {
                 this->push_back(*first);
             return ;
         }
-        std::vector<T> tmp;
-        for(;first!=last;first++)
-            tmp.push_back(*first);
 
-        size_type n =  tmp.size();
-        size_type new_size=0;
-        size_type new_capacity=this->capacity_;
-        if (this->size_ + n > new_capacity)
-            new_capacity = this->capacity_ + n;
-        value_type* new_data = this->get_allocator().allocate(new_capacity);
-        size_type i=0;
-        for (iterator it=this->begin();it!=this->end();it++)
-        {
-            if (it != position)           
-                this->get_allocator().construct(new_data + new_size++, *it);
-            else
-            {
-                for ( typename std::vector<T>::iterator tmp_it =tmp.begin();tmp_it!=tmp.end();tmp_it++)
-                {
-                    this->get_allocator().construct(new_data + new_size++,*tmp_it);
-                }
-                this->get_allocator().construct(new_data + new_size++, *it);
-            }
-            this->get_allocator().destroy(this->data + i);
-            i++;
-        }
-        if (this->capacity_)
-            this->get_allocator().deallocate(this->data, this->capacity_);
-        this->data = new_data;
-        this->capacity_ = new_capacity;
-        this->size_ = new_size;
     }
     iterator erase(iterator position){
         if (this->size_){
