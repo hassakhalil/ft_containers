@@ -24,6 +24,7 @@ std::vector<int> insert_test_2(_vector<T> vector) {
     v.push_back(vector[2121]);
     v.push_back(vector.size());
     v.push_back(vector.capacity());
+
     return v;
 }
 

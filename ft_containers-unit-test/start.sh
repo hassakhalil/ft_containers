@@ -4,7 +4,7 @@ trap 'rm -f a.out test1 ;yes | rm -f results/*; echo -e "\n"See 📄 "\033[1mlog
 echo "" > logs.txt
 yes | rm -f sources/system/results/*
 cd sources/system/
-fast_flag=""
+fast_flag="-fsanitize=address"
 
 if [[ $1 = -fast || $2 = -fast ]]
 then
