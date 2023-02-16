@@ -27,6 +27,8 @@ int main()
 
         vector.assign(1000,1);
         _vector.assign(1000,1);
+        v.assign(273,123);
+        _v.assign(273,123);
         // if (vector == _vector)
         //     std::cerr<<"(main) vector == _vector"<<std::endl;
         // else 
@@ -36,18 +38,18 @@ int main()
         std::cerr<<"(main) after assign"<<std::endl;
         std::cerr<<"(main) size == "<<vector.size()<<std::endl;
         //end debug
-        vector.insert(vector.end()-50,4200,2);
-        _vector.insert(_vector.end()-50,4200,2);
-        std::cerr<<"(main) after insert"<<std::endl;
+        // vector.insert(vector.end()-50,4200,2);
+        // _vector.insert(_vector.end()-50,4200,2);
+        // std::cerr<<"(main) after insert"<<std::endl;
 
-        v.push_back(vector[2121]);
+        v.push_back(vector[212]);
         v.push_back(vector.size());
         v.push_back(vector.capacity());
 
-        _v.push_back(_vector[2121]);
+        _v.push_back(_vector[212]);
         _v.push_back(_vector.size());
         _v.push_back(_vector.capacity());
-        for (int i=0;i<3;i++){
+        for (int i=0;i<(int)v.size();i++){
           std::cout<<"v["<<i<<"] == "<<v[i]<<" _v["<<i<<"] == "<<_v[i]<<std::endl;
         }
         while(1);
