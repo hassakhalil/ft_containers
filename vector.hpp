@@ -36,19 +36,24 @@ class vector {
     explicit vector(size_type n, const value_type& value = T(),const allocator_type& all= allocator_type()):alloc_(all){
         this->size_=n;
         this->capacity_=n;
+        try{
         this->data = this->alloc_.allocate(n);
         for (size_type i=0;i<n;i++){
             this->alloc_.construct(this->data+i,value);
         }
+        }
+        catch(...){
+            throw;
+        }
     }
     template <class InputIterator>
-    vector(InputIterator first, InputIterator last, const allocator_type& all= allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0):alloc_(all),capacity_(0),size_(0){
+    vector(InputIterator first, InputIterator last, const allocator_type& all= allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0):capacity_(0),size_(0),alloc_(all){
         while (first!=last){
             this->push_back(*first);
             first++;
         }
     }
-    vector(const ft::vector<T,allocator_type >& x):alloc_(x.get_allocator()),size_(x.size()),capacity_(x.capacity()){
+    vector(const ft::vector<T,allocator_type >& x):capacity_(x.capacity()),size_(x.size()),alloc_(x.get_allocator()){
         this->data = this->alloc_.allocate(this->capacity_);
         for (size_type i=0;i<this->size_;i++){
             this->alloc_.construct(this->data+i,x[i]);
@@ -58,7 +63,6 @@ class vector {
         this->clear();
         if (this->capacity_)
             this->alloc_.deallocate(this->data,this->capacity_);
-        this->capacity_ = 0;
     }
     ft::vector<T,allocator_type>& operator=(const ft::vector<T,allocator_type>& x){
             this->clear();

@@ -10,7 +10,7 @@ std::vector<int> constructor_std_test(std::vector<T> vector) {
 	std::vector<int> tmp2(tmp.begin(), tmp.end());
 	g_end1 = timer();
 	v.push_back(tmp2.size());
-	v.push_back(tmp2.capacity());
+	//v.push_back(tmp2.capacity());
 	for (size_t i = 0; i < tmp.size(); ++i)
 		v.push_back(tmp2[i]);
 	return v;
@@ -26,7 +26,7 @@ std::vector<int> constructor_std_test(_vector<T> vecto) {
 	_vector<int> tmp2(tmp.begin(), tmp.end());
 	g_end2 = timer();
 	v.push_back(tmp2.size());
-	v.push_back(tmp2.capacity());
+	//v.push_back(tmp2.capacity());
 	for (size_t i = 0; i < tmp.size(); ++i)
 		v.push_back(tmp2[i]);
 	return v;

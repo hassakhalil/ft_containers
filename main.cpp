@@ -15,57 +15,75 @@ time_t get_time(void)
     time_t msecs_time = (time_now.tv_sec * 1e3) + (time_now.tv_usec / 1e3);
     return (msecs_time);
 }
-
+#define NAMESPACE std
 int main()
 {
+    NAMESPACE::vector<int> vector(100,10);
+  std::vector<int> v;
+	  NAMESPACE::vector<int> tmp0(vector);
+    NAMESPACE::vector<int> tmp(1000 *1, 4), tmp2(1000 *1, 5);
+    tmp = tmp2;
+    NAMESPACE::vector<int> tmp3(tmp);
+    NAMESPACE::vector<int> tmp4(tmp.begin(), tmp.end());
+    v.push_back(tmp4.size());
+    v.push_back(tmp4.capacity());
+    v.push_back(tmp[2]);
+    v.push_back(tmp3[2]);
+    v.push_back(tmp4[2]);
+    try { NAMESPACE::vector<int> tmp5(-1, -1); }
+    catch (std::exception &e) { v.push_back(1); }
+    for (int i=0;i<(int)v.size();i++){
+      std::cout<<"v["<<i<<"] == "<<v[i]<<std::endl;
+    }
 
-        std::vector<int> v;
-        std::vector<int> _v;
 
-        ft::vector<int> _vector;
-        std::vector<int> vector;
+        // std::vector<int> v;
+        // std::vector<int> _v;
 
-        vector.assign(1000,1);
-        _vector.assign(1000,1);
-        v.assign(273,123);
-        _v.assign(273,123);
-        // if (vector == _vector)
-        //     std::cerr<<"(main) vector == _vector"<<std::endl;
-        // else 
-        //     std::cerr<<"(main) vector != _vector"<<std::endl;
+        // NAMESPACE::vector<int> _vector;
+        // std::vector<int> vector;
 
-        //debbug
-        std::cerr<<"(main) after assign"<<std::endl;
-        std::cerr<<"(main) size == "<<vector.size()<<std::endl;
-        //end debug
-        // vector.insert(vector.end()-50,4200,2);
-        // _vector.insert(_vector.end()-50,4200,2);
-        // std::cerr<<"(main) after insert"<<std::endl;
+        // vector.assign(1000,1);
+        // _vector.assign(1000,1);
+        // v.assign(273,123);
+        // _v.assign(273,123);
+        // // if (vector == _vector)
+        // //     std::cerr<<"(main) vector == _vector"<<std::endl;
+        // // else 
+        // //     std::cerr<<"(main) vector != _vector"<<std::endl;
 
-        v.push_back(vector[212]);
-        v.push_back(vector.size());
-        v.push_back(vector.capacity());
+        // //debbug
+        // std::cerr<<"(main) aNAMESPACEer assign"<<std::endl;
+        // std::cerr<<"(main) size == "<<vector.size()<<std::endl;
+        // //end debug
+        // // vector.insert(vector.end()-50,4200,2);
+        // // _vector.insert(_vector.end()-50,4200,2);
+        // // std::cerr<<"(main) aNAMESPACEer insert"<<std::endl;
 
-        _v.push_back(_vector[212]);
-        _v.push_back(_vector.size());
-        _v.push_back(_vector.capacity());
-        for (int i=0;i<(int)v.size();i++){
-          std::cout<<"v["<<i<<"] == "<<v[i]<<" _v["<<i<<"] == "<<_v[i]<<std::endl;
-        }
-        while(1);
-        // v.push_back(v.size());
+        // v.push_back(vector[212]);
+        // v.push_back(vector.size());
+        // v.push_back(vector.capacity());
 
-        // // v.insert(v.end(),"last element inserted so far");
-        // std::cout<<"v.size() == "<<v.size()<<std::endl;
-        // std::cout<<"v.capacity() == "<<v.capacity()<<std::endl;
-        // // for (int i=0;i<(int)v.size();i++){
-        // //     std::cout<<"v["<<i<<"] == "<<v[i]<<std::endl;
-        // // }
-        // std::cout<<"last element == "<<v.back()<<std::endl;
+        // _v.push_back(_vector[212]);
+        // _v.push_back(_vector.size());
+        // _v.push_back(_vector.capacity());
+        // for (int i=0;i<(int)v.size();i++){
+        //   std::cout<<"v["<<i<<"] == "<<v[i]<<" _v["<<i<<"] == "<<_v[i]<<std::endl;
+        // }
         // while(1);
-        // ft::vector<std::string> vv;
-        // vv.insert(vv.begin(),v.begin(),v.end());
-        // std::cout<<"vv.size() == "<<vv.size()<<std::endl;
+        // // v.push_back(v.size());
+
+        // // // v.insert(v.end(),"last element inserted so far");
+        // // std::cout<<"v.size() == "<<v.size()<<std::endl;
+        // // std::cout<<"v.capacity() == "<<v.capacity()<<std::endl;
+        // // // for (int i=0;i<(int)v.size();i++){
+        // // //     std::cout<<"v["<<i<<"] == "<<v[i]<<std::endl;
+        // // // }
+        // // std::cout<<"last element == "<<v.back()<<std::endl;
+        // // while(1);
+        // // NAMESPACE::vector<std::string> vv;
+        // // vv.insert(vv.begin(),v.begin(),v.end());
+        // // std::cout<<"vv.size() == "<<vv.size()<<std::endl;
         // std::cout<<"vv.capacity() == "<<vv.capacity()<<std::endl;
         // for (int i=0;i<(int)vv.size();i++){
         //     std::cout<<"vv["<<i<<"] == "<<vv[i]<<std::endl;
@@ -74,13 +92,13 @@ int main()
 //      /*
 //          * strings to store the resutls
 //          */
-//         std::string str, ft_str;
+//         std::string str, NAMESPACE_str;
 //         /*
 //          * var to store the size and the capacity
 //          */
-//         ft::vector<std::string>::size_type s, ft_s;
-//         ft::vector<std::string>::size_type c, ft_c;
-//         ft::vector<std::string>::iterator ft_it;
+//         NAMESPACE::vector<std::string>::size_type s, NAMESPACE_s;
+//         NAMESPACE::vector<std::string>::size_type c, NAMESPACE_c;
+//         NAMESPACE::vector<std::string>::iterator NAMESPACE_it;
 //         std::vector<std::string>::iterator it;
 //         /*
 //          * bool to store the comparison
@@ -94,21 +112,21 @@ int main()
 //             std::cout<<"start of test 1"<<std::endl;
 //             //end debug
 //             std::vector<std::string> v;
-//             ft::vector<std::string> ft_v;
+//             NAMESPACE::vector<std::string> NAMESPACE_v;
 //             it = v.insert(v.begin(), "hello");
 //             //debug
 //             std::cout<<"--test1 msg 1"<<std::endl;
 //             //end debug
-//             ft_it = ft_v.insert(ft_v.begin(), "hello");
-//             ft_it->length();
+//             NAMESPACE_it = NAMESPACE_v.insert(NAMESPACE_v.begin(), "hello");
+//             NAMESPACE_it->length();
 //             //debug
 //             std::cout<<"--test1 msg 2"<<std::endl;
 //             //end debug
 
 //             s = v.size();
-//             ft_s = ft_v.size();
+//             NAMESPACE_s = NAMESPACE_v.size();
 //             c = v.capacity();
-//             ft_c = ft_v.capacity();
+//             NAMESPACE_c = NAMESPACE_v.capacity();
 //                         //debug
 //             std::cout<<"--test1 msg 3"<<std::endl;
 //             //end debug
@@ -119,9 +137,9 @@ int main()
 //             std::cout<<"--test1 msg 4"<<std::endl;
 //             //end debug
 
-//             for (size_t i = 0; i < ft_v.size(); ++i)
-//                 ft_str += ft_v[i];
-//             cond = ((str == ft_str) && (s == ft_s) && (c == ft_c) && (*ft_it == *it));
+//             for (size_t i = 0; i < NAMESPACE_v.size(); ++i)
+//                 NAMESPACE_str += NAMESPACE_v[i];
+//             cond = ((str == NAMESPACE_str) && (s == NAMESPACE_s) && (c == NAMESPACE_c) && (*NAMESPACE_it == *it));
 //         }
 //         // insert at the end
 //         {
@@ -130,31 +148,31 @@ int main()
 //             //end debug
 
 //             std::vector<std::string> v;
-//             ft::vector<std::string> ft_v;
+//             NAMESPACE::vector<std::string> NAMESPACE_v;
 
 //             it = v.insert(v.end(), "hello");
 //                         //debug
 //             std::cout<<"--test1 msg 6"<<std::endl;
 //             //end debug
 
-//             ft_it = ft_v.insert(ft_v.end(), "hello");
-//             ft_it->length();
+//             NAMESPACE_it = NAMESPACE_v.insert(NAMESPACE_v.end(), "hello");
+//             NAMESPACE_it->length();
 
 //             str.clear();
-//             ft_str.clear();
+//             NAMESPACE_str.clear();
 //             //debug
 //             std::cout<<"--test1 msg 7"<<std::endl;
 //             //end debug
 
 //             s = v.size();
-//             ft_s = ft_v.size();
+//             NAMESPACE_s = NAMESPACE_v.size();
 //             c = v.capacity();
-//             ft_c = ft_v.capacity();
+//             NAMESPACE_c = NAMESPACE_v.capacity();
 //             for (size_t i = 0; i < v.size(); ++i)
 //                 str += v[i];
-//             for (size_t i = 0; i < ft_v.size(); ++i)
-//                 ft_str += ft_v[i];
-//             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c) && (*it == *ft_it));
+//             for (size_t i = 0; i < NAMESPACE_v.size(); ++i)
+//                 NAMESPACE_str += NAMESPACE_v[i];
+//             cond = (cond && (str == NAMESPACE_str) && (s == NAMESPACE_s) && (c == NAMESPACE_c) && (*it == *NAMESPACE_it));
 //         }
 //         //debug
 //         std::cout<<"start of test 2"<<std::endl;
@@ -163,19 +181,19 @@ int main()
 //         /*------------------------------- test 2: the vector capacity >= size + the new element ----------------------------------------*/
 //         {
 //             std::vector<std::string> v(20, "string");
-//             ft::vector<std::string> ft_v(20, "string");
-//             ft::vector<std::string>::iterator valid_it;
+//             NAMESPACE::vector<std::string> NAMESPACE_v(20, "string");
+//             NAMESPACE::vector<std::string>::iterator valid_it;
 
 //             //debug
 //             std::cout<<"test 2 msg 1"<<std::endl;
 //             //end debug 
 //             v.reserve(30);
-//             ft_v.reserve(30);
+//             NAMESPACE_v.reserve(30);
 //             //debug
 //             std::cout<<"test 2 msg 2"<<std::endl;
 //             //end debug 
 
-//             valid_it = ft_v.begin();
+//             valid_it = NAMESPACE_v.begin();
 //                         //debug
 //             std::cout<<"test 2 msg 3"<<std::endl;
 //             //end debug 
@@ -185,18 +203,18 @@ int main()
 //             std::cout<<"test 2 msg 4"<<std::endl;
 //             //end debug 
 
-//             ft_it = ft_v.insert(ft_v.begin() + 10, "hello");
-//             ft_it->length();
+//             NAMESPACE_it = NAMESPACE_v.insert(NAMESPACE_v.begin() + 10, "hello");
+//             NAMESPACE_it->length();
 //             //debug
 //             std::cout<<"test 2 msg 5"<<std::endl;
 //             //end debug 
 
 //             str.clear();
-//             ft_str.clear();
+//             NAMESPACE_str.clear();
 //             s = v.size();
-//             ft_s = ft_v.size();
+//             NAMESPACE_s = NAMESPACE_v.size();
 //             c = v.capacity();
-//             ft_c = ft_v.capacity();
+//             NAMESPACE_c = NAMESPACE_v.capacity();
 //                         //debug
 //             std::cout<<"test 2 msg 6"<<std::endl;
 //             //end debug 
@@ -212,9 +230,9 @@ int main()
 //             std::cout<<"test 2 msg 7"<<std::endl;
 //             //end debug 
 
-//             for (size_t i = 0; i < ft_v.size(); ++i)
-//                 ft_str += ft_v[i];
-//             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c) && (*it == *ft_it) && (&(*valid_it) == &(*ft_v.begin())));
+//             for (size_t i = 0; i < NAMESPACE_v.size(); ++i)
+//                 NAMESPACE_str += NAMESPACE_v[i];
+//             cond = (cond && (str == NAMESPACE_str) && (s == NAMESPACE_s) && (c == NAMESPACE_c) && (*it == *NAMESPACE_it) && (&(*valid_it) == &(*NAMESPACE_v.begin())));
 //         }
 //         /*---------------------------------------------------------------------------------------------------*/
 //         /*------------------------------- test 3: the vector capacity < size + the new element ----------------------------------------*/
@@ -223,87 +241,87 @@ int main()
 //             std::cout<<" start of test 3"<<std::endl;
 //             //end debug 
 //             std::vector<std::string> v(20, "string");
-//             ft::vector<std::string> ft_v(20, "string");
+//             NAMESPACE::vector<std::string> NAMESPACE_v(20, "string");
 
 //             it = v.insert(v.begin() + 10, "hello");
-//             ft_it = ft_v.insert(ft_v.begin() + 10, "hello");
-//             ft_it->length();
+//             NAMESPACE_it = NAMESPACE_v.insert(NAMESPACE_v.begin() + 10, "hello");
+//             NAMESPACE_it->length();
 
 //             str.clear();
-//             ft_str.clear();
+//             NAMESPACE_str.clear();
 //             s = v.size();
-//             ft_s = ft_v.size();
+//             NAMESPACE_s = NAMESPACE_v.size();
 //             c = v.capacity();
-//             ft_c = ft_v.capacity();
+//             NAMESPACE_c = NAMESPACE_v.capacity();
 //             for (size_t i = 0; i < v.size(); ++i)
 //                 str += v[i];
-//             for (size_t i = 0; i < ft_v.size(); ++i)
-//                 ft_str += ft_v[i];
-//             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c) && (*it == *ft_it));
+//             for (size_t i = 0; i < NAMESPACE_v.size(); ++i)
+//                 NAMESPACE_str += NAMESPACE_v[i];
+//             cond = (cond && (str == NAMESPACE_str) && (s == NAMESPACE_s) && (c == NAMESPACE_c) && (*it == *NAMESPACE_it));
 //         }
 // //    ¬¬¬¬¬¬¬¬¬::vector<std::string> v;
 // //         /*------------------ std::vectors ---------------------*/
-// //         ft::vector<std::string> ft_v;
+// //         NAMESPACE::vector<std::string> NAMESPACE_v;
 // //         /*
 // //          * Strings to store the results
 // //          */
-//         std::string s1, s2, s3, ft_s1, ft_s2, ft_s3;
+//         std::string s1, s2, s3, NAMESPACE_s1, NAMESPACE_s2, NAMESPACE_s3;
 //         /*
 //          * Var to store the size and the capacity
 //          */
-//         size_t z1, z2, z3, ft_z1, ft_z2, ft_z3;
-//         size_t c1, c2, c3, ft_c1, ft_c2, ft_c3;
-//         ft::vector<std::string>::iterator ft_it;
+//         size_t z1, z2, z3, NAMESPACE_z1, NAMESPACE_z2, NAMESPACE_z3;
+//         size_t c1, c2, c3, NAMESPACE_c1, NAMESPACE_c2, NAMESPACE_c3;
+//         NAMESPACE::vector<std::string>::iterator NAMESPACE_it;
 //         // test for an empty vector
 //         v.push_back("hello");
-//         ft_v.push_back("hello");
-//         ft_it = ft_v.begin();
-//         ft_it->length();
+//         NAMESPACE_v.push_back("hello");
+//         NAMESPACE_it = NAMESPACE_v.begin();
+//         NAMESPACE_it->length();
 
 //         z1 = v.size();
 //         c1 = v.capacity();
-//         ft_z1 = ft_v.size();
-//         ft_c1 = ft_v.capacity();
+//         NAMESPACE_z1 = NAMESPACE_v.size();
+//         NAMESPACE_c1 = NAMESPACE_v.capacity();
 //         for (size_t i = 0; i < v.size(); ++i)
 //             s1 += v.at(i);
 
-//         for (size_t i = 0; i < ft_v.size(); ++i)
-//             ft_s1 += ft_v.at(i);
+//         for (size_t i = 0; i < NAMESPACE_v.size(); ++i)
+//             NAMESPACE_s1 += NAMESPACE_v.at(i);
 //         /*---------------------------------------------*/
 //         // test for a vector with capacity >= size + the new element
 //         v.reserve(30);
-//         ft_v.reserve(30);
+//         NAMESPACE_v.reserve(30);
 //         v.push_back("string");
-//         ft_v.push_back("string");
+//         NAMESPACE_v.push_back("string");
 //         v.push_back("string");
-//         ft_v.push_back("string");
+//         NAMESPACE_v.push_back("string");
 
 //         z2 = v.size();
 //         c2 = v.capacity();
-//         ft_z2 = ft_v.size();
-//         ft_c2 = ft_v.capacity();
+//         NAMESPACE_z2 = NAMESPACE_v.size();
+//         NAMESPACE_c2 = NAMESPACE_v.capacity();
 //         for (size_t i = 0; i < v.size(); ++i)
 //             s2 += v.at(i);
 
-//         for (size_t i = 0; i < ft_v.size(); ++i)
-//             ft_s2 += ft_v.at(i);
+//         for (size_t i = 0; i < NAMESPACE_v.size(); ++i)
+//             NAMESPACE_s2 += NAMESPACE_v.at(i);
 //         /*---------------------------------------------------------*/
 //         // test for a vector with capactiy < size + the new element
 //         for (size_t i = 0; i < 100; ++i)
 //             v.push_back("string");
 
 //         for (size_t i = 0; i < 100; ++i)
-//             ft_v.push_back("string");
+//             NAMESPACE_v.push_back("string");
 
 //         z3 = v.size();
 //         c3 = v.capacity();
-//         ft_z3 = ft_v.size();
-//         ft_c3 = ft_v.capacity();
+//         NAMESPACE_z3 = NAMESPACE_v.size();
+//         NAMESPACE_c3 = NAMESPACE_v.capacity();
 //         for (size_t i = 0; i < v.size(); ++i)
 //             s3 += v.at(i);
 
-//         for (size_t i = 0; i < ft_v.size(); ++i)
-//             ft_s3 += ft_v.at(i);
+//         for (size_t i = 0; i < NAMESPACE_v.size(); ++i)
+//             NAMESPACE_s3 += NAMESPACE_v.at(i);
 //    /*------------------ std::vectors ---------------------*/
         // std::vector<std::string> v1(10, "string2");          // fill constructor
         // std::vector<std::string> v2;                         // empty constructor
@@ -311,18 +329,18 @@ int main()
         // std::vector<std::string> v4(v3);                     // copy constructor
         // std::vector<std::string> v5(v1.rbegin(), v1.rend()); // range constructor with reverse iterators
         // /*-----------------------------------------------------*/
-        // /*------------------ ft::vectors ---------------------*/
-        // ft::vector<std::string> ft_v1(10, "string2");
-        // ft::vector<std::string> ft_v2;
-        // ft::vector<std::string> ft_v3(ft_v1.begin(), ft_v1.end());
-        // ft::vector<std::string> ft_v4(ft_v1);
-        // ft::vector<std::string> ft_v5(ft_v1.rbegin(), ft_v1.rend());
-        // std::cout<<v1.capacity()<<" | "<<ft_v1.capacity()<<std::endl;
-        // std::cout<<v2.capacity()<<" | "<<ft_v2.capacity()<<std::endl;
-        // std::cout<<v3.capacity()<<" | "<<ft_v3.capacity()<<std::endl;
-        // std::cout<<v4.capacity()<<" | "<<ft_v4.capacity()<<std::endl;
-        // std::cout<<v5.capacity()<<" | "<<ft_v5.capacity()<<std::endl;
-        // ¬std::cout<<"front (std::vector) == "<<v2.front()<<" | size (ft::vector) == "<<ft_v2.size()<<std::endl;
+        // /*------------------ NAMESPACE::vectors ---------------------*/
+        // NAMESPACE::vector<std::string> NAMESPACE_v1(10, "string2");
+        // NAMESPACE::vector<std::string> NAMESPACE_v2;
+        // NAMESPACE::vector<std::string> NAMESPACE_v3(NAMESPACE_v1.begin(), NAMESPACE_v1.end());
+        // NAMESPACE::vector<std::string> NAMESPACE_v4(NAMESPACE_v1);
+        // NAMESPACE::vector<std::string> NAMESPACE_v5(NAMESPACE_v1.rbegin(), NAMESPACE_v1.rend());
+        // std::cout<<v1.capacity()<<" | "<<NAMESPACE_v1.capacity()<<std::endl;
+        // std::cout<<v2.capacity()<<" | "<<NAMESPACE_v2.capacity()<<std::endl;
+        // std::cout<<v3.capacity()<<" | "<<NAMESPACE_v3.capacity()<<std::endl;
+        // std::cout<<v4.capacity()<<" | "<<NAMESPACE_v4.capacity()<<std::endl;
+        // std::cout<<v5.capacity()<<" | "<<NAMESPACE_v5.capacity()<<std::endl;
+        // ¬std::cout<<"front (std::vector) == "<<v2.front()<<" | size (NAMESPACE::vector) == "<<NAMESPACE_v2.size()<<std::endl;
 
   //testing range constructor
   /*---------------------------------- time limit test --------------------------------------------*/
@@ -333,7 +351,7 @@ int main()
   //           //end debug
   //           std::vector<std::string> v(1e5, "range constructor test");
   //           //debug
-  //           // std::cerr<<"{main} after"<<std::endl;
+  //           // std::cerr<<"{main} aNAMESPACEer"<<std::endl;
   //           //end debug
   //           start = get_time();
   //           std::vector<std::string> v1(v.begin(), v.end());
@@ -342,18 +360,18 @@ int main()
   //           diff = (diff) ? (diff * 3) : 3;
 
   //           ualarm(diff * 1e3, 0);
-  //           ft::vector<std::string> my_v(v.begin(), v.end());
+  //           NAMESPACE::vector<std::string> my_v(v.begin(), v.end());
   //           ualarm(0, 0);
   //       }
   //       // /*-----------------------------------------------------------------------------------------------*/
-  //       /*--------------- fill std::vector with 10 strings and ft::vector with range of iterators ------*/
+  //       /*--------------- fill std::vector with 10 strings and NAMESPACE::vector with range of iterators ------*/
   //       std::vector<std::string> v(10, "range constructor test");
-  //       ft::vector<std::string> my_v(10, "range constructor test");
+  //       NAMESPACE::vector<std::string> my_v(10, "range constructor test");
   //       //debug
   //       // std::cerr<<"{ main } before segfault"<<std::endl;
   //       //end debug
 
-  //       ft::vector<std::string> my_v1(my_v.begin(), my_v.end()); // this one is to check if the range works with ft::vector
+  //       NAMESPACE::vector<std::string> my_v1(my_v.begin(), my_v.end()); // this one is to check if the range works with NAMESPACE::vector
   //       // /*----------------------------------------------------------------------------------------------*/
   //       // /*--------------- declare tow strings to store the results ------*/
   //       std::string res, my_res, my_res1;
@@ -361,10 +379,10 @@ int main()
   //       for (std::vector<std::string>::iterator it = v.begin(); it != v.end(); ++it) // fill res from std::vector
   //           res += *it;
 
-  //       for (ft::vector<std::string>::iterator it = my_v.begin(); it != my_v.end(); ++it) // fill my_res from ft::vector
+  //       for (NAMESPACE::vector<std::string>::iterator it = my_v.begin(); it != my_v.end(); ++it) // fill my_res from NAMESPACE::vector
   //           my_res += *it;
 
-  //       for (ft::vector<std::string>::iterator it = my_v1.begin(); it != my_v1.end(); ++it) // fill my_res1 from ft::vector
+  //       for (NAMESPACE::vector<std::string>::iterator it = my_v1.begin(); it != my_v1.end(); ++it) // fill my_res1 from NAMESPACE::vector
   //           my_res1 += *it;
   //       if(res == my_res && my_res == my_res1)
   //                 std::cout<<"yes they are equal"<<std::endl;
@@ -386,11 +404,11 @@ int main()
   //           diff = (diff) ? (diff * 3) : 3;
 
   //           ualarm(diff * 1e3, 0);
-  //           ft::vector<std::string> my_v(1e5, "fill constructor test");
+  //           NAMESPACE::vector<std::string> my_v(1e5, "fill constructor test");
   //           ualarm(0, 0);
   //       }
   //       /*--------------- fill tow vectors with a 10 strings ------*/
-  //       ft::vector<std::string> my_v(10, "fill constructor test");
+  //       NAMESPACE::vector<std::string> my_v(10, "fill constructor test");
   //       std::vector<std::string> v(10, "fill constructor test");
   //       /*---------------------------------------------------------*/
   //       /*--------------- declare tow strings to store the results ------*/
@@ -399,17 +417,17 @@ int main()
   //       for (std::vector<std::string>::iterator it = v.begin(); it != v.end(); ++it) // fill res from std::vector
   //           res += *it;
 
-  //       for (ft::vector<std::string>::iterator it = my_v.begin(); it != my_v.end(); ++it) // fill my_res from ft::vector
+  //       for (NAMESPACE::vector<std::string>::iterator it = my_v.begin(); it != my_v.end(); ++it) // fill my_res from NAMESPACE::vector
   //           my_res += *it;
   //       if(res == my_res)
   //         std::cout<<"yes they are equal"<<std::endl;
   //       else  
   //         std::cout<<"no they are not equal"<<std::endl;
   // // const int size = 5;
-	// // ft::vector<std::string> vct(1e5,"hello world!");
-  // ft::vector<std::string> vctclone(vct.begin(),vct.end());
+	// // NAMESPACE::vector<std::string> vct(1e5,"hello world!");
+  // NAMESPACE::vector<std::string> vctclone(vct.begin(),vct.end());
   // std::cout<<"size = "<<vctclone.size()<<" capacity = "<<vctclone.capacity()<<std::endl;
-  // for (ft::vector<std::string>::iterator iter =vctclone.begin();iter!=vctclone.end();iter++)
+  // for (NAMESPACE::vector<std::string>::iterator iter =vctclone.begin();iter!=vctclone.end();iter++)
   // {
   //   std::cout<<"vct[i] == "<<*iter<<" ";
   // }
@@ -420,8 +438,8 @@ int main()
   //debug iterators
     // std::cout << "{ main debug }The distance is: " << std::distance(vct.begin(),vct.end()) << std::endl;
   //end debug
-	// ft::vector<int>::iterator ittt = vct.begin();
-	// ft::vector<int>::const_iterator ite = vct.begin();
+	// NAMESPACE::vector<int>::iterator ittt = vct.begin();
+	// NAMESPACE::vector<int>::const_iterator ite = vct.begin();
 
 	// for (int i = 0; i < size; ++i)
 	// 	ittt[i] = i;
@@ -433,7 +451,7 @@ int main()
   //testing reverse_iterator
     // std::vector<int> vv;
     // std::cout<<"vv.capacity_ == "<<vv.capacity()<<std::endl;
-    // ft::vector<int>  vvclone;
+    // NAMESPACE::vector<int>  vvclone;
     // std::cout<<"vvclone.capacity_ == "<<vvclone.capacity()<<std::endl;
 
     // //test std::vector::erase outofrange --->segfault 
@@ -481,7 +499,7 @@ int main()
     // vvclone.assign(30,77);
 
     // // std::vector<int>::iterator tt = vv.begin();
-    // ft::reverse_iterator<ft::vector<int>::iterator> rev_itclone = vvclone.rbegin();
+    // NAMESPACE::reverse_iterator<NAMESPACE::vector<int>::iterator> rev_itclone = vvclone.rbegin();
     // std::reverse_iterator<std::vector<int>::iterator> rev_it = vv.rbegin();
     // std::cout<<"{ std::vector } capacity == "<<vv.capacity()<<std::endl;
     // std::cout<<"{ reverse iterator } == ";
@@ -491,8 +509,8 @@ int main()
     //     rev_it++;
     //   }
     //   std::cout<<std::endl;
-    //       std::cout<<"{ ft::vector } capacity == "<<vvclone.capacity()<<std::endl;
-    // std::cout<<"{ reverse iterator(ft) } == ";
+    //       std::cout<<"{ NAMESPACE::vector } capacity == "<<vvclone.capacity()<<std::endl;
+    // std::cout<<"{ reverse iterator(NAMESPACE) } == ";
     // for (int i = 0;rev_itclone!= vvclone.rend();i++)
     //   {
     //     std::cout<<*rev_itclone<<" ";
@@ -504,9 +522,9 @@ int main()
     //end test
     //test range constructor
 
-//     ft::vector<int> test(10,7);
-//     ft::vector<int> test2(test.begin(),test.end());
-//     std::cout<<"{ ft::vector } range == "; 
+//     NAMESPACE::vector<int> test(10,7);
+//     NAMESPACE::vector<int> test2(test.begin(),test.end());
+//     std::cout<<"{ NAMESPACE::vector } range == "; 
 //     for (int i = 0;i<10;i++){
 //         std::cout<<" "<<test2[i];
 //     }
@@ -521,8 +539,8 @@ int main()
 
 //     //test end 
 //     while(1);
-//     ft::vector<int> foo (3,100);   // three ints with a value of 100
-//   ft::vector<int> bar (5,200);   // five ints with a value of 200
+//     NAMESPACE::vector<int> foo (3,100);   // three ints with a value of 100
+//   NAMESPACE::vector<int> bar (5,200);   // five ints with a value of 200
 
 //   foo.swap(bar);
 
@@ -536,11 +554,11 @@ int main()
 //     std::cout << ' ' << bar[i];
 //   std::cout << '\n';
 //     while(1);
-//     ft::vector<int> vect;
+//     NAMESPACE::vector<int> vect;
 //     std::vector<int> v;
-//     ft::vector<int> a(10,55);
-//     ft::vector<int> b(vect);
-//     ft::vector<int> c;
+//     NAMESPACE::vector<int> a(10,55);
+//     NAMESPACE::vector<int> b(vect);
+//     NAMESPACE::vector<int> c;
 //     c = b;
 
 //     v.reserve(1000);
@@ -583,7 +601,7 @@ int main()
 //     {
 //         std::cout<<"vect["<<i<<"] == "<<vect[i]<< "  |  "<<"v["<<i<<"] == "<<v[i]<<std::endl;
 //     }
-//     ft::vector<int>::const_iterator it = vect.cbegin();
+//     NAMESPACE::vector<int>::const_iterator it = vect.cbegin();
 //     std::vector<int>::const_iterator it2= v.cbegin();
 //     for (int i =0;it<vect.cend();it++)
 //     {
