@@ -15,6 +15,10 @@ std::vector<int> insert_std_test(std::vector<T> vector) {
 	}
 	v.push_back(vector.size());
 	v.push_back(vector.capacity());
+	//debug
+	// std::cout<<"(unit-test::insert::iterator) std::capacity == "<<vector.capacity()<<sdt::endl;
+	//end debug	
+
 	return v;
 }
 
@@ -32,6 +36,9 @@ std::vector<int> insert_std_test(_vector<T> vector) {
 	}
 	v.push_back(vector.size());
 	v.push_back(vector.capacity());
+	//debug
+	// std::cout<<"(unit-test::insert::iterator) ft::capacity == "<<vector.capacity()<<sdt::endl;
+	//end debug	
 	return v;
 }
 

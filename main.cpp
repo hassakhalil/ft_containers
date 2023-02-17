@@ -18,25 +18,27 @@ time_t get_time(void)
 #define NAMESPACE std
 int main()
 {
-    NAMESPACE::vector<int> vector(100,10);
-  std::vector<int> v;
-	  NAMESPACE::vector<int> tmp0(vector);
-    NAMESPACE::vector<int> tmp(1000 *1, 4), tmp2(1000 *1, 5);
-    tmp = tmp2;
-    NAMESPACE::vector<int> tmp3(tmp);
-    NAMESPACE::vector<int> tmp4(tmp.begin(), tmp.end());
-    v.push_back(tmp4.size());
-    v.push_back(tmp4.capacity());
-    v.push_back(tmp[2]);
-    v.push_back(tmp3[2]);
-    v.push_back(tmp4[2]);
-    try { NAMESPACE::vector<int> tmp5(-1, -1); }
-    catch (std::exception &e) { v.push_back(1); }
-    for (int i=0;i<(int)v.size();i++){
-      std::cout<<"v["<<i<<"] == "<<v[i]<<std::endl;
-    }
-
-
+  //   NAMESPACE::vector<int> vector(100,10);
+  // std::vector<int> v;
+	//   NAMESPACE::vector<int> tmp0(vector);
+  //   NAMESPACE::vector<int> tmp(1000 *1, 4), tmp2(1000 *1, 5);
+  //   tmp = tmp2;
+  //   NAMESPACE::vector<int> tmp3(tmp);
+  //   NAMESPACE::vector<int> tmp4(tmp.begin(), tmp.end());
+  //   v.push_back(tmp4.size());
+  //   v.push_back(tmp4.capacity());
+  //   v.push_back(tmp[2]);
+  //   v.push_back(tmp3[2]);
+  //   v.push_back(tmp4[2]);
+  //   try { NAMESPACE::vector<int> tmp5(-1, -1); }
+  //   catch (std::exception &e) { v.push_back(1); }
+  //   for (int i=0;i<(int)v.size();i++){
+  //     std::cout<<"v["<<i<<"] == "<<v[i]<<std::endl;
+  //   }
+      std::vector<int> v(1000,12);
+      ft::vector<int> _v(1000,12);
+      std::cout<<"v.size == "<<v.size()<<" v.capacity == "<<v.capacity()<<" _v.size == "<<_v.size()<<" _v.capacity == "<<_v.capacity()<<std::endl;
+      while(1);
         // std::vector<int> v;
         // std::vector<int> _v;
 
