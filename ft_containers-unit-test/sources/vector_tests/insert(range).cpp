@@ -41,6 +41,9 @@ std::vector<int> insert_test_3(std::vector<T> vector) {
     g_end1 = timer();
     v.push_back(vector[3]);
     v.push_back(vector.size());
+    //debug
+    // std::cout<<"(unit-test::insert::range) v.capacity()"<<vector.capacity()<<std::endl;
+    //end debug
     v.push_back(vector.capacity());
 
     std::unique_ptr<B> k2(new B(3));
@@ -72,6 +75,10 @@ std::vector<int> insert_test_3(_vector<T> vector) {
     g_end2 = timer();
     v.push_back(vector[3]);
     v.push_back(vector.size());
+    //debug
+    // std::cout<<"(unit-test::insert::range) _v.capacity()"<<vector.capacity()<<std::endl;
+    //end debug
+
     v.push_back(vector.capacity());
 
     std::unique_ptr<B> k2(new B(3));

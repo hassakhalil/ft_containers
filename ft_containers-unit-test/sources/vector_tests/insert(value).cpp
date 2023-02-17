@@ -9,6 +9,10 @@ std::vector<int> insert_test_1(std::vector<T> vector) {
     v.push_back(*(vector.insert(vector.end() - 800 * _ratio, 44)));
     g_end1 = timer();
     v.push_back(vector.size());
+     //debug
+    // std::cout<<"(unit-test::insert::value) v.capacity()"<<vector.capacity()<<std::endl;
+    //end debug
+
     v.push_back(vector.capacity());
 
     return v;
@@ -22,6 +26,10 @@ std::vector<int> insert_test_1(_vector<T> vector) {
     v.push_back(*(vector.insert(vector.end() - 800 * _ratio, 44)));
     g_end2 = timer();
     v.push_back(vector.size());
+     //debug
+    // std::cout<<"(unit-test::insert::value) _v.capacity()"<<vector.capacity()<<std::endl;
+    //end debug
+
     v.push_back(vector.capacity());
 
     return v;

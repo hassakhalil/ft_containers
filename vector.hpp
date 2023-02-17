@@ -43,10 +43,17 @@ class vector {
     }
     template <class InputIterator>
     vector(InputIterator first, InputIterator last, const allocator_type& all= allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0):capacity_(0),size_(0),alloc_(all){
+        InputIterator tmp = first;
+        size_type n = std::distance(tmp,last);
+        this->data = this->alloc_.allocate(n);
+        this->capacity_=n;
+        this->size_=n;
+        size_type i=0;
         for (;first!=last;first++){
-            this->push_back(*first);
+            this->alloc_.construct(this->data +i,*first);
+            i++;
         }
-        this->shrink_to_fit();
+        // this->shrink_to_fit();
     }
     vector(const ft::vector<T,allocator_type >& x):capacity_(x.capacity()),size_(x.size()),alloc_(x.get_allocator()){
         this->data = this->alloc_.allocate(this->size_);
@@ -74,9 +81,18 @@ class vector {
     template <class InputIterator>
     void assign(InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
         this->clear();
-        for (;first!=last;first++)
-            this->push_back(*first);
-        this->shrink_to_fit();
+        InputIterator tmp = first;
+        size_type n =std::distance(tmp,last);
+        if (n >this->capacity_)
+            this->reserve(n);
+        // size_type i=0;
+        // this->capacity_=n;
+        // this->size_=n;
+        for (;first!=last;first++){
+            this->alloc_.construct(this->data +this->size_++,*first);
+            // i++;
+        }
+        // this->shrink_to_fit();
     }
     void assign(size_type n, const T& u){
         this->clear();
@@ -84,7 +100,7 @@ class vector {
             this->reserve(n);
         for (size_type i=0;i<n;i++)
             this->alloc_.construct(this->data+this->size_++,u);
-        this->shrink_to_fit();
+        // this->shrink_to_fit();
         //this->shrink_to_fit();
         //debug
         // std::cout<<"(vector::assign::fill) size == "<<this->size_<<" -------     capacity"<<this->capacity_<<std::endl;
@@ -164,6 +180,8 @@ class vector {
             this->alloc_.destroy(this->data+ --this->size_);
     }
     iterator insert(iterator position, const T& x){
+        if (this->size_ + 1 >this->capacity_)
+                this->reserve(2*this->capacity_);
         size_type m = abs(position -  this->begin());
         this->insert(position,1,x);
         return iterator(this->data+m);
@@ -183,15 +201,20 @@ class vector {
             this->alloc_.construct(this->data +l+i,x);
         }
         this->size_+=n;
-        this->shrink_to_fit();
+        // this->shrink_to_fit();
     }
     template <class InputIterator>
     void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
         size_type d = abs(position - this->begin());
         ft::vector<T> tmp(first,last);
         size_type n = tmp.size();
-        if (this->size_ + n > this->capacity_)
-            this->reserve(this->capacity_ + n);
+        if (this->size_ + n >this->capacity_)
+        {
+            size_type i=this->capacity_;
+            while (i <n +this->size_)
+                i *=2; 
+            this->reserve(i);
+        }
         size_type l=this->size_;
         for(size_type h = this->size_ - d;h>0;h--){
             this->alloc_.construct(this->data + l +n-1,this->data[l-1]);
@@ -203,7 +226,7 @@ class vector {
             this->alloc_.construct(this->data +l+i,tmp[i]);
         }
         this->size_+=n;
-        this->shrink_to_fit();
+        // this->shrink_to_fit();
     }
     iterator erase(iterator position){
         if (this->size_){
@@ -214,8 +237,7 @@ class vector {
                 this->alloc_.destroy(this->data + i);
                 this->alloc_.construct(this->data +i,this->data[i + 1]);
             }
-            if (this->size_)
-                --this->size_;
+            --this->size_;
             return this->begin() +bef;
         }
         return position;
