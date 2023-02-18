@@ -180,10 +180,10 @@ class vector {
             this->alloc_.destroy(this->data+ --this->size_);
     }
     iterator insert(iterator position, const T& x){
+        size_type m = abs(position -  this->begin());
         if (this->size_ + 1 >this->capacity_)
                 this->reserve(2*this->capacity_);
-        size_type m = abs(position -  this->begin());
-        this->insert(position,1,x);
+        this->insert(this->data+m,1,x);
         return iterator(this->data+m);
     }
     void     insert(iterator position, size_type n, const T& x){
