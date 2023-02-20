@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:32:49 by ibaali            #+#    #+#             */
-/*   Updated: 2023/01/28 23:44:59 by hkhalil          ###   ########.fr       */
+/*   Updated: 2023/02/20 17:04:11 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -1502,6 +1502,9 @@ void vector_tests(void)
                 ft_str += ft_v[i];
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c));
         }
+        //debug
+        std::cout<<"container_test::insert::fill ----------passed test 1"<<std::endl;
+        //end debug
         // /*---------------------------------------------------------------------------------------------------*/
         // /*------------------------------- test 2: the vector capacity >= size + n ----------------------------------------*/
         {
@@ -1527,6 +1530,10 @@ void vector_tests(void)
                 ft_str += ft_v[i];
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c) && (&(*valid_it) == &(*ft_v.begin())));
         }
+        //debug
+        std::cout<<"container_test::insert::fill ----------passed test 2"<<std::endl;
+        //end debug
+
         // /*---------------------------------------------------------------------------------------------------*/
         // /*------------------------------- test 3: the vector capacity < size + n && n > size ----------------------------------------*/
         {
@@ -1548,6 +1555,10 @@ void vector_tests(void)
                 ft_str += ft_v[i];
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c));
         }
+                //debug
+        std::cout<<"container_test::insert::fill ----------passed test 3"<<std::endl;
+        //end debug
+
         // /*---------------------------------------------------------------------------------------------------*/
         // /*------------------------------- test 4: the vector capacity < size + n && n <= size ----------------------------------------*/
         {
@@ -1569,6 +1580,10 @@ void vector_tests(void)
                 ft_str += ft_v[i];
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c));
         }
+                //debug
+        std::cout<<"container_test::insert::fill ----------passed test 4"<<std::endl;
+        //end debug
+
         // /*---------------------------------------------------------------------------------------------------*/
         EQUAL(cond);
     }
@@ -1591,6 +1606,10 @@ void vector_tests(void)
 
         /*------------------------------- test 1: empty vector ----------------------------------------*/
         // insert at the begin
+                //debug
+        std::cout<<"container_test::insert::range ----------before test 1"<<std::endl;
+        //end debug
+
         {
             std::vector<std::string> v1(300, "string");
             std::vector<std::string> v;
@@ -1633,6 +1652,10 @@ void vector_tests(void)
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c));
         }
         /*---------------------------------------------------------------------------------------------------*/
+                 //debug
+        std::cout<<"container_test::insert::range ----------passed test 1"<<std::endl;
+        //end debug
+
         /*------------------------------- test 2: the vector capacity >= size + n ----------------------------------------*/
         {
             std::vector<std::string> v1(70, "hello");
@@ -1659,6 +1682,10 @@ void vector_tests(void)
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c) && (&(*valid_it) == &(*ft_v.begin())));
         }
         /*---------------------------------------------------------------------------------------------------*/
+                 //debug
+        std::cout<<"container_test::insert::range ----------passed test 2"<<std::endl;
+        //end debug
+
         /*------------------------------- test 3: the vector capacity < size + n && n > size ----------------------------------------*/
         {
             ft::vector<std::string> v1(100, "hello");
@@ -1681,8 +1708,12 @@ void vector_tests(void)
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c));
         }
         /*---------------------------------------------------------------------------------------------------*/
+       
+                        //debug
+        std::cout<<"container_test::insert::range ----------passed test 3"<<std::endl;
+        //end debug
         /*------------------------------- test 4: the vector capacity < size + n && n <= size ----------------------------------------*/
-        {
+ {
             std::vector<std::string> v1(15, "hello");
             std::vector<std::string> v(20, "string");
             ft::vector<std::string> ft_v(20, "string");
@@ -1702,6 +1733,10 @@ void vector_tests(void)
                 ft_str += ft_v[i];
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c));
         }
+                 //debug
+        std::cout<<"container_test::insert::range ----------passed test 4"<<std::endl;
+        //end debug
+
         /*---------------------------------------------------------------------------------------------------*/
         EQUAL(cond);
     }

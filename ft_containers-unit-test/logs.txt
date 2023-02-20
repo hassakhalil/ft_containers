@@ -1,4 +1,4 @@
-In file included from ../vector_tests/operator >=.cpp:1:
+In file included from ../vector_tests/constructor(std iterators).cpp:1:
 In file included from ../vector_tests/../system/system_methods.ipp:2:
 In file included from ../vector_tests/../system/lib.hpp:30:
 ../vector_tests/../system/Alloc.hpp:55:27: warning: variadic templates are a C++11 extension [-Wc++11-extensions]
@@ -14,27 +14,3 @@ template <class _Up, class... _Args>
         construct(_Up* __p, _Args&&... __args)
                                  ^
 4 warnings generated.
-ed.
- from ../vector_tests/insert(std iterators).cpp:2:
-In file included from ../vector_tests/__service.ipp:3:
-../vector_tests/../../../vector.hpp:224:73: warning: unsequenced modification and access to 'l' [-Wunsequenced]
-                this->alloc_.construct(this->data + l +n-1,this->data[(l--)-1]);
-                                                    ~                   ^
-../vector_tests/insert(std iterators).cpp:32:9: note: in instantiation of function template specialization 'ft::vector<int>::insert<std::__wrap_iter<int *> >' requested here
-        vector.insert(vector.begin(), tmp.begin(), tmp.end());
-               ^
-../vector_tests/insert(std iterators).cpp:47:75: note: in instantiation of function template specialization 'insert_std_test<int>' requested here
-        exit(run_vector_unit_test<int>("insert(std iterators)", insert_std_test, insert_std_test));
-                                                                                 ^
-5 warnings generated.
-/vector_tests/__service.ipp:3:
-../vector_tests/../../../vector.hpp:224:73: warning: unsequenced modification and access to 'l' [-Wunsequenced]
-                this->alloc_.construct(this->data + l +n-1,this->data[(l--)-1]);
-                                                    ~                   ^
-../vector_tests/insert(range).cpp:93:14: note: in instantiation of function template specialization 'ft::vector<A>::insert<ft::random_it<B *> >' requested here
-    try { vv.insert(vv.begin(), v1.begin(), v1.end()); }
-             ^
-../vector_tests/insert(range).cpp:104:68: note: in instantiation of function template specialization 'insert_test_3<int>' requested here
-    exit(run_vector_unit_test<int>("insert(range)", insert_test_3, insert_test_3));
-                                                                   ^
-6 warnings generated.

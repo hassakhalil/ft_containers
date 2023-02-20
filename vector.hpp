@@ -35,32 +35,44 @@ class vector {
     explicit vector(const allocator_type& all = allocator_type()):data(0),capacity_(0),size_(0),alloc_(all){}
     explicit vector(size_type n, const value_type& value = T(),const allocator_type& all= allocator_type()):capacity_(0),size_(0),alloc_(all){
         
-            if (n < this->max_size())
+            if (n > this->max_size())
             {
-                this->data = this->alloc_.allocate(n);
-                this->capacity_=n;
-                this->size_=n;
-                for (size_type i=0;i<n;i++)
-                    this->alloc_.construct(this->data +i, value);
-            }
-            else
+                //debug
+                std::cout<<" size == "<<this->size_<<"capacity == "<<this->capacity_<<std::endl;
+                std::cout<<"exception----------------------------"<<std::endl;
+                //end debug
                 throw std::bad_alloc();
+            }
+            this->data = this->alloc_.allocate(n);
+            this->capacity_=n;
+            this->size_=n;
+            for (size_type i=0;i<n;i++)
+                this->alloc_.construct(this->data +i, value);
+            // catch(const std::exception& e){
+            //     //debug
+            //     std::cout << "exception: " << e.what() << std::endl;
+            //     std::cout<<" size == "<<this->size_<<"capacity == "<<this->capacity_<<std::endl;
+            //     //end debug
+            //     this->clear();
+            //     if (this->capacity_)
+            //         this->alloc_.deallocate(this->data,this->capacity_);
+            //     throw std::bad_alloc();}
     }
     template <class InputIterator>
     vector(InputIterator first, InputIterator last, const allocator_type& all= allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0):capacity_(0),size_(0),alloc_(all){
         InputIterator tmp = first;
         size_type n = std::distance(tmp,last);
-        if (n <= this->max_size())
-        {
-            this->data = this->alloc_.allocate(n);
-            this->capacity_=n;
-            this->size_=n;
-            size_type i=0;
-            for (;first!=last;first++)
-                this->alloc_.construct(this->data + i++,*first);
-        }
-        else
+        if (n > this->max_size())
             throw std::bad_alloc();
+        this->data = this->alloc_.allocate(n);
+        this->capacity_=n;
+        this->size_=n;
+        size_type i=0;
+        for (;first!=last;first++)
+            this->alloc_.construct(this->data + i++,*first);
+        // }
+        // else
+        //     throw std::bad_alloc();
     }
     vector(const ft::vector<T,allocator_type >& x):capacity_(x.capacity()),size_(x.size()),alloc_(x.get_allocator()){
         this->data = this->alloc_.allocate(this->size_);
@@ -68,7 +80,8 @@ class vector {
             this->alloc_.construct(this->data + i,x[i]);
     }
     ~vector(){
-        this->clear();
+        while(this->size_)
+            this->alloc_.destroy(this->data + --this->size_);
         if (this->capacity_)
             this->alloc_.deallocate(this->data,this->capacity_);
     }
@@ -88,6 +101,12 @@ class vector {
         this->clear();
         InputIterator tmp = first;
         size_type n =std::distance(tmp,last);
+        if (n > this->max_size())
+        {
+            if (this->capacity_)
+                this->alloc_.deallocate(this->data,this->capacity_);
+            throw std::bad_alloc();
+        }
         if (n <= this->max_size()){
             if (n >this->capacity_)
                 this->reserve(n);
@@ -99,14 +118,18 @@ class vector {
     }
     void assign(size_type n, const T& u){
         this->clear();
-        if (n <=this->max_size()){
-            if (n >this->capacity_)
-                this->reserve(n);
-            for (size_type i=0;i<n;i++)
-                this->alloc_.construct(this->data+this->size_++,u);
-        }
-        else
+        if (n >this->max_size()){
+            if (this->capacity_)
+                this->alloc_.deallocate(this->data,this->capacity_);
             throw std::bad_alloc();
+        }
+        if (n >this->capacity_)
+            this->reserve(n);
+        for (size_type i=0;i<n;i++)
+            this->alloc_.construct(this->data+this->size_++,u);
+        // }
+        // else
+        //     throw std::bad_alloc();
     }
     allocator_type get_allocator() const{return this->alloc_;}
     //---------------------------------------------------iterators:
@@ -129,6 +152,8 @@ class vector {
         }           
         else if (n > this->size_)
         {
+            if (n > this->max_size())
+                throw std::bad_alloc();
             while (n != this->size_)
                 this->push_back(val);
         }
@@ -136,7 +161,9 @@ class vector {
     size_type   capacity() const{ return this->capacity_; }
     bool        empty() const{ return !this->size_; }
     void        reserve(size_type n){
-        if (n > this->capacity_)
+        if (n > this->max_size())
+            throw std::length_error("length_error");
+        if (n > this->capacity_ )
         {
             value_type* new_data = this->alloc_.allocate(n);
             for (size_type i = 0; i < this->size_ ; i++){
@@ -171,7 +198,11 @@ class vector {
         if (this->size_ == this->capacity_)
         {
             if(this->capacity_)
+            {
+                if (2*this->capacity_ > this->max_size())
+                    throw std::bad_alloc();
                 this->reserve(2*this->capacity_);
+            }
             else
                 this->reserve(1);
         }
@@ -194,8 +225,9 @@ class vector {
             if (this->size_ + n >this->capacity_)
                 this->reserve(this->capacity_ + n);
             size_type l=this->size_;
-            for(size_type h = this->size_ - d;h>0;h--)
-                this->alloc_.construct(this->data + l +n-1,this->data[(l--)-1]);
+            for(size_type h = this->size_ - d;h>0;h--){
+                this->alloc_.construct(this->data + l +n-1,this->data[l-1]);
+                l--;}
             l = d;
             for (size_type i = 0;i<n;i++){
                 this->alloc_.destroy(this->data +l+i);
@@ -220,8 +252,9 @@ class vector {
                 this->reserve(i);
             }
             size_type l=this->size_;
-            for(size_type h = this->size_ - d;h>0;h--)
-                this->alloc_.construct(this->data + l +n-1,this->data[(l--)-1]);
+            for(size_type h = this->size_ - d;h>0;h--){
+                this->alloc_.construct(this->data + l +n-1,this->data[l-1]);
+                l--;}
             l = d;
             for (size_type i = 0;i<n;i++){
                 this->alloc_.destroy(this->data +l+i);
@@ -269,7 +302,7 @@ class vector {
     }
     void     clear(){
         while (this->size_)
-            this->alloc_.destroy(this->data + this->size_-- -1);
+            this->alloc_.destroy(this->data + --this->size_);
     }
 
     // void shrink_to_fit(){
