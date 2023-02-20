@@ -98,38 +98,18 @@ class vector {
     }
     template <class InputIterator>
     void assign(InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        this->clear();
         InputIterator tmp = first;
         size_type n =std::distance(tmp,last);
-        if (n > this->max_size())
-        {
-            if (this->capacity_)
-                this->alloc_.deallocate(this->data,this->capacity_);
-            throw std::bad_alloc();
-        }
-        if (n <= this->max_size()){
-            if (n >this->capacity_)
-                this->reserve(n);
-            for (;first!=last;first++)
-                this->alloc_.construct(this->data +this->size_++,*first);
-        }
-        else
-            throw std::bad_alloc();
+        this->reserve(n);
+        this->clear();
+        for (;first!=last;first++)
+            this->alloc_.construct(this->data +this->size_++,*first);
     }
     void assign(size_type n, const T& u){
+        this->reserve(n);
         this->clear();
-        if (n >this->max_size()){
-            if (this->capacity_)
-                this->alloc_.deallocate(this->data,this->capacity_);
-            throw std::bad_alloc();
-        }
-        if (n >this->capacity_)
-            this->reserve(n);
         for (size_type i=0;i<n;i++)
             this->alloc_.construct(this->data+this->size_++,u);
-        // }
-        // else
-        //     throw std::bad_alloc();
     }
     allocator_type get_allocator() const{return this->alloc_;}
     //---------------------------------------------------iterators:
@@ -152,8 +132,6 @@ class vector {
         }           
         else if (n > this->size_)
         {
-            if (n > this->max_size())
-                throw std::bad_alloc();
             while (n != this->size_)
                 this->push_back(val);
         }
@@ -220,50 +198,41 @@ class vector {
         return iterator(this->data+m);
     }
     void     insert(iterator position, size_type n, const T& x){
-        if (this->capacity_ + n<= this->max_size()){
-            size_type d = abs(position - this->begin());
-            if (this->size_ + n >this->capacity_)
-                this->reserve(this->capacity_ + n);
-            size_type l=this->size_;
-            for(size_type h = this->size_ - d;h>0;h--){
-                this->alloc_.construct(this->data + l +n-1,this->data[l-1]);
-                l--;}
-            l = d;
-            for (size_type i = 0;i<n;i++){
-                this->alloc_.destroy(this->data +l+i);
-                this->alloc_.construct(this->data +l+i,x);
-            }
-            this->size_+=n;
+        size_type d = abs(position - this->begin());
+        this->reserve(this->capacity_ + n);
+        size_type l=this->size_;
+        for(size_type h = this->size_ - d;h>0;h--){
+            this->alloc_.construct(this->data + l +n-1,this->data[l-1]);
+            l--;}
+        l = d;
+        for (size_type i = 0;i<n;i++){
+            this->alloc_.destroy(this->data +l+i);
+            this->alloc_.construct(this->data +l+i,x);
         }
-        else
-            throw std::bad_alloc();
+        this->size_+=n;
     }
     template <class InputIterator>
     void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
         size_type d = abs(position - this->begin());
         ft::vector<T> tmp(first,last);
         size_type n = tmp.size();
-        if(this->capacity_ + n<= this->max_size()){
-            if (this->size_ + n >this->capacity_)
-            {
-                size_type i=this->capacity_;
-                while (i <n +this->size_)
-                    i *=2; 
-                this->reserve(i);
-            }
-            size_type l=this->size_;
-            for(size_type h = this->size_ - d;h>0;h--){
-                this->alloc_.construct(this->data + l +n-1,this->data[l-1]);
-                l--;}
-            l = d;
-            for (size_type i = 0;i<n;i++){
-                this->alloc_.destroy(this->data +l+i);
-                this->alloc_.construct(this->data +l+i,tmp[i]);
-            }
-            this->size_+=n;
+        if (this->size_ + n >this->capacity_)
+        {
+            size_type i=this->capacity_;
+            while (i <n +this->size_)
+                i *=2; 
+            this->reserve(i);
         }
-        else
-            throw std::bad_alloc();
+        size_type l=this->size_;
+        for(size_type h = this->size_ - d;h>0;h--){
+            this->alloc_.construct(this->data + l +n-1,this->data[l-1]);
+            l--;}
+        l = d;
+        for (size_type i = 0;i<n;i++){
+            this->alloc_.destroy(this->data +l+i);
+            this->alloc_.construct(this->data +l+i,tmp[i]);
+        }
+        this->size_+=n;
     }
     iterator erase(iterator position){
         if (this->size_){
