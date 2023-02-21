@@ -148,14 +148,18 @@ class vector {
     }
     iterator insert(iterator position, const T& x){
         size_type m = abs(position -  this->begin());
-        if (this->size_ + 1 >this->capacity_)
-                this->reserve(2*this->capacity_);
-        this->insert(this->data+m,1,x);
+        this->insert(position,1,x);
         return iterator(this->data+m);
     }
     void     insert(iterator position, size_type n, const T& x){
         size_type d = abs(position - this->begin());
-        this->reserve(this->capacity_ + n);
+        if (n == 1)
+        {
+            if (this->size_ ==this->capacity_)
+                    this->reserve(2*this->capacity_);
+        }
+        else
+            this->reserve(this->capacity_ + n);
         size_type l=this->size_;
         for(size_type h = this->size_ - d;h>0;h--){
             this->alloc_.construct(this->data + l +n-1,this->data[l-1]);
@@ -176,7 +180,13 @@ class vector {
         {
             size_type i=this->capacity_;
             while (i <n +this->size_)
-                i *=2; 
+                i *=2;
+            if (i > this->max_size())
+            {
+                tmp.clear();
+                if (tmp.capacity())
+                    tmp.alloc_.deallocate(tmp.data,tmp.capacity());
+            }
             this->reserve(i);
         }
         size_type l=this->size_;
@@ -229,22 +239,6 @@ class vector {
         while (this->size_)
             this->alloc_.destroy(this->data + --this->size_);
     }
-
-    // void shrink_to_fit(){
-    //     if (this->capacity_ != this->size_){
-    //         value_type *new_data=0;
-    //         if (this->size_)
-    //             new_data = this->alloc_.allocate(this->size_);
-    //         for (size_type i=0;i<this->size_;i++){
-    //             this->alloc_.construct(new_data +i,data[i]);
-    //             this->alloc_.destroy(this->data + i);
-    //         }
-    //         if (this->capacity_)
-    //             this->alloc_.deallocate(this->data, this->capacity_);
-    //         this->data = new_data;
-    //         this->capacity_ = this->size_;
-    //     }
-    // }
     //-----------------------------------------------------private members:
     protected:
     value_type*                 data;
