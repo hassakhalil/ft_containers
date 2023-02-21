@@ -140,7 +140,8 @@ class vector {
             else
                 this->reserve(1);
         }
-        this->alloc_.construct(this->data + this->size_++, x);
+        this->alloc_.construct(this->data + this->size_, x);
+        this->size_++;
     }
     void     pop_back(){
         if (this->size_)
