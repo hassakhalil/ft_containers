@@ -34,66 +34,22 @@ class vector {
     //--------------------------------------------------construct/copy/destroy:
     explicit vector(const allocator_type& all = allocator_type()):data(0),capacity_(0),size_(0),alloc_(all){}
     explicit vector(size_type n, const value_type& value = T(),const allocator_type& all= allocator_type()):capacity_(0),size_(0),alloc_(all){
-        
-            if (n > this->max_size())
-            {
-                //debug
-                std::cout<<" size == "<<this->size_<<"capacity == "<<this->capacity_<<std::endl;
-                std::cout<<"exception----------------------------"<<std::endl;
-                //end debug
-                throw std::bad_alloc();
-            }
-            this->data = this->alloc_.allocate(n);
-            this->capacity_=n;
-            this->size_=n;
-            for (size_type i=0;i<n;i++)
-                this->alloc_.construct(this->data +i, value);
-            // catch(const std::exception& e){
-            //     //debug
-            //     std::cout << "exception: " << e.what() << std::endl;
-            //     std::cout<<" size == "<<this->size_<<"capacity == "<<this->capacity_<<std::endl;
-            //     //end debug
-            //     this->clear();
-            //     if (this->capacity_)
-            //         this->alloc_.deallocate(this->data,this->capacity_);
-            //     throw std::bad_alloc();}
+            this->assign(n,value);
     }
     template <class InputIterator>
     vector(InputIterator first, InputIterator last, const allocator_type& all= allocator_type(), typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0):capacity_(0),size_(0),alloc_(all){
-        InputIterator tmp = first;
-        size_type n = std::distance(tmp,last);
-        if (n > this->max_size())
-            throw std::bad_alloc();
-        this->data = this->alloc_.allocate(n);
-        this->capacity_=n;
-        this->size_=n;
-        size_type i=0;
-        for (;first!=last;first++)
-            this->alloc_.construct(this->data + i++,*first);
-        // }
-        // else
-        //     throw std::bad_alloc();
+        this->assign(first,last);
     }
-    vector(const ft::vector<T,allocator_type >& x):capacity_(x.capacity()),size_(x.size()),alloc_(x.get_allocator()){
-        this->data = this->alloc_.allocate(this->size_);
-        for (size_type i= 0;i<this->size_;i++)
-            this->alloc_.construct(this->data + i,x[i]);
+    vector(const ft::vector<T,allocator_type >& x):capacity_(0),size_(0),alloc_(x.get_allocator()){
+        this->assign(x.begin(),x.end());
     }
     ~vector(){
-        while(this->size_)
-            this->alloc_.destroy(this->data + --this->size_);
+        this->clear();
         if (this->capacity_)
             this->alloc_.deallocate(this->data,this->capacity_);
     }
     ft::vector<T,allocator_type>& operator=(const ft::vector<T,allocator_type>& x){
-        this->clear();
-        if (this->capacity_)
-            this->alloc_.deallocate(this->data, this->capacity_);
-        this->capacity_ = x.capacity();
-        this->size_ = x.size();
-        this->data = this->alloc_.allocate(this->capacity_);
-        for (size_type i=0;i<this->size_;i++)
-            this->alloc_.construct(this->data + i, x[i]);
+        this->assign(x.begin(),x.end());
         return *this;
     }
     template <class InputIterator>
