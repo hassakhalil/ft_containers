@@ -5,7 +5,17 @@ template <typename T>
 std::vector<int> swap_test(std::vector<T> vector) {
     std::vector<int> v;
     vector.assign(1100 * _ratio, 11);
+    //debug
+    // std::cout<<"(unit-test::swap) vector.capacity() == "<<vector.capacity()<<std::endl;
+    //end debug
     std::vector<int> tmp(500 * _ratio, 5), tmp2(1000 * _ratio, 10), tmp3(1500 * _ratio, 15), tmp4(3000 * _ratio, 30);
+    //debug
+    // std::cout<<"(unit-test::swap) tmp.capacity() == "<<tmp.capacity()<<std::endl;
+    // std::cout<<"(unit-test::swap) tmp2.capacity() == "<<tmp2.capacity()<<std::endl;
+    // std::cout<<"(unit-test::swap) tmp3.capacity() == "<<tmp3.capacity()<<std::endl;
+    // std::cout<<"(unit-test::swap) tmp4.capacity() == "<<tmp4.capacity()<<std::endl;
+    //end debug
+
     g_start1 = timer();
     v.push_back(vector[2]);
     v.push_back(vector.size());
@@ -13,8 +23,11 @@ std::vector<int> swap_test(std::vector<T> vector) {
     long *adr1 = reinterpret_cast<long *>(&vector);
     long *adr2 = reinterpret_cast<long *>(&tmp);
     vector.swap(tmp);
-    if (reinterpret_cast<long *>(&vector) == adr1 && reinterpret_cast<long *>(&tmp) == adr2)
-    	v.push_back(1);
+    if (reinterpret_cast<long *>(&vector) == adr1 && reinterpret_cast<long *>(&tmp) == adr2){
+        //debug
+        // std::cout<<"yeeeeeeeees"<<std::endl;
+        //end debug
+    	v.push_back(1);}
     v.push_back(vector[2]);
     v.push_back(vector.size());
     v.push_back(vector.capacity());
@@ -38,7 +51,17 @@ template <typename T>
 std::vector<int> swap_test(_vector<T> vector) {
     std::vector<int> v;
     vector.assign(1100 * _ratio, 11);
+    //debug
+    // std::cout<<"(unit-test::swap) _vector.capacity() == "<<vector.capacity()<<std::endl;
+    //end debug
+
     _vector<int> tmp(500 * _ratio, 5), tmp2(1000 * _ratio, 10), tmp3(1500 * _ratio, 15), tmp4(3000 * _ratio, 30);
+    //debug
+    // std::cout<<"(unit-test::swap) _tmp.capacity() == "<<tmp.capacity()<<std::endl;
+    // std::cout<<"(unit-test::swap) _tmp2.capacity() == "<<tmp2.capacity()<<std::endl;
+    // std::cout<<"(unit-test::swap) _tmp3.capacity() == "<<tmp3.capacity()<<std::endl;
+    // std::cout<<"(unit-test::swap) _tmp4.capacity() == "<<tmp4.capacity()<<std::endl;
+    //end debug
     g_start2 = timer();
     v.push_back(vector[2]);
     v.push_back(vector.size());
@@ -46,8 +69,12 @@ std::vector<int> swap_test(_vector<T> vector) {
     long *adr1 = reinterpret_cast<long *>(&vector);
     long *adr2 = reinterpret_cast<long *>(&tmp);
     vector.swap(tmp);
-    if (reinterpret_cast<long *>(&vector) == adr1 && reinterpret_cast<long *>(&tmp) == adr2)
-    	v.push_back(1);
+    if (reinterpret_cast<long *>(&vector) == adr1 && reinterpret_cast<long *>(&tmp) == adr2){
+        //debug
+        // std::cout<<"_yeeeeeeeees"<<std::endl;
+        //end debug
+
+    	v.push_back(1);}
     v.push_back(vector[2]);
     v.push_back(vector.size());
     v.push_back(vector.capacity());

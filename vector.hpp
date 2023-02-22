@@ -41,6 +41,7 @@ class vector {
         this->assign(first,last);
     }
     vector(const ft::vector<T,allocator_type >& x):capacity_(0),size_(0),alloc_(x.get_allocator()){
+        this->reserve(x.size());
         this->assign(x.begin(),x.end());
     }
     ~vector(){
@@ -49,6 +50,7 @@ class vector {
             this->alloc_.deallocate(this->data,this->capacity_);
     }
     ft::vector<T,allocator_type>& operator=(const ft::vector<T,allocator_type>& x){
+        this->reserve(x.size());
         this->assign(x.begin(),x.end());
         return *this;
     }
@@ -58,14 +60,17 @@ class vector {
         size_type n =std::distance(tmp,last);
         this->reserve(n);
         this->clear();
-        for (;first!=last;first++)
-            this->alloc_.construct(this->data +this->size_++,*first);
+        for (;first!=last;first++){
+            this->alloc_.construct(this->data +this->size_,*first);
+            this->size_++;
+        }
     }
     void assign(size_type n, const T& u){
         this->reserve(n);
         this->clear();
-        for (size_type i=0;i<n;i++)
-            this->alloc_.construct(this->data+this->size_++,u);
+        for (size_type i=0;i<n;i++){
+            this->alloc_.construct(this->data+this->size_,u);
+            this->size_++;}
     }
     allocator_type get_allocator() const{return this->alloc_;}
     //---------------------------------------------------iterators:
@@ -132,11 +137,7 @@ class vector {
         if (this->size_ == this->capacity_)
         {
             if(this->capacity_)
-            {
-                if (2*this->capacity_ > this->max_size())
-                    throw std::bad_alloc();
                 this->reserve(2*this->capacity_);
-            }
             else
                 this->reserve(1);
         }
@@ -148,12 +149,12 @@ class vector {
             this->alloc_.destroy(this->data+ --this->size_);
     }
     iterator insert(iterator position, const T& x){
-        size_type m = abs(position -  this->begin());
+        size_type m = position -  this->begin();
         this->insert(position,1,x);
         return iterator(this->data+m);
     }
     void     insert(iterator position, size_type n, const T& x){
-        size_type d = abs(position - this->begin());
+        size_type d = position - this->begin();
         if (n == 1)
         {
             if (this->size_ ==this->capacity_)
@@ -167,14 +168,13 @@ class vector {
             l--;}
         l = d;
         for (size_type i = 0;i<n;i++){
-            this->alloc_.destroy(this->data +l+i);
             this->alloc_.construct(this->data +l+i,x);
+            this->size_++;
         }
-        this->size_+=n;
     }
     template <class InputIterator>
     void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
-        size_type d = abs(position - this->begin());
+        size_type d = position - this->begin();
         ft::vector<T> tmp(first,last);
         size_type n = tmp.size();
         if (this->size_ + n >this->capacity_)
@@ -182,12 +182,6 @@ class vector {
             size_type i=this->capacity_;
             while (i <n +this->size_)
                 i *=2;
-            if (i > this->max_size())
-            {
-                tmp.clear();
-                if (tmp.capacity())
-                    tmp.alloc_.deallocate(tmp.data,tmp.capacity());
-            }
             this->reserve(i);
         }
         size_type l=this->size_;
@@ -196,44 +190,37 @@ class vector {
             l--;}
         l = d;
         for (size_type i = 0;i<n;i++){
-            this->alloc_.destroy(this->data +l+i);
             this->alloc_.construct(this->data +l+i,tmp[i]);
+            this->size_++;
         }
-        this->size_+=n;
     }
     iterator erase(iterator position){
-        if (this->size_){
-            if (position == this->end()-1)
-                this->pop_back();
-            size_type bef = std::distance(this->begin(),position);
-            for (size_type i = bef;i<this->size_-1;i++){
-                this->alloc_.destroy(this->data + i);
-                this->alloc_.construct(this->data +i,this->data[i + 1]);
-            }
-            --this->size_;
-            return this->begin() +bef;
+        size_type bef = position - this->begin();
+        for (size_type i = bef;i<this->size_-1;i++){
+            this->alloc_.construct(this->data +i,this->data[i + 1]);
         }
-        return position;
+        this->resize(this->size_ - 1);
+        return this->begin() + bef;
     }
 
     iterator erase(iterator first, iterator last){
-        size_type m = std::distance(this->begin(),first);
+        size_type m = first - this->begin();
         size_type n = m;
         for(iterator it = last; it != this->end();it++){
-            this->alloc_.destroy(this->data + m);
-            this->alloc_.construct(this->data + m++,*it);}
-        this->size_ = this->size_ - std::distance(first,last);
+            this->alloc_.construct(this->data + m++,*it);
+            }
+        this->resize(this->size_ - std::distance(first,last));
         return this->begin() + n;
     }
     void     swap(ft::vector<T,Allocator >& x){
             value_type*     tmp1 = x.data;
             size_type       tmp2 = x.size_;
             size_type       tmp3 = x.capacity_;
-            x.data = this->data;
-            x.size_ = this->size_;
+            x.data =     this->data;
+            x.size_ =    this->size_;
             x.capacity_= this->capacity_;
-            this->data = tmp1;
-            this->size_ = tmp2;
+            this->data =      tmp1;
+            this->size_ =     tmp2;
             this->capacity_ = tmp3;
     }
     void     clear(){
