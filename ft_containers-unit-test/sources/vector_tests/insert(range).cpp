@@ -41,36 +41,22 @@ std::vector<int> insert_test_3(std::vector<T> vector) {
     g_end1 = timer();
     v.push_back(vector[3]);
     v.push_back(vector.size());
-    //debug
-    // std::cout<<"(unit-test::insert::range) v.capacity()"<<vector.capacity()<<std::endl;
-    //end debug
     v.push_back(vector.capacity());
 
-    B* k2(new B(3));
-    B* k3(new B(4));
-    B* k4(new B(-1));
+    std::unique_ptr<B> k2(new B(3));
+    std::unique_ptr<B> k3(new B(4));
+    std::unique_ptr<B> k4(new B(-1));
     std::vector<A> vv;
     std::vector<B*> v1;
 
     v1.push_back(&(*k2));
     v1.push_back(&(*k3));
     v1.push_back(&(*k4));
-    //debug
-    // delete k2;
-    // delete k3;
-    // delete k4;
-    // std::cout<<"(unit-test::insert::range) v1.size()"<<v1.size()<<std::endl;
-    //end debug
-
-    // try { vv.insert(vv.begin(), v1.begin(), v1.end()); }
-    // catch (...) {
-
-    //     v.push_back(vv.size());
-    //     v.push_back(vv.capacity());
-    // //debug
-    // // std::cout<<"(unit-test::insert::range) v.size == "<<v.size()<<std::endl;
-    // //end debug
-    // }
+    try { vv.insert(vv.begin(), v1.begin(), v1.end()); }
+    catch (...) {
+        v.push_back(vv.size());
+        v.push_back(vv.capacity());
+    }
 
     return v;
 }
@@ -86,37 +72,22 @@ std::vector<int> insert_test_3(_vector<T> vector) {
     g_end2 = timer();
     v.push_back(vector[3]);
     v.push_back(vector.size());
-    //debug
-    // std::cout<<"(unit-test::insert::range) _v.capacity()"<<vector.capacity()<<std::endl;
-    //end debug
-
     v.push_back(vector.capacity());
 
-    B* k2(new B(3));
-    B* k3(new B(4));
-    B* k4(new B(-1));
+    std::unique_ptr<B> k2(new B(3));
+    std::unique_ptr<B> k3(new B(4));
+    std::unique_ptr<B> k4(new B(-1));
     _vector<A> vv;
     _vector<B*> v1;
 
     v1.push_back(&(*k2));
     v1.push_back(&(*k3));
     v1.push_back(&(*k4));
-    //debug
-    // delete k2;
-    // delete k3;
-    // delete k4;
-
-    // std::cout<<"(unit-test::insert::range) _v1.size()"<<v1.size()<<std::endl;
-    //end debug
-    // try { vv.insert(vv.begin(), v1.begin(), v1.end()); }
-    // catch (...) {
-
-    //     v.push_back(vv.size());
-    //     v.push_back(vv.capacity());
-    //         //debug
-    // // std::cout<<"(unit-test::insert::range) _v.size == "<<v.size()<<std::endl;
-    // //end debug
-    // }
+    try { vv.insert(vv.begin(), v1.begin(), v1.end()); }
+    catch (...) {
+        v.push_back(vv.size());
+        v.push_back(vv.capacity());
+    }
 
     return v;
 }

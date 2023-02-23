@@ -104,7 +104,7 @@ class vector {
             throw std::length_error("length_error");
         if (n > this->capacity_ )
         {
-            value_type* new_data = this->alloc_.allocate(n);
+            pointer new_data = this->alloc_.allocate(n);
             for (size_type i = 0; i < this->size_ ; i++){
                 this->alloc_.construct(new_data + i, this->data[i]);
                 this->alloc_.destroy(this->data + i);
@@ -135,12 +135,7 @@ class vector {
     //----------------------------------------------------modifiers:
     void     push_back(const value_type& x){
         if (this->size_ == this->capacity_)
-        {
-            if(this->capacity_)
-                this->reserve(2*this->capacity_);
-            else
-                this->reserve(1);
-        }
+            (this->capacity_)?this->reserve(2*this->capacity_):this->reserve(1);
         this->alloc_.construct(this->data + this->size_, x);
         this->size_++;
     }
@@ -176,6 +171,9 @@ class vector {
     void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
         size_type d = position - this->begin();
         ft::vector<T> tmp(first,last);
+        //debug
+        // std::cout<<"(vector::insert::range) tmp.size() == "<<tmp.size()<<std::endl;
+        //end debug
         size_type n = tmp.size();
         if (this->size_ + n >this->capacity_)
         {
@@ -213,7 +211,7 @@ class vector {
         return this->begin() + n;
     }
     void     swap(ft::vector<T,Allocator >& x){
-            value_type*     tmp1 = x.data;
+            pointer     tmp1 = x.data;
             size_type       tmp2 = x.size_;
             size_type       tmp3 = x.capacity_;
             x.data =     this->data;
@@ -229,7 +227,7 @@ class vector {
     }
     //-----------------------------------------------------private members:
     protected:
-    value_type*                 data;
+    pointer                     data;
     size_type                   capacity_;
     size_type                   size_;
     allocator_type              alloc_;
