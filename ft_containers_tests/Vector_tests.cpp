@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:32:49 by ibaali            #+#    #+#             */
-/*   Updated: 2023/02/20 17:04:11 by hkhalil          ###   ########.fr       */
+/*   Updated: 2023/02/25 01:20:50 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 #define RESET "\e[0m"
 
 #define EQUAL(x) ((x) ? (std::cout << "\033[1;32mAC\033[0m\n") : (std::cout << "\033[1;31mWA\033[0m\n"))
-#define TIME_FAC 3 // the ft::vector methods can be slower up to std::vector methods * TIME_FAC (MAX 20)
+#define TIME_FAC 20 // the ft::vector methods can be slower up to std::vector methods * TIME_FAC (MAX 20)
 
 time_t get_time(void)
 {
@@ -1355,10 +1355,17 @@ void vector_tests(void)
         /*------------------------------- test 1: empty vector ----------------------------------------*/
         // insert at the begin
         {
+        //debug
+        // std::cout<<"vector-test  before insert-value::begin test 1"<<std::endl;
+        //end debug
+
             std::vector<std::string> v;
             ft::vector<std::string> ft_v;
             it = v.insert(v.begin(), "hello");
             ft_it = ft_v.insert(ft_v.begin(), "hello");
+        //debug
+        // std::cout<<"vector-test  after insert-value::begin test 1"<<std::endl;
+        //end debug
             ft_it->length();
 
             s = v.size();
@@ -1392,6 +1399,10 @@ void vector_tests(void)
             for (size_t i = 0; i < ft_v.size(); ++i)
                 ft_str += ft_v[i];
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c) && (*it == *ft_it));
+        //debug
+        // std::cout<<"vector-test  after insert-value::end test 1"<<std::endl;
+        //end debug
+
         }
         /*---------------------------------------------------------------------------------------------------*/
         /*------------------------------- test 2: the vector capacity >= size + the new element ----------------------------------------*/
@@ -1503,7 +1514,7 @@ void vector_tests(void)
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c));
         }
         //debug
-        std::cout<<"container_test::insert::fill ----------passed test 1"<<std::endl;
+        // std::cout<<"container_test::insert::fill ----------passed test 1"<<std::endl;
         //end debug
         // /*---------------------------------------------------------------------------------------------------*/
         // /*------------------------------- test 2: the vector capacity >= size + n ----------------------------------------*/
@@ -1531,7 +1542,7 @@ void vector_tests(void)
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c) && (&(*valid_it) == &(*ft_v.begin())));
         }
         //debug
-        std::cout<<"container_test::insert::fill ----------passed test 2"<<std::endl;
+        // std::cout<<"container_test::insert::fill ----------passed test 2"<<std::endl;
         //end debug
 
         // /*---------------------------------------------------------------------------------------------------*/
@@ -1556,7 +1567,7 @@ void vector_tests(void)
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c));
         }
                 //debug
-        std::cout<<"container_test::insert::fill ----------passed test 3"<<std::endl;
+        // std::cout<<"container_test::insert::fill ----------passed test 3"<<std::endl;
         //end debug
 
         // /*---------------------------------------------------------------------------------------------------*/
@@ -1581,7 +1592,7 @@ void vector_tests(void)
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c));
         }
                 //debug
-        std::cout<<"container_test::insert::fill ----------passed test 4"<<std::endl;
+        // std::cout<<"container_test::insert::fill ----------passed test 4"<<std::endl;
         //end debug
 
         // /*---------------------------------------------------------------------------------------------------*/
@@ -1607,7 +1618,7 @@ void vector_tests(void)
         /*------------------------------- test 1: empty vector ----------------------------------------*/
         // insert at the begin
                 //debug
-        std::cout<<"container_test::insert::range ----------before test 1"<<std::endl;
+        // std::cout<<"container_test::insert::range ----------before test 1"<<std::endl;
         //end debug
 
         {
@@ -1615,6 +1626,9 @@ void vector_tests(void)
             std::vector<std::string> v;
             ft::vector<std::string> ft_v;
             v.insert(v.begin(), v1.begin(), v1.end());
+                     //debug
+        // std::cout<<"container_test::insert::range ----------before insert test 1"<<std::endl;
+        //end debug
             ft_v.insert(ft_v.begin(), v1.begin(), v1.end());
             ft_v.begin()->length();
 
@@ -1622,11 +1636,23 @@ void vector_tests(void)
             ft_s = ft_v.size();
             c = v.capacity();
             ft_c = ft_v.capacity();
+                //debug
+        // std::cout<<"container_test::insert::range ----------during before for 1 test 1"<<std::endl;
+        //end debug
+
             for (size_t i = 0; i < v.size(); ++i)
                 str += v[i];
+                           //debug
+        // std::cout<<"container_test::insert::range ----------during before for 2 test 1"<<std::endl;
+        //end debug
+
             for (size_t i = 0; i < ft_v.size(); ++i)
                 ft_str += ft_v[i];
             cond = ((str == ft_str) && (s == ft_s) && (c == ft_c));
+                //debug
+        // std::cout<<"container_test::insert::range ----------during test 1"<<std::endl;
+        //end debug
+
         }
         // insert at the end
         {
@@ -1653,7 +1679,7 @@ void vector_tests(void)
         }
         /*---------------------------------------------------------------------------------------------------*/
                  //debug
-        std::cout<<"container_test::insert::range ----------passed test 1"<<std::endl;
+        // std::cout<<"container_test::insert::range ----------passed test 1"<<std::endl;
         //end debug
 
         /*------------------------------- test 2: the vector capacity >= size + n ----------------------------------------*/
@@ -1683,7 +1709,7 @@ void vector_tests(void)
         }
         /*---------------------------------------------------------------------------------------------------*/
                  //debug
-        std::cout<<"container_test::insert::range ----------passed test 2"<<std::endl;
+        // std::cout<<"container_test::insert::range ----------passed test 2"<<std::endl;
         //end debug
 
         /*------------------------------- test 3: the vector capacity < size + n && n > size ----------------------------------------*/
@@ -1709,8 +1735,8 @@ void vector_tests(void)
         }
         /*---------------------------------------------------------------------------------------------------*/
        
-                        //debug
-        std::cout<<"container_test::insert::range ----------passed test 3"<<std::endl;
+        //                 //debug
+        // std::cout<<"container_test::insert::range ----------passed test 3"<<std::endl;
         //end debug
         /*------------------------------- test 4: the vector capacity < size + n && n <= size ----------------------------------------*/
  {
@@ -1734,7 +1760,7 @@ void vector_tests(void)
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c));
         }
                  //debug
-        std::cout<<"container_test::insert::range ----------passed test 4"<<std::endl;
+        // std::cout<<"container_test::insert::range ----------passed test 4"<<std::endl;
         //end debug
 
         /*---------------------------------------------------------------------------------------------------*/

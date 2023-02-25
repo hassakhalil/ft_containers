@@ -57,12 +57,38 @@ class vector {
     template <class InputIterator>
     void assign(InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
         InputIterator tmp = first;
+        //  InputIterator it_test=first;
         size_type n =std::distance(tmp,last);
+        //test if the range is valid
+        // pointer ptr_test = this->alloc_.allocate(n);
+        // size_type i=0;
+        // while(it_test!=last){
+        //     try{
+        //         this->alloc_.construct(ptr_test +i,*it_test++);
+        //     }
+        //     catch(...){
+        //         //debug
+        //         std::cout<<"(vector::assign::range) exception caught"<<std::endl;
+        //         //end debug
+        //         while(i){
+        //             this->alloc_.destroy(ptr_test +i);
+        //             i--;
+        //         }
+        //         this->alloc_.deallocate(ptr_test,n);
+        //         throw std::exception();
+        //     }
+        //     i++;
+        // }
+        // while(i){
+        //     this->alloc_.destroy(ptr_test + --i);
+        // }
+        // this->alloc_.deallocate(ptr_test,n);
+        //end test
         this->reserve(n);
         this->clear();
         for (;first!=last;first++){
             this->alloc_.construct(this->data +this->size_,*first);
-            this->size_++;
+            this->size_++;   
         }
     }
     void assign(size_type n, const T& u){
@@ -153,7 +179,13 @@ class vector {
         if (n == 1)
         {
             if (this->size_ ==this->capacity_)
-                    this->reserve(2*this->capacity_);
+            {
+                //debug
+                // std::cout<<"vector::insert new_capacity == "<<2*capacity()<<std::endl;
+                //end debug
+
+                (this->capacity_)?this->reserve(2*this->capacity_):this->reserve(1);
+            }
         }
         else
             this->reserve(this->capacity_ + n);
@@ -170,14 +202,23 @@ class vector {
     template <class InputIterator>
     void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
         size_type d = position - this->begin();
+        // try{
+        //     InputIterator tmp_it = first;
+        //   ft::vector<T> tmp(tmp_it,last);
+        // }
+        // catch(...){
+             
+        // //debug
+        // // std::cout<<"(vector::insert::range) exception caught from tmp constructor "<<std::endl;
+        // //end debug
+        //     throw;
+        // }
         ft::vector<T> tmp(first,last);
-        //debug
-        // std::cout<<"(vector::insert::range) tmp.size() == "<<tmp.size()<<std::endl;
-        //end debug
         size_type n = tmp.size();
         if (this->size_ + n >this->capacity_)
         {
-            size_type i=this->capacity_;
+            size_type i=0;
+            (this->capacity_)?i=this->capacity_:i=1;
             while (i <n +this->size_)
                 i *=2;
             this->reserve(i);
