@@ -18,6 +18,26 @@ time_t get_time(void)
 #define NAMESPACE std
 int main()
 {
+            std::string str, ft_str;
+            ft::vector<std::string>::size_type s, ft_s;
+            ft::vector<std::string>::size_type c, ft_c;
+            ft::vector<std::string> v1(100, "hello");
+            std::vector<std::string> v(20, "string");
+            ft::vector<std::string> ft_v(20, "string");
+
+            v.insert(v.begin() + 10, v1.begin(), v1.end());
+            ft_v.insert(ft_v.begin() + 10, v1.begin(), v1.end());
+
+            str.clear();
+            ft_str.clear();
+            s = v.size();
+            ft_s = ft_v.size();
+            c = v.capacity();
+            ft_c = ft_v.capacity();
+            for (size_t i = 0; i < v.size(); ++i)
+                str += v[i];
+            for (size_t i = 0; i < ft_v.size(); ++i)
+                ft_str += ft_v[i];
   //   NAMESPACE::vector<int> vector(100,10);
   // std::vector<int> v;
 	//   NAMESPACE::vector<int> tmp0(vector);
@@ -35,9 +55,9 @@ int main()
   //   for (int i=0;i<(int)v.size();i++){
   //     std::cout<<"v["<<i<<"] == "<<v[i]<<std::endl;
   //   }
-      std::vector<int> v(1000,12);
-      ft::vector<int> _v(1000,12);
-      std::cout<<"v.size == "<<v.size()<<" v.capacity == "<<v.capacity()<<" _v.size == "<<_v.size()<<" _v.capacity == "<<_v.capacity()<<std::endl;
+      // std::vector<int> v(1000,12);
+      // ft::vector<int> _v(1000,12);
+      // std::cout<<"v.size == "<<v.size()<<" v.capacity == "<<v.capacity()<<" _v.size == "<<_v.size()<<" _v.capacity == "<<_v.capacity()<<std::endl;
       while(1);
         // std::vector<int> v;
         // std::vector<int> _v;

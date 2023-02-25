@@ -6,7 +6,7 @@
 /*   By: hkhalil <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/24 11:32:49 by ibaali            #+#    #+#             */
-/*   Updated: 2023/02/25 01:20:50 by hkhalil          ###   ########.fr       */
+/*   Updated: 2023/02/25 17:26:56 by hkhalil          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -805,7 +805,9 @@ void vector_tests(void)
         /*------------------ ft::vectors ---------------------*/
         ft::vector<std::string> ft_v1(10, "string2");
         ft_v1.resize(1e6, "hello");
-
+        //debug
+        // std::cout << "container_tests::resize  v1.capacity() = " << v1.capacity() <<" ft_v1.capacity() = "<<ft_v1.capacity()<< std::endl;
+        //end debug
         z1 = v1.size();
         ft_z1 = ft_v1.size();
         c1 = v1.capacity();
@@ -1553,6 +1555,9 @@ void vector_tests(void)
 
             v.insert(v.begin() + 10, 100, "hello");
             ft_v.insert(ft_v.begin() + 10, 100, "hello");
+            //debug
+            // std::cout<<"container_test::insert::fill v.capacity == "<<v.capacity()<<" ft_v.capacity() == "<<ft_v.capacity() <<std::endl;
+            //end debug
 
             str.clear();
             ft_str.clear();
@@ -1613,7 +1618,7 @@ void vector_tests(void)
         /*
          * bool to store the comparison
          */
-        bool cond;
+        bool cond=false;
 
         /*------------------------------- test 1: empty vector ----------------------------------------*/
         // insert at the begin
@@ -1707,7 +1712,7 @@ void vector_tests(void)
                 ft_str += ft_v[i];
             cond = (cond && (str == ft_str) && (s == ft_s) && (c == ft_c) && (&(*valid_it) == &(*ft_v.begin())));
         }
-        /*---------------------------------------------------------------------------------------------------*/
+        // /*---------------------------------------------------------------------------------------------------*/
                  //debug
         // std::cout<<"container_test::insert::range ----------passed test 2"<<std::endl;
         //end debug

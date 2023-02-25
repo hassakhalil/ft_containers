@@ -119,6 +119,8 @@ class vector {
         }           
         else if (n > this->size_)
         {
+            if (n + this->size_> this->capacity_)
+                this->reserve(n);
             while (n != this->size_)
                 this->push_back(val);
         }
@@ -180,15 +182,21 @@ class vector {
         {
             if (this->size_ ==this->capacity_)
             {
-                //debug
-                // std::cout<<"vector::insert new_capacity == "<<2*capacity()<<std::endl;
-                //end debug
-
-                (this->capacity_)?this->reserve(2*this->capacity_):this->reserve(1);
+                (this->capacity_)?this->reserve(2*this->capacity_):this->reserve(n);
             }
         }
-        else
-            this->reserve(this->capacity_ + n);
+        else if (this->size_ + n >this->capacity_)
+        {
+            if (n > this->size_)
+                this->reserve(this->capacity_ + n);
+            else{
+                size_type i=0;
+                (this->capacity_)?i=this->capacity_:i=n;
+                while (i <n +this->size_)
+                    i *=2;
+                this->reserve(i);
+            }
+        }
         size_type l=this->size_;
         for(size_type h = this->size_ - d;h>0;h--){
             this->alloc_.construct(this->data + l +n-1,this->data[l-1]);
@@ -202,26 +210,19 @@ class vector {
     template <class InputIterator>
     void     insert(iterator position,InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
         size_type d = position - this->begin();
-        // try{
-        //     InputIterator tmp_it = first;
-        //   ft::vector<T> tmp(tmp_it,last);
-        // }
-        // catch(...){
-             
-        // //debug
-        // // std::cout<<"(vector::insert::range) exception caught from tmp constructor "<<std::endl;
-        // //end debug
-        //     throw;
-        // }
         ft::vector<T> tmp(first,last);
         size_type n = tmp.size();
         if (this->size_ + n >this->capacity_)
         {
-            size_type i=0;
-            (this->capacity_)?i=this->capacity_:i=1;
-            while (i <n +this->size_)
-                i *=2;
-            this->reserve(i);
+            if (n > this->size_)
+                this->reserve(this->capacity_ + n);
+            else{
+                size_type i=0;
+                (this->capacity_)?i=this->capacity_:i=n;
+                while (i <n +this->size_)
+                    i *=2;
+                this->reserve(i);
+            }
         }
         size_type l=this->size_;
         for(size_type h = this->size_ - d;h>0;h--){
