@@ -7,6 +7,7 @@
 
 #include <unistd.h>
  #include <sys/time.h>
+ #include "stack.hpp"
 time_t get_time(void)
 {
     struct timeval time_now;

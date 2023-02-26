@@ -57,33 +57,7 @@ class vector {
     template <class InputIterator>
     void assign(InputIterator first, InputIterator last,typename ft::enable_if<!ft::is_integral<InputIterator>::value, InputIterator>::type* = 0){
         InputIterator tmp = first;
-        //  InputIterator it_test=first;
         size_type n =std::distance(tmp,last);
-        //test if the range is valid
-        // pointer ptr_test = this->alloc_.allocate(n);
-        // size_type i=0;
-        // while(it_test!=last){
-        //     try{
-        //         this->alloc_.construct(ptr_test +i,*it_test++);
-        //     }
-        //     catch(...){
-        //         //debug
-        //         std::cout<<"(vector::assign::range) exception caught"<<std::endl;
-        //         //end debug
-        //         while(i){
-        //             this->alloc_.destroy(ptr_test +i);
-        //             i--;
-        //         }
-        //         this->alloc_.deallocate(ptr_test,n);
-        //         throw std::exception();
-        //     }
-        //     i++;
-        // }
-        // while(i){
-        //     this->alloc_.destroy(ptr_test + --i);
-        // }
-        // this->alloc_.deallocate(ptr_test,n);
-        //end test
         this->reserve(n);
         this->clear();
         for (;first!=last;first++){
