@@ -19,10 +19,11 @@ namespace ft
         const value_type& top()const{return c.back();}
         void  push(const value_type& x){c.push_back(x);}
         void  pop(){c.pop_back();}
-        ~stack(){
-            c.clear();
-            // c.get_allocator().deallocate()
-        }
+        // ~stack(){
+        //     // c.clear();
+        //     // if (c.capacity())
+        //     //     c.get_allocator().deallocate()
+        // }
         container_type getc()const{ return this->c;}
     };
     template <class T, class Container>
