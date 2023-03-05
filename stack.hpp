@@ -13,17 +13,20 @@ namespace ft
         Container c;
         public:
         explicit stack(const Container& x = Container()):c(x){}
+        stack(const ft::stack<T,container_type>& x){
+            this->c = x.getc();
+        }
+        ft::stack<T,container_type>& operator=(const ft::stack<T,container_type>& x){
+            this->c = x.getc();
+            return *this;
+        }
         bool empty()const{return c.empty();}
         size_type   size()const{return c.size();}
         value_type& top(){return c.back();}
         const value_type& top()const{return c.back();}
         void  push(const value_type& x){c.push_back(x);}
         void  pop(){c.pop_back();}
-        // ~stack(){
-        //     // c.clear();
-        //     // if (c.capacity())
-        //     //     c.get_allocator().deallocate()
-        // }
+        ~stack(){}
         container_type getc()const{ return this->c;}
     };
     template <class T, class Container>
