@@ -1,8 +1,11 @@
 #ifndef MAP_H
 #define MAP_H
-
+#define RED 0
+#define BLACK 1
 namespace ft
 {
+   
+    //map
     template <class Key, class T, class Compare = less<Key>, class Allocator = allocator<pair<const Key, T> > >
     class map {
         public:
