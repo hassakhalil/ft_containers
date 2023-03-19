@@ -19,6 +19,7 @@ time_t get_time(void)
 #define NAMESPACE std
 int main()
 {
+            std::vector<int>::iterator it;
             std::string str, ft_str;
             ft::vector<std::string>::size_type s, ft_s;
             ft::vector<std::string>::size_type c, ft_c;
@@ -641,3 +642,4 @@ int main()
 //     }
 //     while(1);
 }
+//4^96W@4$PKunnb2Lr8D3FJ49K
